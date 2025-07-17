@@ -68,8 +68,17 @@ export default function DemoChat() {
   }, [messages]);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, [darkMode]);
+
+  useEffect(() => {
+    // Set dark mode on initial load
+    document.documentElement.classList.add("dark");
+  }, []);
 
   const handleSendMessage = async () => {
     if (!input.trim() || isTyping) return;
