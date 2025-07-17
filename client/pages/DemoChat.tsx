@@ -76,8 +76,8 @@ export default function DemoChat() {
   }, [darkMode]);
 
   useEffect(() => {
-    // Set dark mode on initial load
-    document.documentElement.classList.add("dark");
+    // Set light mode on initial load
+    document.documentElement.classList.remove("dark");
   }, []);
 
   const handleSendMessage = async () => {
