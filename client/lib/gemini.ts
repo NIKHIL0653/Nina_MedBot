@@ -27,7 +27,7 @@ export async function generateMedicalResponse(
   conversationHistory: string[] = [],
 ) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // Build conversation context
     const context =
@@ -53,7 +53,7 @@ export async function generateHealthInsight(
   duration: string,
 ) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `${MEDICAL_PROMPT}
 
