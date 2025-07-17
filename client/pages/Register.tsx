@@ -29,7 +29,7 @@ export default function Register() {
       setError(error.message);
     } else {
       setSuccess(true);
-      setTimeout(() => navigate("/login"), 2000);
+      setTimeout(() => navigate("/chat"), 2000);
     }
 
     setLoading(false);
