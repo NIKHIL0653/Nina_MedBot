@@ -95,6 +95,8 @@
   }
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 @layer base {
   * {
     @apply border-border;
@@ -102,5 +104,24 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    font-feature-settings:
+      "cv08", "cv09", "cv11", "cv12", "cv13", "cv14", "cv15", "cv16";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-feature-settings:
+      "cv08", "cv09", "cv11", "cv12", "cv13", "cv14", "cv15", "cv16";
   }
 }
