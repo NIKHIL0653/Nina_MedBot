@@ -1,29 +1,24 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MainLayout from "@/components/MainLayout";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Heart,
-  ArrowLeft,
   Save,
   Calendar,
   Activity,
   AlertCircle,
   CheckCircle,
   AlertTriangle,
+  TrendingUp,
+  FileText,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface TestParameter {
   name: string;
@@ -170,7 +165,7 @@ const medicalTests: MedicalTest[] = [
     name: "Electrolyte Panel",
     parameters: [
       { name: "Sodium (Na⁺)", unit: "mmol/L", normalRange: "135–145" },
-      { name: "Potassium (K��)", unit: "mmol/L", normalRange: "3.5–5.0" },
+      { name: "Potassium (K⁺)", unit: "mmol/L", normalRange: "3.5–5.0" },
       { name: "Chloride (Cl⁻)", unit: "mmol/L", normalRange: "98–106" },
       { name: "Bicarbonate (HCO₃⁻)", unit: "mmol/L", normalRange: "22–29" },
       { name: "Calcium (Total)", unit: "mg/dL", normalRange: "8.6–10.2" },
@@ -200,8 +195,11 @@ export default function Records() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-medical-blue flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-medical-blue"></div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+          <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-400 rounded-full animate-spin animate-reverse"></div>
+        </div>
       </div>
     );
   }
@@ -300,13 +298,13 @@ export default function Records() {
   const getStatusColor = (status?: "normal" | "high" | "low") => {
     switch (status) {
       case "high":
-        return "bg-red-100 text-red-800 border-red-200";
+        return "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800";
       case "low":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800";
       case "normal":
-        return "bg-green-100 text-green-800 border-green-200";
+        return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700";
     }
   };
 
@@ -326,235 +324,253 @@ export default function Records() {
   const currentTest = testData[activeTest];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-medical-blue">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link to="/dashboard">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Dashboard
-              </Button>
-            </Link>
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-medical-blue to-medical-blue-dark rounded-xl flex items-center justify-center">
-                <Heart className="w-6 h-6 text-white" />
+    <MainLayout>
+      <div className="min-h-[calc(100vh-4rem)] bg-muted/20">
+        <div className="max-w-7xl mx-auto p-6">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
+                <FileText className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold">Medical Records</span>
+              <div>
+                <h1 className="text-2xl font-semibold text-foreground">
+                  Medical Records
+                </h1>
+                <p className="text-muted-foreground">
+                  Track and analyze your lab results
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
 
-      <div className="max-w-7xl mx-auto p-6">
-        <Tabs
-          value={activeTest}
-          onValueChange={setActiveTest}
-          className="space-y-6"
-        >
-          {/* Test Selection */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold mb-4">Select Medical Test</h2>
-            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 h-auto bg-gray-50 p-2">
-              {medicalTests.map((test) => (
-                <TabsTrigger
-                  key={test.id}
-                  value={test.id}
-                  className="text-sm p-3 data-[state=active]:bg-medical-blue data-[state=active]:text-white"
-                >
-                  {test.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
+          <Tabs
+            value={activeTest}
+            onValueChange={setActiveTest}
+            className="space-y-6"
+          >
+            {/* Test Selection */}
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Activity className="w-5 h-5 text-primary" />
+                  <span>Select Medical Test</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 h-auto bg-muted p-2">
+                  {medicalTests.map((test) => (
+                    <TabsTrigger
+                      key={test.id}
+                      value={test.id}
+                      className="text-sm p-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 hover:bg-accent"
+                    >
+                      {test.name}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </CardContent>
+            </Card>
 
-          {/* Test Input Form */}
-          {medicalTests.map((test) => (
-            <TabsContent key={test.id} value={test.id}>
-              <div className="grid lg:grid-cols-3 gap-6">
-                {/* Input Form */}
-                <div className="lg:col-span-2">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center space-x-2">
-                        <Activity className="w-6 h-6 text-medical-blue-dark" />
-                        <span>{test.name}</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {currentTest?.parameters.map((param, index) => (
-                          <div key={index} className="space-y-2">
-                            <Label htmlFor={`param-${index}`}>
-                              {param.name}
-                              {param.unit && (
-                                <span className="text-gray-500 ml-1">
-                                  ({param.unit})
-                                </span>
-                              )}
-                            </Label>
-                            <div className="space-y-2">
-                              <Input
-                                id={`param-${index}`}
-                                value={param.value || ""}
-                                onChange={(e) =>
-                                  updateParameterValue(
-                                    activeTest,
-                                    index,
-                                    e.target.value,
-                                  )
-                                }
-                                placeholder={`Enter ${param.name.toLowerCase()}`}
-                              />
-                              <p className="text-xs text-gray-500">
-                                Normal: {param.normalRange}
-                              </p>
-                              {param.value && param.status && (
-                                <Badge
-                                  className={`${getStatusColor(
-                                    param.status,
-                                  )} flex items-center space-x-1 w-fit`}
-                                >
-                                  {getStatusIcon(param.status)}
-                                  <span className="capitalize">
-                                    {param.status}
-                                  </span>
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-6 flex justify-end">
-                        <Button
-                          onClick={saveRecord}
-                          className="bg-medical-blue hover:bg-medical-blue-dark"
-                        >
-                          <Save className="w-4 h-4 mr-2" />
-                          Save Record
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Summary & Saved Records */}
-                <div className="space-y-6">
-                  {/* Current Test Summary */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Test Summary</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        {currentTest?.parameters
-                          .filter((p) => p.value && p.value.trim() !== "")
-                          .map((param, index) => (
-                            <div
-                              key={index}
-                              className="flex justify-between items-center"
-                            >
-                              <span className="text-sm font-medium">
+            {/* Test Input Form */}
+            {medicalTests.map((test) => (
+              <TabsContent key={test.id} value={test.id}>
+                <div className="grid lg:grid-cols-3 gap-6">
+                  {/* Input Form */}
+                  <div className="lg:col-span-2">
+                    <Card className="shadow-sm">
+                      <CardHeader>
+                        <CardTitle className="flex items-center space-x-2">
+                          <TrendingUp className="w-5 h-5 text-blue-500" />
+                          <span>{test.name}</span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid md:grid-cols-2 gap-4">
+                          {currentTest?.parameters.map((param, index) => (
+                            <div key={index} className="space-y-3">
+                              <Label
+                                htmlFor={`param-${index}`}
+                                className="text-sm font-medium"
+                              >
                                 {param.name}
-                              </span>
-                              <div className="flex items-center space-x-2">
-                                <span className="text-sm">
-                                  {param.value} {param.unit}
-                                </span>
-                                {param.status && (
+                                {param.unit && (
+                                  <span className="text-muted-foreground ml-1">
+                                    ({param.unit})
+                                  </span>
+                                )}
+                              </Label>
+                              <div className="space-y-2">
+                                <Input
+                                  id={`param-${index}`}
+                                  value={param.value || ""}
+                                  onChange={(e) =>
+                                    updateParameterValue(
+                                      activeTest,
+                                      index,
+                                      e.target.value,
+                                    )
+                                  }
+                                  placeholder={`Enter ${param.name.toLowerCase()}`}
+                                  className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                                />
+                                <p className="text-xs text-muted-foreground">
+                                  Normal: {param.normalRange}
+                                </p>
+                                {param.value && param.status && (
                                   <Badge
-                                    className={`${getStatusColor(
-                                      param.status,
-                                    )} text-xs px-2 py-1`}
+                                    className={cn(
+                                      "flex items-center space-x-1 w-fit transition-all duration-300",
+                                      getStatusColor(param.status),
+                                    )}
                                   >
-                                    {param.status}
+                                    {getStatusIcon(param.status)}
+                                    <span className="capitalize">
+                                      {param.status}
+                                    </span>
                                   </Badge>
                                 )}
                               </div>
                             </div>
                           ))}
-                        {!currentTest?.parameters.some(
-                          (p) => p.value && p.value.trim() !== "",
-                        ) && (
-                          <p className="text-sm text-gray-500 text-center py-4">
-                            No values entered yet
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Saved Records */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg flex items-center space-x-2">
-                        <Calendar className="w-5 h-5" />
-                        <span>Saved Records</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3 max-h-96 overflow-y-auto">
-                        {savedRecords.map((record) => (
-                          <div
-                            key={record.id}
-                            className="border border-gray-200 rounded-lg p-3"
+                        </div>
+                        <div className="mt-8 flex justify-end">
+                          <Button
+                            onClick={saveRecord}
+                            className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300"
                           >
-                            <div className="flex justify-between items-start mb-2">
-                              <h4 className="font-medium text-sm">
-                                {record.testName}
-                              </h4>
-                              <span className="text-xs text-gray-500">
-                                {record.date}
-                              </span>
-                            </div>
-                            <div className="space-y-1">
-                              {record.parameters
-                                .slice(0, 3)
-                                .map((param: any, idx: number) => (
-                                  <div
-                                    key={idx}
-                                    className="flex justify-between text-xs"
-                                  >
-                                    <span>{param.name}:</span>
-                                    <div className="flex items-center space-x-1">
-                                      <span>
-                                        {param.value} {param.unit}
-                                      </span>
-                                      {param.status && (
-                                        <Badge
-                                          className={`${getStatusColor(
-                                            param.status,
-                                          )} text-xs px-1 py-0`}
-                                        >
-                                          {param.status}
-                                        </Badge>
+                            <Save className="w-4 h-4 mr-2" />
+                            Save Record
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Summary & Saved Records */}
+                  <div className="space-y-6">
+                    {/* Current Test Summary */}
+                    <Card className="shadow-sm">
+                      <CardHeader>
+                        <CardTitle className="text-lg flex items-center space-x-2">
+                          <Activity className="w-5 h-5 text-green-500" />
+                          <span>Test Summary</span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          {currentTest?.parameters
+                            .filter((p) => p.value && p.value.trim() !== "")
+                            .map((param, index) => (
+                              <div
+                                key={index}
+                                className="flex justify-between items-center p-3 bg-muted/50 rounded-lg transition-all duration-300 hover:bg-muted"
+                              >
+                                <span className="text-sm font-medium">
+                                  {param.name}
+                                </span>
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-sm font-semibold">
+                                    {param.value} {param.unit}
+                                  </span>
+                                  {param.status && (
+                                    <Badge
+                                      className={cn(
+                                        "text-xs px-2 py-1",
+                                        getStatusColor(param.status),
                                       )}
+                                    >
+                                      {param.status}
+                                    </Badge>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          {!currentTest?.parameters.some(
+                            (p) => p.value && p.value.trim() !== "",
+                          ) && (
+                            <p className="text-sm text-muted-foreground text-center py-8">
+                              No values entered yet
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Saved Records */}
+                    <Card className="shadow-sm">
+                      <CardHeader>
+                        <CardTitle className="text-lg flex items-center space-x-2">
+                          <Calendar className="w-5 h-5 text-purple-500" />
+                          <span>Saved Records</span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3 max-h-96 overflow-y-auto">
+                          {savedRecords.map((record) => (
+                            <div
+                              key={record.id}
+                              className="border border-border rounded-lg p-4 transition-all duration-300 hover:shadow-md hover:border-primary/20"
+                            >
+                              <div className="flex justify-between items-start mb-3">
+                                <h4 className="font-medium text-sm">
+                                  {record.testName}
+                                </h4>
+                                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                                  {record.date}
+                                </span>
+                              </div>
+                              <div className="space-y-2">
+                                {record.parameters
+                                  .slice(0, 3)
+                                  .map((param: any, idx: number) => (
+                                    <div
+                                      key={idx}
+                                      className="flex justify-between text-xs"
+                                    >
+                                      <span className="text-muted-foreground">
+                                        {param.name}:
+                                      </span>
+                                      <div className="flex items-center space-x-1">
+                                        <span className="font-medium">
+                                          {param.value} {param.unit}
+                                        </span>
+                                        {param.status && (
+                                          <Badge
+                                            className={cn(
+                                              "text-xs px-1 py-0",
+                                              getStatusColor(param.status),
+                                            )}
+                                          >
+                                            {param.status}
+                                          </Badge>
+                                        )}
+                                      </div>
                                     </div>
-                                  </div>
-                                ))}
-                              {record.parameters.length > 3 && (
-                                <p className="text-xs text-gray-500">
-                                  +{record.parameters.length - 3} more
-                                </p>
-                              )}
+                                  ))}
+                                {record.parameters.length > 3 && (
+                                  <p className="text-xs text-muted-foreground">
+                                    +{record.parameters.length - 3} more
+                                  </p>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                        {savedRecords.length === 0 && (
-                          <p className="text-sm text-gray-500 text-center py-4">
-                            No saved records yet
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                          ))}
+                          {savedRecords.length === 0 && (
+                            <p className="text-sm text-muted-foreground text-center py-8">
+                              No saved records yet
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
