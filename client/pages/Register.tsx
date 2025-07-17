@@ -50,10 +50,10 @@ export default function Register() {
                 email to verify your account.
               </p>
               <Button
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/chat")}
                 className="bg-medical-blue hover:bg-medical-blue-dark"
               >
-                Continue to Sign In
+                Start Chatting
               </Button>
             </CardContent>
           </Card>
