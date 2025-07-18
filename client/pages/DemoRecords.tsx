@@ -4,7 +4,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import {
   Save,
   Calendar,
@@ -20,47 +38,107 @@ import {
   Sun,
   BarChart3,
   AlertCircle,
+  Plus,
+  ChevronDown,
+  Settings,
+  LogOut,
+  UserCircle,
+  Menu,
+  X,
+  Pill,
+  Heart,
+  Clipboard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function DemoRecords() {
   const [darkMode, setDarkMode] = useState(false);
+  const [selectedTest, setSelectedTest] = useState("cbc");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const demoData = {
-    hemoglobin: "14.2",
-    wbc: "11200",
-    platelets: "280000",
-    hematocrit: "42",
-  };
+  const testResults = [
+    {
+      name: "BUN, Ser/Plas",
+      value: "15.0",
+      unit: "mg/dL",
+      range: "6.0 - 20.0",
+      status: "normal",
+      progress: 45,
+    },
+    {
+      name: "Platelet count",
+      value: "192.0",
+      unit: "K/μL",
+      range: "150.0 - 400.0",
+      status: "normal",
+      progress: 17,
+    },
+    {
+      name: "Imm. Granulocyte, %",
+      value: "0.3",
+      unit: "%",
+      range: "0.0 - 0.7",
+      status: "normal",
+      progress: 43,
+    },
+    {
+      name: "Anion Gap",
+      value: "9.0",
+      unit: "mmol/L",
+      range: "5.0 - 15.0",
+      status: "normal",
+      progress: 40,
+    },
+    {
+      name: "RDW",
+      value: "12.4",
+      unit: "%",
+      range: "11.5 - 14.5",
+      status: "normal",
+      progress: 30,
+    },
+    {
+      name: "Hemoglobin",
+      value: "14.0",
+      unit: "g/dL",
+      range: "13.5 - 17.7",
+      status: "normal",
+      progress: 12,
+    },
+  ];
 
   const getStatusColor = (status: "normal" | "high" | "low") => {
     switch (status) {
       case "high":
-        return "bg-red-50 text-red-800 border-red-200";
+        return "text-red-600";
       case "low":
-        return "bg-yellow-50 text-yellow-800 border-yellow-200";
+        return "text-yellow-600";
       case "normal":
-        return "bg-green-50 text-green-800 border-green-200";
+        return "text-green-600";
     }
   };
 
-  const getStatusIcon = (status: "normal" | "high" | "low") => {
+  const getProgressColor = (status: "normal" | "high" | "low") => {
     switch (status) {
       case "high":
-        return <AlertCircle className="w-3 h-3" />;
+        return "bg-red-500";
       case "low":
-        return <AlertTriangle className="w-3 h-3" />;
+        return "bg-yellow-500";
       case "normal":
-        return <CheckCircle className="w-3 h-3" />;
+        return "bg-green-500";
     }
+  };
+
+  const handleSignOut = () => {
+    console.log("Signing out...");
   };
 
   return (
     <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
       <div className="min-h-screen bg-white">
-        {/* Navigation */}
-        <nav className="border-b border-gray-200 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        {/* Top Navigation */}
+        <nav className="bg-sky-50 border-b border-sky-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
               <div className="flex items-center space-x-3">
@@ -71,14 +149,11 @@ export default function DemoRecords() {
                   <h1 className="text-xl font-semibold text-gray-900">
                     Mother.ai
                   </h1>
-                  <p className="text-xs text-gray-600">
-                    AI Healthcare Assistant
-                  </p>
                 </div>
               </div>
 
-              {/* Navigation Links */}
-              <div className="flex items-center space-x-2">
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex items-center space-x-2">
                 <Button variant="ghost" size="sm" className="text-gray-700">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Chat
@@ -97,8 +172,23 @@ export default function DemoRecords() {
                 </Button>
               </div>
 
-              {/* User Controls */}
-              <div className="flex items-center space-x-3">
+              {/* Mobile Menu Button */}
+              <div className="md:hidden">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  {mobileMenuOpen ? (
+                    <X className="w-5 h-5" />
+                  ) : (
+                    <Menu className="w-5 h-5" />
+                  )}
+                </Button>
+              </div>
+
+              {/* Desktop User Controls */}
+              <div className="hidden md:flex items-center space-x-3">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -112,348 +202,272 @@ export default function DemoRecords() {
                   )}
                 </Button>
 
-                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-xl">
-                  <div className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center">
-                    <User className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-900">
-                    demo_user
-                  </span>
-                </div>
+                {/* Profile Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="flex items-center space-x-2 bg-white hover:bg-gray-50 px-3 py-2 rounded-xl border border-gray-200"
+                    >
+                      <div className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center">
+                        <User className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-900">
+                        demo_user
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-gray-500" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem>
+                      <UserCircle className="w-4 h-4 mr-2" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={handleSignOut}
+                      className="text-red-600"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <div className="md:hidden border-t border-sky-200 bg-white">
+                <div className="px-2 pt-2 pb-3 space-y-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-gray-700"
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat
+                  </Button>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="w-full justify-start bg-sky-500 hover:bg-sky-600 text-white"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Records
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-gray-700"
+                  >
+                    <BarChart3 className="w-4 h-4 mr-2" />
+                    Reports
+                  </Button>
+                  <div className="border-t border-gray-200 pt-2 mt-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-700"
+                    >
+                      <UserCircle className="w-4 h-4 mr-2" />
+                      Profile
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-700"
+                    >
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleSignOut}
+                      className="w-full justify-start text-red-600"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </nav>
 
-        <div className="min-h-[calc(100vh-4rem)] bg-gray-50">
-          <div className="max-w-7xl mx-auto p-6">
-            {/* Header */}
-            <div className="mb-8">
-              <div className="flex items-center space-x-3 mb-2">
-                <div className="w-12 h-12 bg-sky-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <FileText className="w-6 h-6 text-white" />
-                </div>
+        {/* Header */}
+        <div className="bg-sky-50 px-4 sm:px-6 py-6">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-2xl font-bold text-gray-900">
+              Clinical Records
+            </h1>
+            <Button className="text-sm text-gray-600 flex items-center space-x-2">
+              <UserCircle className="w-4 h-4" />
+              <span>Your Account</span>
+            </Button>
+          </div>
+
+          {/* Add Records Button */}
+          <Button className="w-full bg-sky-400 hover:bg-sky-500 text-white rounded-2xl py-3 mb-6">
+            <Plus className="w-5 h-5 mr-2" />
+            Add more records
+          </Button>
+
+          {/* Test Selection */}
+          <div className="mb-4">
+            <Select value={selectedTest} onValueChange={setSelectedTest}>
+              <SelectTrigger className="w-full bg-white border-gray-200 rounded-xl">
+                <SelectValue placeholder="Select a test type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cbc">Complete Blood Count (CBC)</SelectItem>
+                <SelectItem value="lft">Liver Function Test</SelectItem>
+                <SelectItem value="kft">Kidney Function Test</SelectItem>
+                <SelectItem value="lipid">Lipid Profile</SelectItem>
+                <SelectItem value="thyroid">Thyroid Function Test</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Test Results */}
+        <div className="px-4 sm:px-6 space-y-4">
+          {testResults.map((result, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl p-4 border border-gray-100"
+            >
+              <div className="flex justify-between items-start mb-3">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900">
-                    Medical Records
-                  </h1>
-                  <p className="text-gray-600">
-                    Track and analyze your lab results
+                  <h3 className="font-medium text-gray-900 text-sm">
+                    {result.name}
+                  </h3>
+                  <p className="text-xs text-gray-500">{result.range}</p>
+                </div>
+                <div className="text-right">
+                  <p
+                    className={cn(
+                      "font-bold text-lg",
+                      getStatusColor(result.status),
+                    )}
+                  >
+                    {result.value}
                   </p>
+                  <p className="text-xs text-gray-500">{result.unit}</p>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="relative">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className={cn(
+                      "h-2 rounded-full",
+                      getProgressColor(result.status),
+                    )}
+                    style={{ width: `${result.progress}%` }}
+                  ></div>
                 </div>
               </div>
             </div>
+          ))}
+        </div>
 
-            <Tabs defaultValue="cbc" className="space-y-6">
-              {/* Test Selection */}
-              <Card className="shadow-sm border border-gray-200 rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Activity className="w-5 h-5 text-sky-500" />
-                    <span>Select Medical Test</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 h-auto bg-gray-100 p-2 rounded-xl">
-                    <TabsTrigger
-                      value="cbc"
-                      className="text-sm p-3 data-[state=active]:bg-sky-500 data-[state=active]:text-white rounded-lg"
-                    >
-                      Complete Blood Count (CBC)
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="lft"
-                      className="text-sm p-3 data-[state=active]:bg-sky-500 data-[state=active]:text-white rounded-lg"
-                    >
-                      Liver Function Test (LFT)
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="kft"
-                      className="text-sm p-3 data-[state=active]:bg-sky-500 data-[state=active]:text-white rounded-lg"
-                    >
-                      Kidney Function Test (KFT)
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="lipid"
-                      className="text-sm p-3 data-[state=active]:bg-sky-500 data-[state=active]:text-white rounded-lg"
-                    >
-                      Lipid Profile
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="thyroid"
-                      className="text-sm p-3 data-[state=active]:bg-sky-500 data-[state=active]:text-white rounded-lg"
-                    >
-                      Thyroid Function Test
-                    </TabsTrigger>
-                  </TabsList>
-                </CardContent>
-              </Card>
+        {/* Date Section */}
+        <div className="px-4 sm:px-6 py-6">
+          <Button
+            variant="ghost"
+            className="w-full flex items-center justify-between p-4 bg-gray-50 rounded-xl text-sky-500"
+          >
+            <span className="font-medium">May 3, 2024</span>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500">22 items</span>
+              <ChevronDown className="w-4 h-4" />
+            </div>
+          </Button>
+        </div>
 
-              {/* CBC Test Content */}
-              <TabsContent value="cbc">
-                <div className="grid lg:grid-cols-3 gap-6">
-                  {/* Input Form */}
-                  <div className="lg:col-span-2">
-                    <Card className="shadow-sm border border-gray-200 rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="flex items-center space-x-2">
-                          <TrendingUp className="w-5 h-5 text-sky-500" />
-                          <span>Complete Blood Count (CBC)</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div className="space-y-3">
-                            <Label className="text-sm font-medium text-gray-900">
-                              Hemoglobin (g/dL)
-                            </Label>
-                            <div className="space-y-2">
-                              <Input
-                                value={demoData.hemoglobin}
-                                className="rounded-xl border-gray-200 focus:border-sky-500"
-                              />
-                              <p className="text-xs text-gray-500">
-                                Normal: 13.5–17.5 (M), 12.0–15.5 (F)
-                              </p>
-                              <Badge
-                                className={cn(
-                                  "flex items-center space-x-1 w-fit",
-                                  getStatusColor("normal"),
-                                )}
-                              >
-                                {getStatusIcon("normal")}
-                                <span>Normal</span>
-                              </Badge>
-                            </div>
-                          </div>
+        {/* Collapsible Sections */}
+        <div className="px-4 sm:px-6 space-y-4">
+          <Collapsible>
+            <CollapsibleTrigger className="w-full flex items-center justify-between p-4 bg-white rounded-xl border border-gray-100 text-sky-500">
+              <div className="flex items-center space-x-3">
+                <Pill className="w-5 h-5" />
+                <span className="font-medium">Medications</span>
+              </div>
+              <ChevronDown className="w-4 h-4" />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="px-4 py-2">
+              <p className="text-sm text-gray-600">No medications recorded</p>
+            </CollapsibleContent>
+          </Collapsible>
 
-                          <div className="space-y-3">
-                            <Label className="text-sm font-medium text-gray-900">
-                              WBC Count (cells/mcL)
-                            </Label>
-                            <div className="space-y-2">
-                              <Input
-                                value={demoData.wbc}
-                                className="rounded-xl border-gray-200 focus:border-sky-500"
-                              />
-                              <p className="text-xs text-gray-500">
-                                Normal: 4,500–11,000
-                              </p>
-                              <Badge
-                                className={cn(
-                                  "flex items-center space-x-1 w-fit",
-                                  getStatusColor("high"),
-                                )}
-                              >
-                                {getStatusIcon("high")}
-                                <span>High</span>
-                              </Badge>
-                            </div>
-                          </div>
+          <Collapsible>
+            <CollapsibleTrigger className="w-full flex items-center justify-between p-4 bg-white rounded-xl border border-gray-100 text-sky-500">
+              <div className="flex items-center space-x-3">
+                <Heart className="w-5 h-5" />
+                <span className="font-medium">Vital Signs</span>
+              </div>
+              <ChevronDown className="w-4 h-4" />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="px-4 py-2">
+              <p className="text-sm text-gray-600">No vital signs recorded</p>
+            </CollapsibleContent>
+          </Collapsible>
 
-                          <div className="space-y-3">
-                            <Label className="text-sm font-medium text-gray-900">
-                              Platelet Count (/mcL)
-                            </Label>
-                            <div className="space-y-2">
-                              <Input
-                                value={demoData.platelets}
-                                className="rounded-xl border-gray-200 focus:border-sky-500"
-                              />
-                              <p className="text-xs text-gray-500">
-                                Normal: 150,000–450,000
-                              </p>
-                              <Badge
-                                className={cn(
-                                  "flex items-center space-x-1 w-fit",
-                                  getStatusColor("normal"),
-                                )}
-                              >
-                                {getStatusIcon("normal")}
-                                <span>Normal</span>
-                              </Badge>
-                            </div>
-                          </div>
+          <Collapsible>
+            <CollapsibleTrigger className="w-full flex items-center justify-between p-4 bg-white rounded-xl border border-gray-100 text-sky-500">
+              <div className="flex items-center space-x-3">
+                <Clipboard className="w-5 h-5" />
+                <span className="font-medium">Clinical Notes</span>
+              </div>
+              <ChevronDown className="w-4 h-4" />
+            </CollapsibleTrigger>
+            <CollapsibleContent className="px-4 py-2">
+              <p className="text-sm text-gray-600">
+                No clinical notes recorded
+              </p>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
 
-                          <div className="space-y-3">
-                            <Label className="text-sm font-medium text-gray-900">
-                              Hematocrit (%)
-                            </Label>
-                            <div className="space-y-2">
-                              <Input
-                                value={demoData.hematocrit}
-                                className="rounded-xl border-gray-200 focus:border-sky-500"
-                              />
-                              <p className="text-xs text-gray-500">
-                                Normal: 41–50 (M), 36–44 (F)
-                              </p>
-                              <Badge
-                                className={cn(
-                                  "flex items-center space-x-1 w-fit",
-                                  getStatusColor("normal"),
-                                )}
-                              >
-                                {getStatusIcon("normal")}
-                                <span>Normal</span>
-                              </Badge>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-8 flex justify-end">
-                          <Button className="bg-sky-500 hover:bg-sky-600 text-white rounded-xl px-6">
-                            <Save className="w-4 h-4 mr-2" />
-                            Save Record
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Summary & Records */}
-                  <div className="space-y-6">
-                    {/* Current Test Summary */}
-                    <Card className="shadow-sm border border-gray-200 rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center space-x-2">
-                          <Activity className="w-5 h-5 text-sky-500" />
-                          <span>Test Summary</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          <div className="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
-                            <span className="text-sm font-medium text-gray-900">
-                              Hemoglobin
-                            </span>
-                            <div className="flex items-center space-x-2">
-                              <span className="text-sm font-semibold text-gray-900">
-                                14.2 g/dL
-                              </span>
-                              <Badge
-                                className={cn(
-                                  "text-xs px-2 py-1",
-                                  getStatusColor("normal"),
-                                )}
-                              >
-                                Normal
-                              </Badge>
-                            </div>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
-                            <span className="text-sm font-medium text-gray-900">
-                              WBC Count
-                            </span>
-                            <div className="flex items-center space-x-2">
-                              <span className="text-sm font-semibold text-gray-900">
-                                11.2K cells/mcL
-                              </span>
-                              <Badge
-                                className={cn(
-                                  "text-xs px-2 py-1",
-                                  getStatusColor("high"),
-                                )}
-                              >
-                                High
-                              </Badge>
-                            </div>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
-                            <span className="text-sm font-medium text-gray-900">
-                              Platelet Count
-                            </span>
-                            <div className="flex items-center space-x-2">
-                              <span className="text-sm font-semibold text-gray-900">
-                                280K /mcL
-                              </span>
-                              <Badge
-                                className={cn(
-                                  "text-xs px-2 py-1",
-                                  getStatusColor("normal"),
-                                )}
-                              >
-                                Normal
-                              </Badge>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Saved Records */}
-                    <Card className="shadow-sm border border-gray-200 rounded-2xl">
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center space-x-2">
-                          <Calendar className="w-5 h-5 text-sky-500" />
-                          <span>Saved Records</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          <div className="border border-gray-200 rounded-xl p-4">
-                            <div className="flex justify-between items-start mb-3">
-                              <h4 className="font-medium text-sm text-gray-900">
-                                Complete Blood Count (CBC)
-                              </h4>
-                              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">
-                                2024-01-15
-                              </span>
-                            </div>
-                            <div className="space-y-2">
-                              <div className="flex justify-between text-xs">
-                                <span className="text-gray-600">
-                                  Hemoglobin:
-                                </span>
-                                <div className="flex items-center space-x-1">
-                                  <span className="font-medium text-gray-900">
-                                    13.8 g/dL
-                                  </span>
-                                  <Badge
-                                    className={cn(
-                                      "text-xs px-1 py-0",
-                                      getStatusColor("normal"),
-                                    )}
-                                  >
-                                    Normal
-                                  </Badge>
-                                </div>
-                              </div>
-                              <div className="flex justify-between text-xs">
-                                <span className="text-gray-600">
-                                  WBC Count:
-                                </span>
-                                <div className="flex items-center space-x-1">
-                                  <span className="font-medium text-gray-900">
-                                    8.5K cells/mcL
-                                  </span>
-                                  <Badge
-                                    className={cn(
-                                      "text-xs px-1 py-0",
-                                      getStatusColor("normal"),
-                                    )}
-                                  >
-                                    Normal
-                                  </Badge>
-                                </div>
-                              </div>
-                              <p className="text-xs text-gray-500">
-                                +4 more parameters
-                              </p>
-                            </div>
-                          </div>
-                          <div className="text-center py-4">
-                            <p className="text-sm text-gray-500">
-                              No other saved records
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
+        {/* Bottom Navigation */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+          <div className="flex justify-around items-center max-w-md mx-auto">
+            <Button
+              variant="ghost"
+              className="flex flex-col items-center space-y-1 p-2"
+            >
+              <MessageCircle className="w-5 h-5 text-gray-500" />
+              <span className="text-xs text-gray-500">Chat</span>
+            </Button>
+            <Button
+              variant="ghost"
+              className="flex flex-col items-center space-y-1 p-2"
+            >
+              <FileText className="w-5 h-5 text-sky-500" />
+              <span className="text-xs text-sky-500 font-medium">
+                Health records
+              </span>
+            </Button>
+            <Button
+              variant="ghost"
+              className="flex flex-col items-center space-y-1 p-2"
+            >
+              <BarChart3 className="w-5 h-5 text-gray-500" />
+              <span className="text-xs text-gray-500">Dashboard</span>
+            </Button>
           </div>
         </div>
+
+        {/* Add padding at bottom for fixed navigation */}
+        <div className="h-20"></div>
       </div>
     </div>
   );
