@@ -392,7 +392,7 @@ export default function Records() {
                         <CardHeader>
                           <CardTitle className="flex items-center space-x-2">
                             <TrendingUp className="w-5 h-5 text-blue-500" />
-                            <span>{test.name}</span>
+                            <span>{selectedTest.name}</span>
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
