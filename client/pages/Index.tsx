@@ -56,13 +56,19 @@ export default function Index() {
               <Stethoscope className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900">Mother.ai</h1>
-              <p className="text-xs text-gray-600">AI Healthcare Assistant</p>
+              <h1 className="text-xl font-semibold text-foreground">Nina</h1>
+              <p className="text-xs text-muted-foreground">
+                AI Healthcare Assistant
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
             <Link to="/login">
-              <Button variant="ghost" size="sm" className="text-gray-700">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground"
+              >
                 Sign In
               </Button>
             </Link>
