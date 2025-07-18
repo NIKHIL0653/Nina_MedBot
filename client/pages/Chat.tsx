@@ -289,7 +289,7 @@ export default function Chat() {
             <Button
               onClick={handleSendMessage}
               disabled={!input.trim() || isTyping}
-              className="h-[44px] w-[44px] p-0 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="h-[44px] w-[44px] p-0 rounded-xl bg-blue-500 hover:bg-blue-600 shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               {isTyping ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
