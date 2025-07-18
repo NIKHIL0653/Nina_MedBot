@@ -147,7 +147,7 @@ export default function Chat() {
 
   return (
     <MainLayout>
-      <div className="h-[calc(100vh-4rem)] flex flex-col">
+      <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-16 md:pb-0">
         {/* Chat Header */}
         <div className="border-b border-border bg-card px-6 py-4">
           <div className="flex items-center justify-between">
