@@ -274,6 +274,8 @@ export default function Records() {
   };
 
   const saveRecord = () => {
+    if (!activeTest) return;
+
     const currentTest = testData[activeTest];
     const record = {
       id: Date.now().toString(),
