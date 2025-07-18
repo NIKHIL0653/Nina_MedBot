@@ -43,9 +43,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {/* Top Navigation */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center h-16">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 mr-8">
               <div className="relative group">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <Stethoscope className="w-5 h-5 text-white" />
@@ -58,7 +58,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 flex-1">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -85,7 +85,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </div>
 
             {/* User Menu */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 ml-auto">
               <Button
                 variant="ghost"
                 size="sm"
