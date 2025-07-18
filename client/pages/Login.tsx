@@ -45,7 +45,9 @@ export default function Login() {
               Mother.ai
             </span>
           </div>
-          <p className="text-gray-600">Welcome back to your health companion</p>
+          <p className="text-muted-foreground">
+            Welcome back to your health companion
+          </p>
         </div>
 
         {/* Login Form */}
@@ -102,7 +104,7 @@ export default function Login() {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Don't have an account?{" "}
                 <Link
                   to="/register"
@@ -118,7 +120,7 @@ export default function Login() {
         <div className="text-center">
           <Link
             to="/"
-            className="text-sm text-gray-600 hover:text-medical-blue-dark"
+            className="text-sm text-muted-foreground hover:text-primary"
           >
             ← Back to home
           </Link>
