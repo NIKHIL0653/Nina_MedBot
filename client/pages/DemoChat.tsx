@@ -4,6 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import {
   Send,
   User,
   Bot,
@@ -24,6 +31,10 @@ import {
   AlertCircle,
   CheckCircle,
   XCircle,
+  ChevronDown,
+  Settings,
+  LogOut,
+  UserCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +45,13 @@ interface Message {
   timestamp: Date;
   isTyping?: boolean;
   riskLevel?: "low" | "medium" | "high";
+  showQuickResponses?: boolean;
+}
+
+interface QuickResponse {
+  text: string;
+  value: string;
+  category: string;
 }
 
 export default function DemoChat() {
@@ -50,22 +68,108 @@ export default function DemoChat() {
       id: "2",
       type: "user",
       content:
-        "I've been having severe chest pain for the past hour, along with shortness of breath and dizziness. It came on suddenly while I was at rest.",
+        "I've been having headaches for the past 3 days, and I'm feeling quite fatigued. The headaches seem to get worse in the afternoon.",
       timestamp: new Date(),
     },
     {
       id: "3",
       type: "bot",
       content:
-        "⚠️ **URGENT MEDICAL ATTENTION REQUIRED** ⚠️\n\nBased on your symptoms of severe chest pain, shortness of breath, and dizziness that came on suddenly, this could indicate a serious cardiac event or other emergency condition.\n\n**IMMEDIATE ACTION REQUIRED:**\n🚨 Call emergency services (911) immediately\n🚨 Do not drive yourself to the hospital\n🚨 If you have aspirin and no allergies, consider taking one while waiting for help\n\n**These symptoms require immediate professional medical evaluation and cannot wait for a regular appointment.**\n\nPlease seek emergency medical care right now. Your safety is the priority.",
+        "I understand you're experiencing headaches and fatigue over the past 3 days, with the headaches worsening in the afternoon. Let me ask some follow-up questions to better understand your situation:",
       timestamp: new Date(),
-      riskLevel: "high",
+      riskLevel: "low",
+      showQuickResponses: true,
     },
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [showQuickResponses, setShowQuickResponses] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const quickResponses: QuickResponse[] = [
+    {
+      text: "Pain intensity: 1-3 (Mild)",
+      value: "The pain intensity is mild, around 2-3 on a scale of 1-10.",
+      category: "intensity",
+    },
+    {
+      text: "Pain intensity: 4-6 (Moderate)",
+      value: "The pain intensity is moderate, around 4-6 on a scale of 1-10.",
+      category: "intensity",
+    },
+    {
+      text: "Pain intensity: 7-10 (Severe)",
+      value: "The pain intensity is severe, around 7-10 on a scale of 1-10.",
+      category: "intensity",
+    },
+    {
+      text: "Location: Forehead",
+      value: "The headache is primarily in my forehead area.",
+      category: "location",
+    },
+    {
+      text: "Location: Temples",
+      value: "The headache is mainly in my temples.",
+      category: "location",
+    },
+    {
+      text: "Location: Back of head",
+      value: "The headache is at the back of my head.",
+      category: "location",
+    },
+    {
+      text: "Location: All over",
+      value: "The headache affects my entire head.",
+      category: "location",
+    },
+    {
+      text: "Sleep: Getting enough rest",
+      value: "I've been getting enough sleep, around 7-8 hours per night.",
+      category: "sleep",
+    },
+    {
+      text: "Sleep: Not sleeping well",
+      value:
+        "I haven't been sleeping well lately, getting less than 6 hours per night.",
+      category: "sleep",
+    },
+    {
+      text: "Sleep: Irregular schedule",
+      value: "My sleep schedule has been irregular recently.",
+      category: "sleep",
+    },
+    {
+      text: "Hydration: Drinking enough water",
+      value: "I've been drinking plenty of water throughout the day.",
+      category: "hydration",
+    },
+    {
+      text: "Hydration: Not drinking enough",
+      value: "I probably haven't been drinking enough water lately.",
+      category: "hydration",
+    },
+    {
+      text: "Additional: No other symptoms",
+      value: "No, I don't have any other symptoms.",
+      category: "additional",
+    },
+    {
+      text: "Additional: Nausea",
+      value: "Yes, I've also been experiencing some nausea.",
+      category: "additional",
+    },
+    {
+      text: "Additional: Light sensitivity",
+      value: "Yes, I've been sensitive to bright lights.",
+      category: "additional",
+    },
+    {
+      text: "Additional: Vision changes",
+      value: "Yes, I've noticed some changes in my vision.",
+      category: "additional",
+    },
+  ];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -123,6 +227,32 @@ export default function DemoChat() {
     );
   };
 
+  const handleQuickResponse = (response: QuickResponse) => {
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      type: "user",
+      content: response.value,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setShowQuickResponses(false);
+
+    // Simulate AI response
+    setTimeout(() => {
+      const botResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        type: "bot",
+        content:
+          "Thank you for that information. Based on your symptoms, I recommend ensuring you're getting adequate rest and staying well-hydrated. If symptoms persist or worsen, please consult with a healthcare professional.",
+        timestamp: new Date(),
+        riskLevel: "low",
+      };
+
+      setMessages((prev) => [...prev, botResponse]);
+    }, 1500);
+  };
+
   const handleSendMessage = async () => {
     if (!input.trim() || isTyping) return;
 
@@ -136,6 +266,7 @@ export default function DemoChat() {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
+    setShowQuickResponses(false);
 
     // Add typing indicator
     const typingMessage: Message = {
@@ -151,6 +282,7 @@ export default function DemoChat() {
     setTimeout(() => {
       let riskLevel: "low" | "medium" | "high" = "low";
       let response = "";
+      let showResponses = false;
 
       // Simple risk assessment based on keywords
       const inputLower = input.toLowerCase();
@@ -171,11 +303,13 @@ export default function DemoChat() {
       ) {
         riskLevel = "medium";
         response =
-          "Thank you for sharing your symptoms. Based on what you've described, I recommend scheduling an appointment with your healthcare provider within the next few days. In the meantime, monitor your symptoms and seek immediate care if they worsen significantly.";
+          "Thank you for sharing your symptoms. Based on what you've described, I recommend scheduling an appointment with your healthcare provider within the next few days. Let me ask some follow-up questions to better understand your condition:";
+        showResponses = true;
       } else {
         riskLevel = "low";
         response =
-          "I understand your concerns. These symptoms appear to be manageable, but it's always good to monitor how you're feeling. Consider general wellness measures like staying hydrated, getting adequate rest, and maintaining a healthy routine. If symptoms persist or worsen, don't hesitate to consult with a healthcare professional.";
+          "I understand your concerns. Let me ask some follow-up questions to better assess your symptoms and provide appropriate recommendations:";
+        showResponses = true;
       }
 
       setMessages((prev) => {
@@ -188,10 +322,12 @@ export default function DemoChat() {
             content: response,
             timestamp: new Date(),
             riskLevel: riskLevel,
+            showQuickResponses: showResponses,
           },
         ];
       });
       setIsTyping(false);
+      setShowQuickResponses(showResponses);
     }, 2500);
   };
 
@@ -205,6 +341,22 @@ export default function DemoChat() {
   const copyMessage = (content: string) => {
     navigator.clipboard.writeText(content);
   };
+
+  const handleSignOut = () => {
+    // In a real app, this would handle actual sign out
+    console.log("Signing out...");
+  };
+
+  const groupedResponses = quickResponses.reduce(
+    (acc, response) => {
+      if (!acc[response.category]) {
+        acc[response.category] = [];
+      }
+      acc[response.category].push(response);
+      return acc;
+    },
+    {} as Record<string, QuickResponse[]>,
+  );
 
   return (
     <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
@@ -263,14 +415,41 @@ export default function DemoChat() {
                   )}
                 </Button>
 
-                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-xl">
-                  <div className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center">
-                    <User className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-900">
-                    demo_user
-                  </span>
-                </div>
+                {/* Profile Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl"
+                    >
+                      <div className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center">
+                        <User className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-900">
+                        demo_user
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-gray-500" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem>
+                      <UserCircle className="w-4 h-4 mr-2" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={handleSignOut}
+                      className="text-red-600"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>
@@ -399,6 +578,43 @@ export default function DemoChat() {
                 </div>
               </div>
             ))}
+
+            {/* Quick Response Buttons */}
+            {showQuickResponses && !isTyping && (
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                <h4 className="text-sm font-semibold text-gray-900 mb-4">
+                  Quick Responses - Click to answer:
+                </h4>
+                <div className="space-y-4">
+                  {Object.entries(groupedResponses).map(
+                    ([category, responses]) => (
+                      <div key={category}>
+                        <h5 className="text-xs font-medium text-gray-700 mb-2 capitalize">
+                          {category === "additional"
+                            ? "Additional Symptoms"
+                            : category}
+                          :
+                        </h5>
+                        <div className="flex flex-wrap gap-2">
+                          {responses.map((response, index) => (
+                            <Button
+                              key={index}
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleQuickResponse(response)}
+                              className="text-xs rounded-lg border-gray-200 hover:bg-sky-50 hover:border-sky-300"
+                            >
+                              {response.text}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
 
