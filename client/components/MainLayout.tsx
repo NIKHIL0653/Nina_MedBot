@@ -89,55 +89,56 @@ export default function MainLayout({ children }: MainLayoutProps) {
               })}
             </div>
 
-            {/* User Menu */}
+            {/* User Menu - Simplified for mobile */}
             <div className="flex items-center space-x-3 ml-auto">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={toggleTheme}
-                className="group transition-all duration-300 hover:bg-accent"
-              >
-                {theme === "light" ? (
-                  <Moon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
-                ) : (
-                  <Sun className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
-                )}
-              </Button>
+              {/* Desktop dropdown */}
+              <div className="hidden md:block">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
+                    >
+                      <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+                        <User className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-sm font-medium">
+                        {user?.email?.split("@")[0]}
+                      </span>
+                      <ChevronDown className="w-3 h-3 opacity-50" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link
+                        to="/settings"
+                        className="flex items-center space-x-2 cursor-pointer"
+                      >
+                        <Settings className="w-4 h-4" />
+                        <span>Settings</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={signOut}
+                      className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Sign out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
-                  >
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
-                      <User className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-sm font-medium">
-                      {user?.email?.split("@")[0]}
-                    </span>
-                    <ChevronDown className="w-3 h-3 opacity-50" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer">
-                    <User className="w-4 h-4" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer">
-                    <Settings className="w-4 h-4" />
-                    <span>Settings</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={signOut}
-                    className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {/* Mobile account text */}
+              <div className="md:hidden flex items-center space-x-2">
+                <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+                  <User className="w-3 h-3 text-white" />
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Your account
+                </span>
+              </div>
             </div>
           </div>
         </div>
