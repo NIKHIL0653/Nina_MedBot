@@ -327,7 +327,7 @@ export default function Records() {
     }
   };
 
-  const currentTest = testData[activeTest];
+  const currentTest = activeTest ? testData[activeTest] : null;
 
   return (
     <MainLayout>
