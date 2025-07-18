@@ -6,7 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import MainLayout from "@/components/MainLayout";
 import {
   Save,
@@ -177,7 +183,7 @@ const medicalTests: MedicalTest[] = [
 
 export default function Records() {
   const { user, loading } = useAuth();
-  const [activeTest, setActiveTest] = useState(medicalTests[0].id);
+  const [activeTest, setActiveTest] = useState<string>("");
   const [testData, setTestData] = useState<Record<string, MedicalTest>>({});
   const [savedRecords, setSavedRecords] = useState<any[]>([]);
 
@@ -344,11 +350,7 @@ export default function Records() {
             </div>
           </div>
 
-          <Tabs
-            value={activeTest}
-            onValueChange={setActiveTest}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             {/* Test Selection */}
             <Card className="shadow-sm">
               <CardHeader>
@@ -358,217 +360,223 @@ export default function Records() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 h-auto bg-muted p-2">
-                  {medicalTests.map((test) => (
-                    <TabsTrigger
-                      key={test.id}
-                      value={test.id}
-                      className="text-sm p-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 hover:bg-accent"
-                    >
-                      {test.name}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+                <Select value={activeTest} onValueChange={setActiveTest}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Choose a medical test to begin" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {medicalTests.map((test) => (
+                      <SelectItem key={test.id} value={test.id}>
+                        {test.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </CardContent>
             </Card>
 
-            {/* Test Input Form */}
-            {medicalTests.map((test) => (
-              <TabsContent key={test.id} value={test.id}>
-                <div className="grid lg:grid-cols-3 gap-6">
-                  {/* Input Form */}
-                  <div className="lg:col-span-2">
-                    <Card className="shadow-sm">
-                      <CardHeader>
-                        <CardTitle className="flex items-center space-x-2">
-                          <TrendingUp className="w-5 h-5 text-blue-500" />
-                          <span>{test.name}</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid md:grid-cols-2 gap-4">
-                          {currentTest?.parameters.map((param, index) => (
-                            <div key={index} className="space-y-3">
-                              <Label
-                                htmlFor={`param-${index}`}
-                                className="text-sm font-medium"
-                              >
-                                {param.name}
-                                {param.unit && (
-                                  <span className="text-muted-foreground ml-1">
-                                    ({param.unit})
-                                  </span>
-                                )}
-                              </Label>
-                              <div className="space-y-2">
-                                <Input
-                                  id={`param-${index}`}
-                                  value={param.value || ""}
-                                  onChange={(e) =>
-                                    updateParameterValue(
-                                      activeTest,
-                                      index,
-                                      e.target.value,
-                                    )
-                                  }
-                                  placeholder={`Enter ${param.name.toLowerCase()}`}
-                                  className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
-                                />
-                                <p className="text-xs text-muted-foreground">
-                                  Normal: {param.normalRange}
-                                </p>
-                                {param.value && param.status && (
-                                  <Badge
-                                    className={cn(
-                                      "flex items-center space-x-1 w-fit transition-all duration-300",
-                                      getStatusColor(param.status),
-                                    )}
-                                  >
-                                    {getStatusIcon(param.status)}
-                                    <span className="capitalize">
-                                      {param.status}
-                                    </span>
-                                  </Badge>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="mt-8 flex justify-end">
-                          <Button
-                            onClick={saveRecord}
-                            className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300"
-                          >
-                            <Save className="w-4 h-4 mr-2" />
-                            Save Record
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Summary & Saved Records */}
-                  <div className="space-y-6">
-                    {/* Current Test Summary */}
-                    <Card className="shadow-sm">
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center space-x-2">
-                          <Activity className="w-5 h-5 text-green-500" />
-                          <span>Test Summary</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          {currentTest?.parameters
-                            .filter((p) => p.value && p.value.trim() !== "")
-                            .map((param, index) => (
-                              <div
-                                key={index}
-                                className="flex justify-between items-center p-3 bg-muted/50 rounded-lg transition-all duration-300 hover:bg-muted"
-                              >
-                                <span className="text-sm font-medium">
+            {/* Test Input Form - only show when a test is selected */}
+            {activeTest &&
+              (() => {
+                const selectedTest = medicalTests.find(
+                  (test) => test.id === activeTest,
+                );
+                if (!selectedTest) return null;
+                return (
+                  <div className="grid lg:grid-cols-3 gap-6">
+                    {/* Input Form */}
+                    <div className="lg:col-span-2">
+                      <Card className="shadow-sm">
+                        <CardHeader>
+                          <CardTitle className="flex items-center space-x-2">
+                            <TrendingUp className="w-5 h-5 text-blue-500" />
+                            <span>{test.name}</span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            {currentTest?.parameters.map((param, index) => (
+                              <div key={index} className="space-y-3">
+                                <Label
+                                  htmlFor={`param-${index}`}
+                                  className="text-sm font-medium"
+                                >
                                   {param.name}
-                                </span>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-sm font-semibold">
-                                    {param.value} {param.unit}
-                                  </span>
-                                  {param.status && (
+                                  {param.unit && (
+                                    <span className="text-muted-foreground ml-1">
+                                      ({param.unit})
+                                    </span>
+                                  )}
+                                </Label>
+                                <div className="space-y-2">
+                                  <Input
+                                    id={`param-${index}`}
+                                    value={param.value || ""}
+                                    onChange={(e) =>
+                                      updateParameterValue(
+                                        activeTest,
+                                        index,
+                                        e.target.value,
+                                      )
+                                    }
+                                    placeholder={`Enter ${param.name.toLowerCase()}`}
+                                    className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                                  />
+                                  <p className="text-xs text-muted-foreground">
+                                    Normal: {param.normalRange}
+                                  </p>
+                                  {param.value && param.status && (
                                     <Badge
                                       className={cn(
-                                        "text-xs px-2 py-1",
+                                        "flex items-center space-x-1 w-fit transition-all duration-300",
                                         getStatusColor(param.status),
                                       )}
                                     >
-                                      {param.status}
+                                      {getStatusIcon(param.status)}
+                                      <span className="capitalize">
+                                        {param.status}
+                                      </span>
                                     </Badge>
                                   )}
                                 </div>
                               </div>
                             ))}
-                          {!currentTest?.parameters.some(
-                            (p) => p.value && p.value.trim() !== "",
-                          ) && (
-                            <p className="text-sm text-muted-foreground text-center py-8">
-                              No values entered yet
-                            </p>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Saved Records */}
-                    <Card className="shadow-sm">
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center space-x-2">
-                          <Calendar className="w-5 h-5 text-purple-500" />
-                          <span>Saved Records</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3 max-h-96 overflow-y-auto">
-                          {savedRecords.map((record) => (
-                            <div
-                              key={record.id}
-                              className="border border-border rounded-lg p-4 transition-all duration-300 hover:shadow-md hover:border-primary/20"
+                          </div>
+                          <div className="mt-8 flex justify-end">
+                            <Button
+                              onClick={saveRecord}
+                              className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300"
                             >
-                              <div className="flex justify-between items-start mb-3">
-                                <h4 className="font-medium text-sm">
-                                  {record.testName}
-                                </h4>
-                                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                                  {record.date}
-                                </span>
-                              </div>
-                              <div className="space-y-2">
-                                {record.parameters
-                                  .slice(0, 3)
-                                  .map((param: any, idx: number) => (
-                                    <div
-                                      key={idx}
-                                      className="flex justify-between text-xs"
-                                    >
-                                      <span className="text-muted-foreground">
-                                        {param.name}:
-                                      </span>
-                                      <div className="flex items-center space-x-1">
-                                        <span className="font-medium">
-                                          {param.value} {param.unit}
-                                        </span>
-                                        {param.status && (
-                                          <Badge
-                                            className={cn(
-                                              "text-xs px-1 py-0",
-                                              getStatusColor(param.status),
-                                            )}
-                                          >
-                                            {param.status}
-                                          </Badge>
+                              <Save className="w-4 h-4 mr-2" />
+                              Save Record
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* Summary & Saved Records */}
+                    <div className="space-y-6">
+                      {/* Current Test Summary */}
+                      <Card className="shadow-sm">
+                        <CardHeader>
+                          <CardTitle className="text-lg flex items-center space-x-2">
+                            <Activity className="w-5 h-5 text-green-500" />
+                            <span>Test Summary</span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {currentTest?.parameters
+                              .filter((p) => p.value && p.value.trim() !== "")
+                              .map((param, index) => (
+                                <div
+                                  key={index}
+                                  className="flex justify-between items-center p-3 bg-muted/50 rounded-lg transition-all duration-300 hover:bg-muted"
+                                >
+                                  <span className="text-sm font-medium">
+                                    {param.name}
+                                  </span>
+                                  <div className="flex items-center space-x-2">
+                                    <span className="text-sm font-semibold">
+                                      {param.value} {param.unit}
+                                    </span>
+                                    {param.status && (
+                                      <Badge
+                                        className={cn(
+                                          "text-xs px-2 py-1",
+                                          getStatusColor(param.status),
                                         )}
+                                      >
+                                        {param.status}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            {!currentTest?.parameters.some(
+                              (p) => p.value && p.value.trim() !== "",
+                            ) && (
+                              <p className="text-sm text-muted-foreground text-center py-8">
+                                No values entered yet
+                              </p>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Saved Records */}
+                      <Card className="shadow-sm">
+                        <CardHeader>
+                          <CardTitle className="text-lg flex items-center space-x-2">
+                            <Calendar className="w-5 h-5 text-purple-500" />
+                            <span>Saved Records</span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3 max-h-96 overflow-y-auto">
+                            {savedRecords.map((record) => (
+                              <div
+                                key={record.id}
+                                className="border border-border rounded-lg p-4 transition-all duration-300 hover:shadow-md hover:border-primary/20"
+                              >
+                                <div className="flex justify-between items-start mb-3">
+                                  <h4 className="font-medium text-sm">
+                                    {record.testName}
+                                  </h4>
+                                  <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                                    {record.date}
+                                  </span>
+                                </div>
+                                <div className="space-y-2">
+                                  {record.parameters
+                                    .slice(0, 3)
+                                    .map((param: any, idx: number) => (
+                                      <div
+                                        key={idx}
+                                        className="flex justify-between text-xs"
+                                      >
+                                        <span className="text-muted-foreground">
+                                          {param.name}:
+                                        </span>
+                                        <div className="flex items-center space-x-1">
+                                          <span className="font-medium">
+                                            {param.value} {param.unit}
+                                          </span>
+                                          {param.status && (
+                                            <Badge
+                                              className={cn(
+                                                "text-xs px-1 py-0",
+                                                getStatusColor(param.status),
+                                              )}
+                                            >
+                                              {param.status}
+                                            </Badge>
+                                          )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  ))}
-                                {record.parameters.length > 3 && (
-                                  <p className="text-xs text-muted-foreground">
-                                    +{record.parameters.length - 3} more
-                                  </p>
-                                )}
+                                    ))}
+                                  {record.parameters.length > 3 && (
+                                    <p className="text-xs text-muted-foreground">
+                                      +{record.parameters.length - 3} more
+                                    </p>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                          {savedRecords.length === 0 && (
-                            <p className="text-sm text-muted-foreground text-center py-8">
-                              No saved records yet
-                            </p>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
+                            ))}
+                            {savedRecords.length === 0 && (
+                              <p className="text-sm text-muted-foreground text-center py-8">
+                                No saved records yet
+                              </p>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+                );
+              })()}
+          </div>
         </div>
       </div>
     </MainLayout>
