@@ -35,7 +35,7 @@ export default function Chat() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm Mother.ai, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. Please describe what symptoms you're experiencing, and I'll ask follow-up questions to better understand your situation.",
+        "Hello! I'm Nina, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. Please describe what symptoms you're experiencing, and I'll ask follow-up questions to better understand your situation.",
       timestamp: new Date(),
     },
   ]);
@@ -95,8 +95,7 @@ export default function Chat() {
       const conversationHistory = messages
         .slice(-6) // Last 6 messages for context
         .map(
-          (msg) =>
-            `${msg.type === "user" ? "User" : "Mother.ai"}: ${msg.content}`,
+          (msg) => `${msg.type === "user" ? "User" : "Nina"}: ${msg.content}`,
         );
 
       const response = await generateMedicalResponse(
@@ -160,7 +159,7 @@ export default function Chat() {
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-background rounded-full"></div>
               </div>
               <div>
-                <h3 className="font-semibold text-foreground">Mother.ai</h3>
+                <h3 className="font-semibold text-foreground">Nina</h3>
                 <p className="text-sm text-muted-foreground flex items-center">
                   <Sparkles className="w-3 h-3 mr-1" />
                   AI Healthcare Assistant
