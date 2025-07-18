@@ -53,9 +53,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl opacity-20 blur group-hover:opacity-40 transition-opacity duration-300"></div>
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">
-                  Mother.ai
-                </h1>
+                <h1 className="text-xl font-semibold text-gray-900">Nina</h1>
               </div>
             </div>
 
