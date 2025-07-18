@@ -103,7 +103,7 @@ const medicalTests: MedicalTest[] = [
       },
       { name: "LDL", unit: "mg/dL", normalRange: "< 100" },
       { name: "Triglycerides", unit: "mg/dL", normalRange: "< 150" },
-      { name: "VLDL", unit: "mg/dL", normalRange: "5–40" },
+      { name: "VLDL", unit: "mg/dL", normalRange: "5���40" },
       { name: "Cholesterol/HDL Ratio", unit: "", normalRange: "< 5" },
     ],
   },
@@ -447,7 +447,7 @@ export default function Records() {
                           <div className="mt-8 flex justify-end">
                             <Button
                               onClick={saveRecord}
-                              className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 shadow-lg hover:shadow-xl transition-all duration-300"
+                              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
                             >
                               <Save className="w-4 h-4 mr-2" />
                               Save Record
