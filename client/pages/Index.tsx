@@ -91,10 +91,10 @@ export default function Index() {
             <Badge className="bg-sky-50 text-sky-700 border-sky-200">
               AI-Powered Healthcare Revolution
             </Badge>
-            <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-6xl lg:text-7xl font-bold text-foreground leading-tight">
               Your Personal Medical AI Companion
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
               Instant symptom analysis. Track records. Get personalized health
               insights powered by cutting-edge AI technology that understands
               your health journey.
