@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
-import { useTheme } from "@/lib/theme-context";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,14 +12,13 @@ import {
   MessageCircle,
   FileText,
   LogOut,
-  Moon,
-  Sun,
   Stethoscope,
   User,
   Settings,
   ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import BottomNav from "./BottomNav";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -28,7 +26,6 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const { user, signOut } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   const navigation = [
