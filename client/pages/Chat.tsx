@@ -229,7 +229,7 @@ export default function Chat() {
                         className={cn(
                           "text-xs",
                           message.type === "user"
-                            ? "text-primary-foreground/70"
+                            ? "text-white/70"
                             : "text-muted-foreground",
                         )}
                       >
