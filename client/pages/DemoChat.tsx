@@ -35,6 +35,8 @@ import {
   Settings,
   LogOut,
   UserCircle,
+  Menu,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -60,7 +62,7 @@ export default function DemoChat() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm Mother.ai, your personal healthcare assistant powered by Google's Gemini AI. I'm here to help analyze your symptoms and provide health insights. Please describe what symptoms you're experiencing, and I'll ask follow-up questions to better understand your situation.",
+        "Hello! I'm Mother.ai, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. Please describe what symptoms you're experiencing.",
       timestamp: new Date(),
       riskLevel: "low",
     },
@@ -75,7 +77,7 @@ export default function DemoChat() {
       id: "3",
       type: "bot",
       content:
-        "I understand you're experiencing headaches and fatigue over the past 3 days, with the headaches worsening in the afternoon. Let me ask some follow-up questions to better understand your situation:",
+        "I understand you're experiencing headaches and fatigue. Let me ask some follow-up questions to better understand your situation:",
       timestamp: new Date(),
       riskLevel: "low",
       showQuickResponses: true,
@@ -85,88 +87,74 @@ export default function DemoChat() {
   const [isTyping, setIsTyping] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [showQuickResponses, setShowQuickResponses] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const quickResponses: QuickResponse[] = [
     {
-      text: "Pain intensity: 1-3 (Mild)",
+      text: "Mild pain (1-3)",
       value: "The pain intensity is mild, around 2-3 on a scale of 1-10.",
       category: "intensity",
     },
     {
-      text: "Pain intensity: 4-6 (Moderate)",
+      text: "Moderate pain (4-6)",
       value: "The pain intensity is moderate, around 4-6 on a scale of 1-10.",
       category: "intensity",
     },
     {
-      text: "Pain intensity: 7-10 (Severe)",
+      text: "Severe pain (7-10)",
       value: "The pain intensity is severe, around 7-10 on a scale of 1-10.",
       category: "intensity",
     },
     {
-      text: "Location: Forehead",
+      text: "Forehead",
       value: "The headache is primarily in my forehead area.",
       category: "location",
     },
     {
-      text: "Location: Temples",
+      text: "Temples",
       value: "The headache is mainly in my temples.",
       category: "location",
     },
     {
-      text: "Location: Back of head",
+      text: "Back of head",
       value: "The headache is at the back of my head.",
       category: "location",
     },
     {
-      text: "Location: All over",
-      value: "The headache affects my entire head.",
-      category: "location",
-    },
-    {
-      text: "Sleep: Getting enough rest",
+      text: "Getting enough sleep",
       value: "I've been getting enough sleep, around 7-8 hours per night.",
       category: "sleep",
     },
     {
-      text: "Sleep: Not sleeping well",
+      text: "Not sleeping well",
       value:
         "I haven't been sleeping well lately, getting less than 6 hours per night.",
       category: "sleep",
     },
     {
-      text: "Sleep: Irregular schedule",
-      value: "My sleep schedule has been irregular recently.",
-      category: "sleep",
-    },
-    {
-      text: "Hydration: Drinking enough water",
+      text: "Drinking enough water",
       value: "I've been drinking plenty of water throughout the day.",
       category: "hydration",
     },
     {
-      text: "Hydration: Not drinking enough",
+      text: "Not drinking enough",
       value: "I probably haven't been drinking enough water lately.",
       category: "hydration",
     },
     {
-      text: "Additional: No other symptoms",
+      text: "No other symptoms",
       value: "No, I don't have any other symptoms.",
       category: "additional",
     },
     {
-      text: "Additional: Nausea",
+      text: "Nausea",
       value: "Yes, I've also been experiencing some nausea.",
       category: "additional",
     },
     {
-      text: "Additional: Light sensitivity",
+      text: "Light sensitivity",
       value: "Yes, I've been sensitive to bright lights.",
-      category: "additional",
-    },
-    {
-      text: "Additional: Vision changes",
-      value: "Yes, I've noticed some changes in my vision.",
       category: "additional",
     },
   ];
@@ -303,12 +291,12 @@ export default function DemoChat() {
       ) {
         riskLevel = "medium";
         response =
-          "Thank you for sharing your symptoms. Based on what you've described, I recommend scheduling an appointment with your healthcare provider within the next few days. Let me ask some follow-up questions to better understand your condition:";
+          "Thank you for sharing your symptoms. Based on what you've described, I recommend scheduling an appointment with your healthcare provider within the next few days. Let me ask some follow-up questions:";
         showResponses = true;
       } else {
         riskLevel = "low";
         response =
-          "I understand your concerns. Let me ask some follow-up questions to better assess your symptoms and provide appropriate recommendations:";
+          "I understand your concerns. Let me ask some follow-up questions to better assess your symptoms:";
         showResponses = true;
       }
 
@@ -343,7 +331,6 @@ export default function DemoChat() {
   };
 
   const handleSignOut = () => {
-    // In a real app, this would handle actual sign out
     console.log("Signing out...");
   };
 
@@ -362,8 +349,8 @@ export default function DemoChat() {
     <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
       <div className="min-h-screen bg-white">
         {/* Top Navigation */}
-        <nav className="border-b border-gray-200 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
+        <nav className="bg-sky-50 border-b border-sky-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
               <div className="flex items-center space-x-3">
@@ -374,14 +361,11 @@ export default function DemoChat() {
                   <h1 className="text-xl font-semibold text-gray-900">
                     Mother.ai
                   </h1>
-                  <p className="text-xs text-gray-600">
-                    AI Healthcare Assistant
-                  </p>
                 </div>
               </div>
 
-              {/* Navigation Links */}
-              <div className="flex items-center space-x-2">
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex items-center space-x-2">
                 <Button
                   variant="default"
                   size="sm"
@@ -400,8 +384,23 @@ export default function DemoChat() {
                 </Button>
               </div>
 
-              {/* User Controls */}
-              <div className="flex items-center space-x-3">
+              {/* Mobile Menu Button */}
+              <div className="md:hidden">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  {mobileMenuOpen ? (
+                    <X className="w-5 h-5" />
+                  ) : (
+                    <Menu className="w-5 h-5" />
+                  )}
+                </Button>
+              </div>
+
+              {/* Desktop User Controls */}
+              <div className="hidden md:flex items-center space-x-3">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -420,7 +419,7 @@ export default function DemoChat() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className="flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl"
+                      className="flex items-center space-x-2 bg-white hover:bg-gray-50 px-3 py-2 rounded-xl border border-gray-200"
                     >
                       <div className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center">
                         <User className="w-3 h-3 text-white" />
@@ -452,32 +451,91 @@ export default function DemoChat() {
                 </DropdownMenu>
               </div>
             </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <div className="md:hidden border-t border-sky-200 bg-white">
+                <div className="px-2 pt-2 pb-3 space-y-1">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="w-full justify-start bg-sky-500 hover:bg-sky-600 text-white"
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-gray-700"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Records
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-gray-700"
+                  >
+                    <BarChart3 className="w-4 h-4 mr-2" />
+                    Reports
+                  </Button>
+                  <div className="border-t border-gray-200 pt-2 mt-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-700"
+                    >
+                      <UserCircle className="w-4 h-4 mr-2" />
+                      Profile
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start text-gray-700"
+                    >
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleSignOut}
+                      className="w-full justify-start text-red-600"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </nav>
 
         {/* Chat Container */}
         <div className="h-[calc(100vh-4rem)] flex flex-col max-w-4xl mx-auto">
           {/* Chat Header */}
-          <div className="bg-white border-b border-gray-200 px-6 py-4 mx-6 mt-6 rounded-t-3xl">
+          <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 mx-4 sm:mx-6 mt-4 sm:mt-6 rounded-t-2xl">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3 sm:space-x-4">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-sky-500 rounded-2xl flex items-center justify-center shadow-lg">
-                    <Brain className="w-6 h-6 text-white" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-sky-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                  <div className="absolute -bottom-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg">
+                  <h3 className="font-bold text-gray-900 text-base sm:text-lg">
                     Mother.ai Assistant
                   </h3>
-                  <p className="text-sm text-gray-600 flex items-center">
+                  <p className="text-xs sm:text-sm text-gray-600 flex items-center">
                     <Activity className="w-3 h-3 mr-1 text-sky-500" />
-                    Powered by Gemini AI • Analyzing symptoms
+                    Powered by Gemini AI
                   </p>
                 </div>
               </div>
-              <Badge className="bg-green-50 text-green-800 border-green-200">
+              <Badge className="bg-green-50 text-green-800 border-green-200 text-xs">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                 Online
               </Badge>
@@ -485,12 +543,12 @@ export default function DemoChat() {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto px-6 py-6 mx-6 bg-gray-50 space-y-6">
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 mx-4 sm:mx-6 bg-gray-50 space-y-4 sm:space-y-6">
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={cn(
-                  "flex items-start space-x-4 group",
+                  "flex items-start space-x-3 sm:space-x-4 group",
                   message.type === "user"
                     ? "flex-row-reverse space-x-reverse"
                     : "",
@@ -498,20 +556,20 @@ export default function DemoChat() {
               >
                 <div
                   className={cn(
-                    "w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg",
+                    "w-8 h-8 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg",
                     message.type === "user" ? "bg-sky-500" : "bg-gray-600",
                   )}
                 >
                   {message.type === "user" ? (
-                    <User className="w-5 h-5 text-white" />
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
-                    <Stethoscope className="w-5 h-5 text-white" />
+                    <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   )}
                 </div>
 
                 <div
                   className={cn(
-                    "max-w-[75%] rounded-3xl px-6 py-4 shadow-sm",
+                    "max-w-[85%] sm:max-w-[75%] rounded-2xl sm:rounded-3xl px-4 sm:px-6 py-3 sm:py-4 shadow-sm",
                     message.type === "user"
                       ? "bg-sky-500 text-white"
                       : "bg-white border border-gray-200",
@@ -525,15 +583,15 @@ export default function DemoChat() {
                         <div className="w-2 h-2 bg-sky-500 rounded-full animate-bounce delay-200"></div>
                       </div>
                       <span className="text-sm text-gray-600">
-                        AI is analyzing your symptoms...
+                        AI is analyzing...
                       </span>
                     </div>
                   ) : (
                     <>
-                      <p className="whitespace-pre-wrap leading-relaxed text-gray-900">
+                      <p className="whitespace-pre-wrap leading-relaxed text-gray-900 text-sm sm:text-base">
                         {message.content}
                       </p>
-                      <div className="flex items-center justify-between mt-4">
+                      <div className="flex items-center justify-between mt-3 sm:mt-4">
                         <p
                           className={cn(
                             "text-xs",
@@ -545,7 +603,7 @@ export default function DemoChat() {
                           {message.timestamp.toLocaleTimeString()}
                         </p>
                         {message.type === "bot" && (
-                          <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="hidden sm:flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <Button
                               variant="ghost"
                               size="sm"
@@ -581,11 +639,11 @@ export default function DemoChat() {
 
             {/* Quick Response Buttons */}
             {showQuickResponses && !isTyping && (
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200 shadow-sm">
                 <h4 className="text-sm font-semibold text-gray-900 mb-4">
-                  Quick Responses - Click to answer:
+                  Quick Responses:
                 </h4>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {Object.entries(groupedResponses).map(
                     ([category, responses]) => (
                       <div key={category}>
@@ -619,38 +677,38 @@ export default function DemoChat() {
           </div>
 
           {/* Input Section */}
-          <div className="bg-white border-t border-gray-200 p-6 mx-6 mb-6 rounded-b-3xl">
-            <div className="flex items-end space-x-4">
+          <div className="bg-white border-t border-gray-200 p-4 sm:p-6 mx-4 sm:mx-6 mb-4 sm:mb-6 rounded-b-2xl">
+            <div className="flex items-end space-x-3 sm:space-x-4">
               <div className="flex-1 relative">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Describe your symptoms or ask a health question..."
-                  className="pr-16 min-h-[56px] text-base rounded-2xl border-2 border-gray-200 focus:border-sky-500 bg-white text-gray-900 placeholder:text-gray-500"
+                  placeholder="Describe your symptoms..."
+                  className="pr-12 sm:pr-16 min-h-[48px] sm:min-h-[56px] text-sm sm:text-base rounded-xl sm:rounded-2xl border-2 border-gray-200 focus:border-sky-500 bg-white text-gray-900 placeholder:text-gray-500"
                   disabled={isTyping}
                 />
-                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2">
                   <Heart className="w-4 h-4 text-sky-500" />
                 </div>
               </div>
               <Button
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isTyping}
-                className="h-[56px] w-[56px] p-0 rounded-2xl bg-sky-500 hover:bg-sky-600 shadow-lg disabled:opacity-50"
+                className="h-[48px] w-[48px] sm:h-[56px] sm:w-[56px] p-0 rounded-xl sm:rounded-2xl bg-sky-500 hover:bg-sky-600 shadow-lg disabled:opacity-50"
               >
                 {isTyping ? (
-                  <Loader2 className="w-5 h-5 animate-spin text-white" />
+                  <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin text-white" />
                 ) : (
-                  <Send className="w-5 h-5 text-white" />
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 )}
               </Button>
             </div>
-            <div className="mt-4 flex items-center justify-center space-x-2 text-xs text-gray-500">
+            <div className="mt-3 sm:mt-4 flex items-center justify-center space-x-2 text-xs text-gray-500">
               <AlertTriangle className="w-3 h-3" />
-              <span>
-                Powered by Google Gemini AI • For informational purposes only •
-                Always consult healthcare professionals
+              <span className="text-center">
+                For informational purposes only • Always consult healthcare
+                professionals
               </span>
             </div>
           </div>
