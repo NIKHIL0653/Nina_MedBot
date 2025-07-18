@@ -126,4 +126,46 @@
     font-feature-settings:
       "cv08", "cv09", "cv11", "cv12", "cv13", "cv14", "cv15", "cv16";
   }
+
+  /* Glassmorphism utilities */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Neumorphism utilities */
+  .neumorphic {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    box-shadow:
+      20px 20px 60px #d9d9d9,
+      -20px -20px 60px #ffffff;
+  }
+
+  .neumorphic-dark {
+    background: linear-gradient(145deg, #2c2c2c, #333333);
+    box-shadow:
+      20px 20px 60px #1a1a1a,
+      -20px -20px 60px #404040;
+  }
+
+  /* Medical gradient backgrounds */
+  .medical-gradient {
+    background: linear-gradient(135deg, #a2d2ff 0%, #00c49a 50%, #ffddd2 100%);
+  }
+
+  .medical-glass-card {
+    background: rgba(162, 210, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(162, 210, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(162, 210, 255, 0.1);
+  }
 }
