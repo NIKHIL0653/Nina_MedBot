@@ -16,6 +16,7 @@ import Chat from "./pages/Chat";
 import DemoChat from "./pages/DemoChat";
 import DemoRecords from "./pages/DemoRecords";
 import Records from "./pages/Records";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/demo" element={<DemoChat />} />
               <Route path="/demo-records" element={<DemoRecords />} />
               <Route path="/records" element={<Records />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
