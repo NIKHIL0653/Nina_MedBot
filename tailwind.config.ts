@@ -58,11 +58,15 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         medical: {
+          primary: "#A2D2FF",
+          navy: "#041C32",
+          accent: "#00C49A",
+          blush: "#FFDDD2",
           success: "hsl(120 100% 25%)",
           warning: "hsl(45 100% 50%)",
           danger: "hsl(0 100% 50%)",
-          blue: "hsl(200 100% 85%)",
-          "blue-dark": "hsl(200 100% 70%)",
+          blue: "#A2D2FF",
+          "blue-dark": "#041C32",
         },
       },
       borderRadius: {
