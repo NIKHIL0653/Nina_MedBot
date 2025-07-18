@@ -103,7 +103,7 @@ const medicalTests: MedicalTest[] = [
       },
       { name: "LDL", unit: "mg/dL", normalRange: "< 100" },
       { name: "Triglycerides", unit: "mg/dL", normalRange: "< 150" },
-      { name: "VLDL", unit: "mg/dL", normalRange: "5���40" },
+      { name: "VLDL", unit: "mg/dL", normalRange: "5–40" },
       { name: "Cholesterol/HDL Ratio", unit: "", normalRange: "< 5" },
     ],
   },
@@ -333,7 +333,7 @@ export default function Records() {
 
   return (
     <MainLayout>
-      <div className="min-h-[calc(100vh-4rem)] bg-muted/20">
+      <div className="min-h-[calc(100vh-4rem)] bg-muted/20 pb-16 md:pb-0">
         <div className="max-w-7xl mx-auto p-6">
           {/* Header */}
           <div className="mb-8">
