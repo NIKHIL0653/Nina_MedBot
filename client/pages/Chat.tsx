@@ -220,6 +220,21 @@ export default function Chat() {
     navigator.clipboard.writeText(content);
   };
 
+  const handleNewChat = () => {
+    setMessages([
+      {
+        id: "1",
+        type: "bot",
+        content:
+          "Hello! I'm Nina, your AI medical assistant. Describe your symptoms and I'll provide analysis with treatment recommendations and medication suggestions.",
+        timestamp: new Date(),
+      },
+    ]);
+    setInput("");
+    setIsTyping(false);
+    setShowSymptomSelector(false);
+  };
+
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "low":
