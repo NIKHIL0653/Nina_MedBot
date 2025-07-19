@@ -252,12 +252,9 @@ export default function Chat() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Describe your symptoms or ask a health question..."
-                className="pr-12 min-h-[44px] resize-none rounded-xl border-2 focus:border-primary transition-all duration-300"
+                className="min-h-[44px] resize-none rounded-xl border-2 focus:border-primary transition-all duration-300"
                 disabled={isTyping}
               />
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <Heart className="w-4 h-4 text-muted-foreground" />
-              </div>
             </div>
             <Button
               onClick={handleSendMessage}
