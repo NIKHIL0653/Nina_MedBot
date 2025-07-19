@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 
 export default function Settings() {
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
 
   // User profile state
