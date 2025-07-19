@@ -335,23 +335,6 @@ export default function Records() {
     <MainLayout>
       <div className="min-h-[calc(100vh-4rem)] bg-muted/20 pb-16 md:pb-0">
         <div className="max-w-7xl mx-auto p-6">
-          {/* Header */}
-          <div className="mb-8">
-            <div className="flex items-center space-x-3 mb-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
-                <FileText className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-semibold text-foreground">
-                  Medical Records
-                </h1>
-                <p className="text-muted-foreground">
-                  Track and analyze your lab results
-                </p>
-              </div>
-            </div>
-          </div>
-
           <div className="space-y-6">
             {/* Test Selection */}
             <Card className="shadow-sm">
