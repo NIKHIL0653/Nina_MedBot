@@ -144,7 +144,8 @@ export default function Chat() {
         Keep all text concise and avoid lengthy disclaimers.
       `;
 
-      const response = await generateMedicalResponse(prompt, []);
+      const rawResponse = await generateMedicalResponse(prompt, []);
+      const response = cleanResponse(rawResponse);
 
       // Try to parse JSON response
       let analysis: Analysis | null = null;
