@@ -242,8 +242,29 @@ export default function Chat() {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Symptom Selector Overlay */}
+        {showSymptomSelector && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
+            <SymptomSelector
+              onSymptomSelect={handleSymptomSelect}
+              onClose={() => setShowSymptomSelector(false)}
+            />
+          </div>
+        )}
+
         {/* Input */}
         <div className="border-t border-border bg-card p-6">
+          <div className="mb-3 flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowSymptomSelector(true)}
+              className="flex items-center space-x-2"
+            >
+              <Stethoscope className="w-4 h-4" />
+              <span>Quick Symptom Selector</span>
+            </Button>
+          </div>
           <div className="flex items-end space-x-3">
             <div className="flex-1 relative">
               <Input
