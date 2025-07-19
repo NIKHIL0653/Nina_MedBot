@@ -229,6 +229,33 @@ export default function Settings() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Signout Section */}
+          <Card className="shadow-sm border-destructive/20">
+            <CardHeader>
+              <CardTitle className="text-destructive">Danger Zone</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Sign out</p>
+                    <p className="text-sm text-muted-foreground">
+                      End your current session and return to login
+                    </p>
+                  </div>
+                  <Button
+                    onClick={signOut}
+                    variant="destructive"
+                    className="flex items-center space-x-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign out</span>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </MainLayout>
