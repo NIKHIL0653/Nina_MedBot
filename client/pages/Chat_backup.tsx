@@ -116,36 +116,32 @@ export default function Chat() {
 
     try {
       const prompt = `
-You are Nina, a caring and knowledgeable medical AI assistant. Analyze these symptoms: "${input}"
+                You are a medical AI that provides direct, decisive analysis. Analyze these symptoms: "${input}"
 
-Provide a human-like, conversational response that includes:
-1. A brief, warm acknowledgment of their symptoms
-2. The most likely diagnosis/conditions based on symptoms
-3. Specific treatment recommendations and medications
-4. 1-2 thoughtful follow-up questions to gather more details for better accuracy
-
-Write in a natural, conversational tone as if you're a knowledgeable healthcare provider speaking directly to the patient. Be empathetic but professional.
-
-Provide your response in this JSON format:
-{
-  "humanResponse": "A natural, conversational response that acknowledges their symptoms, provides likely diagnosis, gives treatment recommendations, and asks 1-2 specific follow-up questions",
-  "symptoms": ["symptom1", "symptom2"],
-  "diagnosis": "Primary diagnosis or 2-3 most likely conditions",
-  "severity": "low|moderate|high",
-  "recommendations": ["recommendation1", "recommendation2"],
-  "medications": [
-    {
-      "name": "Medication name",
-      "dosage": "Recommended dosage",
-      "frequency": "How often to take",
-      "notes": "Important notes",
-      "type": "over-the-counter|prescription"
-    }
-  ],
-  "whenToSeekHelp": "When to seek immediate medical attention"
-}
-
-Make the humanResponse sound natural and caring, without excessive medical jargon. Focus on being helpful and reassuring while providing accurate information.
+        Based on the symptoms provided, determine the most likely diagnosis(es) and provide immediate, actionable recommendations. Do not ask follow-up questions. Work with the information given.
+        
+        Provide a comprehensive medical analysis in the following JSON format:
+        {
+          "symptoms": ["symptom1", "symptom2"],
+                    "diagnosis": "Primary diagnosis or 2-3 most likely conditions (be specific and decisive)",
+          "severity": "low|moderate|high",
+          "recommendations": ["recommendation1", "recommendation2"],
+          "medications": [
+            {
+              "name": "Medication name",
+              "dosage": "Recommended dosage",
+              "frequency": "How often to take",
+              "notes": "Important notes",
+              "type": "over-the-counter|prescription"
+            }
+          ],
+          "whenToSeekHelp": "When to seek immediate medical attention"
+        }
+        
+                Be direct and specific. Provide definitive treatment recommendations.
+        Focus on the most common and likely diagnosis based on symptoms.
+        Include specific medications with exact dosages.
+        Keep all text concise and avoid lengthy disclaimers.
       `;
 
       const rawResponse = await generateMedicalResponse(prompt, []);
@@ -153,28 +149,14 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
 
       // Try to parse JSON response
       let analysis: Analysis | null = null;
-      let humanResponse = "";
-
       try {
         const jsonMatch = response.match(/\{[\s\S]*\}/);
         if (jsonMatch) {
-          const parsedData = JSON.parse(jsonMatch[0]);
-
-          // Extract human response
-          humanResponse = parsedData.humanResponse || "";
-
-          // Create analysis object
-          if (parsedData.diagnosis) {
-            analysis = {
-              id: Date.now().toString(),
-              symptoms: parsedData.symptoms || [],
-              diagnosis: parsedData.diagnosis || "",
-              severity: parsedData.severity || "moderate",
-              recommendations: parsedData.recommendations || [],
-              medications: parsedData.medications || [],
-              whenToSeekHelp: parsedData.whenToSeekHelp || "",
-            };
-          }
+          const parsedAnalysis = JSON.parse(jsonMatch[0]);
+          analysis = {
+            id: Date.now().toString(),
+            ...parsedAnalysis,
+          };
         }
       } catch (parseError) {
         console.error("Failed to parse analysis:", parseError);
@@ -183,29 +165,28 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
       setMessages((prev) => {
         const newMessages = prev.filter((msg) => !msg.isTyping);
 
-        // Always show human response first
-        const messages = [
-          ...newMessages,
-          {
-            id: (Date.now() + 2).toString(),
-            type: "bot" as const,
-            content: humanResponse || cleanResponse(response),
-            timestamp: new Date(),
-          },
-        ];
-
-        // Add structured analysis if available
         if (analysis) {
-          messages.push({
-            id: (Date.now() + 3).toString(),
-            type: "analysis" as const,
-            content: "Here's a detailed breakdown:",
-            timestamp: new Date(),
-            analysis: analysis,
-          });
+          return [
+            ...newMessages,
+            {
+              id: (Date.now() + 2).toString(),
+              type: "analysis",
+              content: "Based on your symptoms, here's my analysis:",
+              timestamp: new Date(),
+              analysis: analysis,
+            },
+          ];
+        } else {
+          return [
+            ...newMessages,
+            {
+              id: (Date.now() + 2).toString(),
+              type: "bot",
+              content: response,
+              timestamp: new Date(),
+            },
+          ];
         }
-
-        return messages;
       });
     } catch (error) {
       setMessages((prev) => {
