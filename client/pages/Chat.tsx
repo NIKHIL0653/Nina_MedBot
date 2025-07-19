@@ -99,7 +99,7 @@ export default function Chat() {
 
       const response = await generateMedicalResponse(
         input +
-          " If appropriate, provide 2-3 follow-up questions as multiple choice options. Format your response normally, but if you want to provide options, end your message with 'OPTIONS:' followed by each option on a new line starting with '- '.",
+          " After analyzing the symptoms, if you need more specific information, provide relevant answer options for common follow-up details like symptom duration (e.g., 'Recently started', 'Past 1 day', 'More than 1 day', 'Several days', 'Over a week'), pain intensity (e.g., 'Mild', 'Moderate', 'Severe', 'Very severe'), frequency (e.g., 'Constant', 'Intermittent', 'Occasional'), or other relevant characteristics. Format your response normally, but if you want to provide answer options, end your message with 'OPTIONS:' followed by each answer choice on a new line starting with '- '.",
         conversationHistory,
       );
 
