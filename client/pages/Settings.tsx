@@ -83,16 +83,6 @@ export default function Settings() {
     setIsEditing(true);
   };
 
-  // Load saved profile on component mount
-  useEffect(() => {
-    const saved = localStorage.getItem("userProfile");
-    if (saved) {
-      const parsedProfile = JSON.parse(saved);
-      setSavedProfile(parsedProfile);
-      setProfile(parsedProfile);
-    }
-  }, []);
-
   return (
     <MainLayout>
       <div className="min-h-[calc(100vh-4rem)] bg-muted/20 pb-20 md:pb-0">
