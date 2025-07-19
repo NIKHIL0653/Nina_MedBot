@@ -196,7 +196,7 @@ export default function Chat() {
           {
             id: (Date.now() + 2).toString(),
             type: "bot",
-            content: `I understand you're experiencing ${symptoms.join(", ").toLowerCase()}. To provide you with the most accurate analysis, I need a bit more information about your symptoms.`,
+            content: `I understand you're experiencing ${symptoms.join(", ").toLowerCase()}. To provide you with the most accurate analysis, please let me know how long you've been experiencing these symptoms:`,
             timestamp: new Date(),
             options: [
               "Recently started (today)",
