@@ -8,7 +8,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, Stethoscope, User, Settings, ChevronDown } from "lucide-react";
+import {
+  LogOut,
+  Stethoscope,
+  User,
+  Settings,
+  ChevronDown,
+  MessageCircle,
+  FileText,
+} from "lucide-react";
 import BottomNav from "./BottomNav";
 
 interface MainLayoutProps {
