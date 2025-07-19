@@ -23,6 +23,7 @@ import {
   Scale,
   Ruler,
   Calendar,
+  LogOut,
 } from "lucide-react";
 
 export default function Settings() {
