@@ -117,6 +117,42 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </div>
           </div>
 
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center space-x-1 flex-1 justify-center">
+            <Link to="/chat">
+              <Button
+                variant={location.pathname === "/chat" ? "default" : "ghost"}
+                size="sm"
+                className="relative group transition-all duration-300"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Chat
+              </Button>
+            </Link>
+            <Link to="/records">
+              <Button
+                variant={location.pathname === "/records" ? "default" : "ghost"}
+                size="sm"
+                className="relative group transition-all duration-300"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Records
+              </Button>
+            </Link>
+            <Link to="/settings">
+              <Button
+                variant={
+                  location.pathname === "/settings" ? "default" : "ghost"
+                }
+                size="sm"
+                className="relative group transition-all duration-300"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Settings
+              </Button>
+            </Link>
+          </div>
+
           {/* User Menu */}
           <div className="flex items-center">
             {/* Desktop dropdown */}
