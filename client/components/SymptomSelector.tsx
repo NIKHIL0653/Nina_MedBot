@@ -104,7 +104,7 @@ const SymptomSelector = ({
                     selectedSymptoms.includes(symptom) ? "default" : "outline"
                   }
                   size="sm"
-                  className="justify-start text-left h-auto py-2"
+                  className="justify-start text-left h-auto py-2 px-3 text-xs min-h-[36px] whitespace-normal"
                   onClick={() => toggleSymptom(symptom)}
                 >
                   {symptom}
