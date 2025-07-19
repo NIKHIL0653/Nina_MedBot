@@ -23,6 +23,7 @@ interface Message {
   content: string;
   timestamp: Date;
   isTyping?: boolean;
+  options?: string[];
 }
 
 export default function Chat() {
