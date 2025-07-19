@@ -5,16 +5,15 @@ import { generateMedicalResponse } from "@/lib/gemini";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MainLayout from "@/components/MainLayout";
+import SymptomSelector from "@/components/SymptomSelector";
 import {
   Send,
   User,
   Bot,
   Loader2,
   AlertTriangle,
-  Heart,
   Copy,
-  ThumbsUp,
-  ThumbsDown,
+  Stethoscope,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
