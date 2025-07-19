@@ -116,7 +116,9 @@ export default function Chat() {
 
     try {
       const prompt = `
-        Analyze these symptoms: "${input}"
+                You are a medical AI that provides direct, decisive analysis. Analyze these symptoms: "${input}"
+
+        Based on the symptoms provided, determine the most likely diagnosis(es) and provide immediate, actionable recommendations. Do not ask follow-up questions. Work with the information given.
         
         Provide a comprehensive medical analysis in the following JSON format:
         {
