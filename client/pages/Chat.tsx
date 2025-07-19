@@ -218,20 +218,6 @@ export default function Chat() {
                           >
                             <Copy className="w-3 h-3" />
                           </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 w-6 p-0"
-                          >
-                            <ThumbsUp className="w-3 h-3" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 w-6 p-0"
-                          >
-                            <ThumbsDown className="w-3 h-3" />
-                          </Button>
                         </div>
                       )}
                     </div>
