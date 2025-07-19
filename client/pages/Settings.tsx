@@ -60,9 +60,27 @@ export default function Settings() {
   };
 
   const handleSaveProfile = () => {
-    // TODO: Implement profile save functionality
-    console.log("Profile saved:", profile);
+    // Save profile to state (in production, this would save to database)
+    setSavedProfile({ ...profile });
+    setIsEditing(false);
+
+    // Store in localStorage for persistence
+    localStorage.setItem("userProfile", JSON.stringify(profile));
   };
+
+  const handleEditProfile = () => {
+    setIsEditing(true);
+  };
+
+  // Load saved profile on component mount
+  useEffect(() => {
+    const saved = localStorage.getItem("userProfile");
+    if (saved) {
+      const parsedProfile = JSON.parse(saved);
+      setSavedProfile(parsedProfile);
+      setProfile(parsedProfile);
+    }
+  }, []);
 
   return (
     <MainLayout>
