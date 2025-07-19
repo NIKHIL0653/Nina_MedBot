@@ -98,19 +98,38 @@ export default function Chat() {
         );
 
       const response = await generateMedicalResponse(
-        input,
+        input +
+          " If appropriate, provide 2-3 follow-up questions as multiple choice options. Format your response normally, but if you want to provide options, end your message with 'OPTIONS:' followed by each option on a new line starting with '- '.",
         conversationHistory,
       );
 
       setMessages((prev) => {
         const newMessages = prev.filter((msg) => !msg.isTyping);
+
+        // Parse response for options
+        let content = response;
+        let options: string[] | undefined;
+
+        if (response.includes("OPTIONS:")) {
+          const parts = response.split("OPTIONS:");
+          content = parts[0].trim();
+          const optionText = parts[1];
+          options = optionText
+            .split("\n")
+            .map((line) => line.trim())
+            .filter((line) => line.startsWith("- "))
+            .map((line) => line.substring(2).trim())
+            .filter((line) => line.length > 0);
+        }
+
         return [
           ...newMessages,
           {
             id: (Date.now() + 2).toString(),
             type: "bot",
-            content: response,
+            content: content,
             timestamp: new Date(),
+            options: options,
           },
         ];
       });
