@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 import { generateMedicalResponse } from "@/lib/gemini";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import MainLayout from "@/components/MainLayout";
 import {
   Send,
@@ -12,7 +11,6 @@ import {
   Bot,
   Loader2,
   AlertTriangle,
-  Sparkles,
   Heart,
   Copy,
   ThumbsUp,
