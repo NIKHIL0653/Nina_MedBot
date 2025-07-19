@@ -38,6 +38,9 @@ export default function Settings() {
     weight: "",
   });
 
+  const [savedProfile, setSavedProfile] = useState<typeof profile | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
