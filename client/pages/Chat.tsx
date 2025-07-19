@@ -241,29 +241,61 @@ export default function Chat() {
 
   const handleFollowUpResponse = async (selectedOption: string) => {
     try {
-      const prompt = `User selected: "${selectedOption}". Provide a helpful follow-up response based on this information. If you need additional details to provide better analysis, offer relevant answer options for specific characteristics like symptom location (e.g., 'Head', 'Chest', 'Abdomen', 'Back'), associated symptoms (e.g., 'Nausea', 'Dizziness', 'Fatigue', 'Fever'), or other relevant details. Format your response normally, but if you want to provide answer options, end your message with "OPTIONS:" followed by each answer choice on a new line starting with "- ".`;
+      // Determine what type of follow-up options to show based on the previous selection
+      let content = "";
+      let options: string[] = [];
 
-      const response = await generateMedicalResponse(prompt, []);
+      if (
+        selectedOption.includes("day") ||
+        selectedOption.includes("week") ||
+        selectedOption.includes("Recently")
+      ) {
+        // Duration was selected, now ask about intensity/severity
+        content =
+          "Thank you for that information. How would you describe the intensity or severity of your symptoms?";
+        options = [
+          "Mild - barely noticeable",
+          "Moderate - noticeable but manageable",
+          "Severe - significantly affecting daily activities",
+          "Very severe - debilitating",
+        ];
+      } else if (
+        selectedOption.includes("Mild") ||
+        selectedOption.includes("Moderate") ||
+        selectedOption.includes("Severe")
+      ) {
+        // Severity was selected, now ask about frequency
+        content =
+          "Thanks for describing the severity. How often do you experience these symptoms?";
+        options = [
+          "Constant - all the time",
+          "Frequent - multiple times per day",
+          "Intermittent - comes and goes",
+          "Occasional - once in a while",
+        ];
+      } else if (
+        selectedOption.includes("Constant") ||
+        selectedOption.includes("Frequent") ||
+        selectedOption.includes("Intermittent") ||
+        selectedOption.includes("Occasional")
+      ) {
+        // Frequency was selected, now ask about associated symptoms
+        content =
+          "That helps me understand the pattern. Are you experiencing any of these associated symptoms?";
+        options = [
+          "Nausea or vomiting",
+          "Dizziness or lightheadedness",
+          "Fatigue or weakness",
+          "Fever or chills",
+          "None of the above",
+        ];
+      } else {
+        // For other selections, provide a general assessment
+        content = `Based on your selection of "${selectedOption}", I'm analyzing your symptoms. Here are some general recommendations and when you should seek medical attention.`;
+      }
 
       setMessages((prev) => {
         const newMessages = prev.filter((msg) => !msg.isTyping);
-
-        // Parse response for options
-        let content = response;
-        let options: string[] | undefined;
-
-        if (response.includes("OPTIONS:")) {
-          const parts = response.split("OPTIONS:");
-          content = parts[0].trim();
-          const optionText = parts[1];
-          options = optionText
-            .split("\n")
-            .map((line) => line.trim())
-            .filter((line) => line.startsWith("- "))
-            .map((line) => line.substring(2).trim())
-            .filter((line) => line.length > 0);
-        }
-
         return [
           ...newMessages,
           {
@@ -271,7 +303,7 @@ export default function Chat() {
             type: "bot",
             content: content,
             timestamp: new Date(),
-            options: options,
+            options: options.length > 0 ? options : undefined,
           },
         ];
       });
