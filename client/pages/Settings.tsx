@@ -42,6 +42,16 @@ export default function Settings() {
   const [savedProfile, setSavedProfile] = useState<typeof profile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
+  // Load saved profile on component mount
+  useEffect(() => {
+    const saved = localStorage.getItem("userProfile");
+    if (saved) {
+      const parsedProfile = JSON.parse(saved);
+      setSavedProfile(parsedProfile);
+      setProfile(parsedProfile);
+    }
+  }, []);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
