@@ -196,7 +196,7 @@ export default function Chat() {
 
   const handleFollowUpResponse = async (selectedOption: string) => {
     try {
-      const prompt = `User selected: "${selectedOption}". Provide a helpful follow-up response and if needed, ask a specific follow-up question with 2-3 multiple choice options. Format your response normally, but if you want to provide options, end your message with "OPTIONS:" followed by each option on a new line starting with "- ".`;
+      const prompt = `User selected: "${selectedOption}". Provide a helpful follow-up response based on this information. If you need additional details to provide better analysis, offer relevant answer options for specific characteristics like symptom location (e.g., 'Head', 'Chest', 'Abdomen', 'Back'), associated symptoms (e.g., 'Nausea', 'Dizziness', 'Fatigue', 'Fever'), or other relevant details. Format your response normally, but if you want to provide answer options, end your message with "OPTIONS:" followed by each answer choice on a new line starting with "- ".`;
 
       const response = await generateMedicalResponse(prompt, []);
 
