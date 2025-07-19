@@ -206,7 +206,15 @@ export default function Chat() {
                             : "text-muted-foreground",
                         )}
                       >
-                        {message.timestamp.toLocaleTimeString()}
+                        {message.timestamp.toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                        })}{" "}
+                        {message.timestamp.toLocaleTimeString("en-GB", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
                       </p>
                       {message.type === "bot" && (
                         <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
