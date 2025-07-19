@@ -236,6 +236,12 @@ export default function Chat() {
     ];
 
     let cleanedResponse = response;
+
+    // Remove markdown formatting that shows up as **text**
+    cleanedResponse = cleanedResponse.replace(/\*\*(.*?)\*\*/g, "$1");
+    cleanedResponse = cleanedResponse.replace(/\*(.*?)\*/g, "$1");
+
+    // Remove disclaimers
     disclaimersToRemove.forEach((disclaimer) => {
       cleanedResponse = cleanedResponse.replace(disclaimer, "");
     });
