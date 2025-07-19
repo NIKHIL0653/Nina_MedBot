@@ -58,7 +58,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
                       <User className="w-3 h-3 text-white" />
                     </div>
-                    <span className="text-sm font-medium">Your account</span>
+                    <span className="text-sm font-medium">
+                      Hi, {user?.email?.split("@")[0]}
+                    </span>
                     <ChevronDown className="w-3 h-3 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>
