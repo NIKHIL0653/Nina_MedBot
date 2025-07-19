@@ -32,12 +32,13 @@ export default function Chat() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm Nina, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. Please describe what symptoms you're experiencing, and I'll ask follow-up questions to better understand your situation.",
+        "Hello! I'm Nina, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. You can either describe your symptoms in text or use the symptom selector for quick input.",
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [showSymptomSelector, setShowSymptomSelector] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
