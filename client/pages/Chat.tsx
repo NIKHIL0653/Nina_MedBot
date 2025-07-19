@@ -33,8 +33,14 @@ export default function Chat() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm Nina, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. You can either describe your symptoms in text or use the symptom selector for quick input.",
+        "Hello! I'm Nina, your personal healthcare assistant. I'm here to help analyze your symptoms and provide health insights. How would you like to get started?",
       timestamp: new Date(),
+      options: [
+        "I want to describe my symptoms",
+        "I have a general health question",
+        "I need help understanding test results",
+        "I want to report how I'm feeling today",
+      ],
     },
   ]);
   const [input, setInput] = useState("");
