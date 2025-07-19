@@ -177,7 +177,7 @@ export default function Chat() {
                 className={cn(
                   "max-w-[75%] rounded-2xl px-4 py-3 shadow-sm transition-all duration-300 hover:shadow-md",
                   message.type === "user"
-                    ? "bg-blue-500 text-white dark:bg-blue-600 dark:text-white"
+                    ? "bg-blue-400 text-white dark:bg-blue-500 dark:text-white"
                     : "bg-muted text-muted-foreground",
                 )}
               >
