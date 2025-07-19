@@ -24,6 +24,7 @@ import {
   Ruler,
   Calendar,
   LogOut,
+  Edit,
 } from "lucide-react";
 
 export default function Settings() {
