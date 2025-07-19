@@ -429,7 +429,7 @@ export default function Records() {
                           <div className="mt-8 flex justify-end">
                             <Button
                               onClick={saveRecord}
-                              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+                              className="bg-blue-400 hover:bg-blue-500 transition-all duration-300"
                             >
                               <Save className="w-4 h-4 mr-2" />
                               Save Record
