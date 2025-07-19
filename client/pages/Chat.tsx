@@ -180,7 +180,7 @@ export default function Chat() {
 
               <div
                 className={cn(
-                  "max-w-[75%] rounded-2xl px-4 py-3 shadow-sm transition-all duration-300 hover:shadow-md",
+                  "max-w-[75%] rounded-2xl px-4 py-3 shadow-sm",
                   message.type === "user"
                     ? "bg-blue-400 text-white dark:bg-blue-500 dark:text-white"
                     : "bg-muted text-muted-foreground",
