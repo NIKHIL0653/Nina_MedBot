@@ -223,6 +223,28 @@ export default function Chat() {
     navigator.clipboard.writeText(content);
   };
 
+  const cleanResponse = (response: string): string => {
+    // Remove repetitive disclaimer text
+    const disclaimersToRemove = [
+      "Once you provide more details, I can offer general information about possible causes and suggest some general self-care measures. Remember, it's crucial to consult a healthcare professional for a proper diagnosis and treatment plan, especially given the duration of your symptoms.",
+      "Please consult with a healthcare professional for proper diagnosis and treatment.",
+      "It's important to consult with a healthcare professional for a proper diagnosis.",
+      "Remember to consult a healthcare professional for proper medical advice.",
+      "This information is for educational purposes only.",
+      "Please seek professional medical advice.",
+    ];
+
+    let cleanedResponse = response;
+    disclaimersToRemove.forEach((disclaimer) => {
+      cleanedResponse = cleanedResponse.replace(disclaimer, "");
+    });
+
+    // Clean up any resulting double spaces or excessive line breaks
+    cleanedResponse = cleanedResponse.replace(/\s+/g, " ").trim();
+
+    return cleanedResponse;
+  };
+
   const handleNewChat = () => {
     setMessages([
       {
