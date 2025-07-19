@@ -107,94 +107,185 @@ export default function Settings() {
           {/* Profile Settings */}
           <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5 text-primary" />
-                <span>Profile Information</span>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <User className="w-5 h-5 text-primary" />
+                  <span>Profile Information</span>
+                </div>
+                {savedProfile && !isEditing && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleEditProfile}
+                    className="flex items-center space-x-2"
+                  >
+                    <Edit className="w-4 h-4" />
+                    <span>Edit</span>
+                  </Button>
+                )}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="flex items-center space-x-2">
-                    <UserCircle className="w-4 h-4" />
-                    <span>Full Name</span>
-                  </Label>
-                  <Input
-                    id="name"
-                    value={profile.name}
-                    onChange={(e) =>
-                      handleProfileUpdate("name", e.target.value)
-                    }
-                    placeholder="Enter your full name"
-                    className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
+              {savedProfile && !isEditing ? (
+                // Display saved profile as cards
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <UserCircle className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Full Name
+                      </span>
+                    </div>
+                    <p className="font-semibold">
+                      {savedProfile.name || "Not provided"}
+                    </p>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="age" className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4" />
-                    <span>Age</span>
-                  </Label>
-                  <Input
-                    id="age"
-                    type="number"
-                    value={profile.age}
-                    onChange={(e) => handleProfileUpdate("age", e.target.value)}
-                    placeholder="Enter your age"
-                    className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Calendar className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Age
+                      </span>
+                    </div>
+                    <p className="font-semibold">
+                      {savedProfile.age
+                        ? `${savedProfile.age} years`
+                        : "Not provided"}
+                    </p>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="height"
-                    className="flex items-center space-x-2"
-                  >
-                    <Ruler className="w-4 h-4" />
-                    <span>Height (cm)</span>
-                  </Label>
-                  <Input
-                    id="height"
-                    type="number"
-                    value={profile.height}
-                    onChange={(e) =>
-                      handleProfileUpdate("height", e.target.value)
-                    }
-                    placeholder="Enter your height in cm"
-                    className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
-                  />
-                </div>
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Ruler className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Height
+                      </span>
+                    </div>
+                    <p className="font-semibold">
+                      {savedProfile.height
+                        ? `${savedProfile.height} cm`
+                        : "Not provided"}
+                    </p>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="weight"
-                    className="flex items-center space-x-2"
-                  >
-                    <Scale className="w-4 h-4" />
-                    <span>Weight (kg)</span>
-                  </Label>
-                  <Input
-                    id="weight"
-                    type="number"
-                    value={profile.weight}
-                    onChange={(e) =>
-                      handleProfileUpdate("weight", e.target.value)
-                    }
-                    placeholder="Enter your weight in kg"
-                    className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
-                  />
+                  <div className="bg-muted/50 p-4 rounded-lg">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Scale className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Weight
+                      </span>
+                    </div>
+                    <p className="font-semibold">
+                      {savedProfile.weight
+                        ? `${savedProfile.weight} kg`
+                        : "Not provided"}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                // Show edit form
+                <>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="name"
+                        className="flex items-center space-x-2"
+                      >
+                        <UserCircle className="w-4 h-4" />
+                        <span>Full Name</span>
+                      </Label>
+                      <Input
+                        id="name"
+                        value={profile.name}
+                        onChange={(e) =>
+                          handleProfileUpdate("name", e.target.value)
+                        }
+                        placeholder="Enter your full name"
+                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                      />
+                    </div>
 
-              <div className="flex justify-end pt-4">
-                <Button
-                  onClick={handleSaveProfile}
-                  className="bg-blue-400 hover:bg-blue-500 transition-all duration-300"
-                >
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Profile
-                </Button>
-              </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="age"
+                        className="flex items-center space-x-2"
+                      >
+                        <Calendar className="w-4 h-4" />
+                        <span>Age</span>
+                      </Label>
+                      <Input
+                        id="age"
+                        type="number"
+                        value={profile.age}
+                        onChange={(e) =>
+                          handleProfileUpdate("age", e.target.value)
+                        }
+                        placeholder="Enter your age"
+                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="height"
+                        className="flex items-center space-x-2"
+                      >
+                        <Ruler className="w-4 h-4" />
+                        <span>Height (cm)</span>
+                      </Label>
+                      <Input
+                        id="height"
+                        type="number"
+                        value={profile.height}
+                        onChange={(e) =>
+                          handleProfileUpdate("height", e.target.value)
+                        }
+                        placeholder="Enter your height in cm"
+                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="weight"
+                        className="flex items-center space-x-2"
+                      >
+                        <Scale className="w-4 h-4" />
+                        <span>Weight (kg)</span>
+                      </Label>
+                      <Input
+                        id="weight"
+                        type="number"
+                        value={profile.weight}
+                        onChange={(e) =>
+                          handleProfileUpdate("weight", e.target.value)
+                        }
+                        placeholder="Enter your weight in kg"
+                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end space-x-2 pt-4">
+                    {savedProfile && (
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsEditing(false)}
+                      >
+                        Cancel
+                      </Button>
+                    )}
+                    <Button
+                      onClick={handleSaveProfile}
+                      className="bg-blue-400 hover:bg-blue-500 transition-all duration-300"
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      Save Profile
+                    </Button>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
 
