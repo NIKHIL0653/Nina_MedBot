@@ -303,6 +303,32 @@ export default function Chat() {
                     <p className="whitespace-pre-wrap leading-relaxed">
                       {message.content}
                     </p>
+
+                    {/* Options buttons for bot messages */}
+                    {message.type === "bot" &&
+                      message.options &&
+                      message.options.length > 0 && (
+                        <div className="mt-4 space-y-2">
+                          <p className="text-xs text-muted-foreground font-medium">
+                            Choose an option:
+                          </p>
+                          <div className="flex flex-col space-y-2">
+                            {message.options.map((option, index) => (
+                              <Button
+                                key={index}
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleOptionSelect(option)}
+                                className="text-left justify-start h-auto py-2 px-3 text-sm whitespace-normal"
+                                disabled={isTyping}
+                              >
+                                {option}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
                     <div className="flex items-center justify-between mt-3">
                       <p
                         className={cn(
