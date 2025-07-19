@@ -529,15 +529,26 @@ export default function Chat() {
 
         {/* Input */}
         <div className="border-t border-border bg-card p-6">
-          <div className="mb-3 flex items-center space-x-2">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowSymptomSelector(true)}
+                className="flex items-center space-x-2"
+              >
+                <Stethoscope className="w-4 h-4" />
+                <span>Quick Symptom Selector</span>
+              </Button>
+            </div>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setShowSymptomSelector(true)}
-              className="flex items-center space-x-2"
+              onClick={handleNewChat}
+              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground"
             >
-              <Stethoscope className="w-4 h-4" />
-              <span>Quick Symptom Selector</span>
+              <Plus className="w-4 h-4" />
+              <span>New Chat</span>
             </Button>
           </div>
           <div className="flex items-end space-x-3">
