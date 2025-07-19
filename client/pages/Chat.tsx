@@ -136,9 +136,10 @@ export default function Chat() {
           "whenToSeekHelp": "When to seek immediate medical attention"
         }
         
-        Include both over-the-counter and prescription medications where appropriate.
-        Always include safety warnings and when to seek professional help.
-        Focus on common, safe treatments first.
+                Be direct and specific. Provide definitive treatment recommendations.
+        Focus on the most common and likely diagnosis based on symptoms.
+        Include specific medications with exact dosages.
+        Keep all text concise and avoid lengthy disclaimers.
       `;
 
       const response = await generateMedicalResponse(prompt, []);
