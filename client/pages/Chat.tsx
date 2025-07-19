@@ -310,7 +310,7 @@ export default function Chat() {
                       message.options.length > 0 && (
                         <div className="mt-4 space-y-2">
                           <p className="text-xs text-muted-foreground font-medium">
-                            Choose an option:
+                            Please select the most appropriate option:
                           </p>
                           <div className="flex flex-col space-y-2">
                             {message.options.map((option, index) => (
