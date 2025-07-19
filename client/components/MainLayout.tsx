@@ -211,12 +211,72 @@ export default function MainLayout({ children }: MainLayoutProps) {
     </nav>
   );
 
+  // Settings-specific header (just logo and navigation)
+  const renderSettingsHeader = () => (
+    <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center space-x-3">
+            <div className="relative group">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <Stethoscope className="w-5 h-5 text-white" />
+              </div>
+              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-xl opacity-20 blur group-hover:opacity-40 transition-opacity duration-300"></div>
+            </div>
+            <div>
+              <h1 className="text-xl font-semibold text-foreground">Nina</h1>
+            </div>
+          </div>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center space-x-1 flex-1 justify-center">
+            <Link to="/chat">
+              <Button
+                variant={location.pathname === "/chat" ? "default" : "ghost"}
+                size="sm"
+                className="relative group transition-all duration-300"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Chat
+              </Button>
+            </Link>
+            <Link to="/records">
+              <Button
+                variant={location.pathname === "/records" ? "default" : "ghost"}
+                size="sm"
+                className="relative group transition-all duration-300"
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Records
+              </Button>
+            </Link>
+            <Link to="/settings">
+              <Button
+                variant={
+                  location.pathname === "/settings" ? "default" : "ghost"
+                }
+                size="sm"
+                className="relative group transition-all duration-300"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Settings
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+
   // Render appropriate header based on current route
   const renderHeader = () => {
     if (location.pathname === "/chat") {
       return renderChatHeader();
     } else if (location.pathname === "/records") {
       return renderRecordsHeader();
+    } else if (location.pathname === "/settings") {
+      return renderSettingsHeader();
     } else {
       return renderDefaultHeader();
     }
