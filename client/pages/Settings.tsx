@@ -233,7 +233,7 @@ export default function Settings() {
           {/* Signout Section */}
           <Card className="shadow-sm border-destructive/20">
             <CardHeader>
-              <CardTitle className="text-destructive">Danger Zone</CardTitle>
+              <CardTitle className="text-destructive">Sign Out</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
