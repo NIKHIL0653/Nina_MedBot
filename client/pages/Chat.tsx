@@ -148,31 +148,6 @@ export default function Chat() {
   return (
     <MainLayout>
       <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-16 md:pb-0">
-        {/* Chat Header */}
-        <div className="border-b border-border bg-card px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-400 rounded-full flex items-center justify-center shadow-lg">
-                  <Bot className="w-5 h-5 text-white" />
-                </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-background rounded-full"></div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground">Nina</h3>
-                <p className="text-sm text-muted-foreground flex items-center">
-                  <Sparkles className="w-3 h-3 mr-1" />
-                  AI Healthcare Assistant
-                </p>
-              </div>
-            </div>
-            <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-              Online
-            </Badge>
-          </div>
-        </div>
-
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6 bg-muted/20">
           {messages.map((message) => (
