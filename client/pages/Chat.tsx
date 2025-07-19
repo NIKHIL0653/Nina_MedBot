@@ -121,7 +121,7 @@ export default function Chat() {
         Provide a comprehensive medical analysis in the following JSON format:
         {
           "symptoms": ["symptom1", "symptom2"],
-          "diagnosis": "Most likely condition or diagnosis",
+                    "diagnosis": "Primary diagnosis or 2-3 most likely conditions (be specific and decisive)",
           "severity": "low|moderate|high",
           "recommendations": ["recommendation1", "recommendation2"],
           "medications": [
