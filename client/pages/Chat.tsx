@@ -164,8 +164,53 @@ export default function Chat() {
   };
 
   const handleSymptomSelect = (symptoms: string[]) => {
-    const symptomText = `I'm experiencing the following symptoms: ${symptoms.join(", ")}. Can you help me understand what this might indicate?`;
-    setInput(symptomText);
+    const symptomText = `I'm experiencing the following symptoms: ${symptoms.join(", ")}`;
+
+    // Create user message
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      type: "user",
+      content: symptomText,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setIsTyping(true);
+
+    // Add typing indicator
+    const typingMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      type: "bot",
+      content: "",
+      timestamp: new Date(),
+      isTyping: true,
+    };
+    setMessages((prev) => [...prev, typingMessage]);
+
+    // Generate response with common follow-up answer options
+    setTimeout(() => {
+      setMessages((prev) => {
+        const newMessages = prev.filter((msg) => !msg.isTyping);
+        return [
+          ...newMessages,
+          {
+            id: (Date.now() + 2).toString(),
+            type: "bot",
+            content: `I understand you're experiencing ${symptoms.join(", ").toLowerCase()}. To provide you with the most accurate analysis, I need a bit more information about your symptoms.`,
+            timestamp: new Date(),
+            options: [
+              "Recently started (today)",
+              "Past 1 day",
+              "2-3 days",
+              "More than 3 days",
+              "Over a week",
+              "Several weeks",
+            ],
+          },
+        ];
+      });
+      setIsTyping(false);
+    }, 1500);
   };
 
   const handleOptionSelect = (option: string) => {
