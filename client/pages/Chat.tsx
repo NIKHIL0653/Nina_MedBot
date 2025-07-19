@@ -143,6 +143,11 @@ export default function Chat() {
     navigator.clipboard.writeText(content);
   };
 
+  const handleSymptomSelect = (symptoms: string[]) => {
+    const symptomText = `I'm experiencing the following symptoms: ${symptoms.join(", ")}. Can you help me understand what this might indicate?`;
+    setInput(symptomText);
+  };
+
   return (
     <MainLayout>
       <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-16 md:pb-0">
