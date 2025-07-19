@@ -55,7 +55,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     variant="ghost"
                     className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
                   >
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
                       <User className="w-3 h-3 text-white" />
                     </div>
                     <span className="text-sm font-medium">
@@ -88,7 +88,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
             {/* Mobile account text */}
             <div className="md:hidden flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
                 <User className="w-3 h-3 text-white" />
               </div>
               <span className="text-sm font-medium text-muted-foreground">
@@ -109,10 +109,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="relative group">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <Stethoscope className="w-5 h-5 text-white" />
               </div>
-              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl opacity-20 blur group-hover:opacity-40 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-xl opacity-20 blur group-hover:opacity-40 transition-opacity duration-300"></div>
             </div>
             <div>
               <h1 className="text-xl font-semibold text-foreground">Nina</h1>
@@ -165,7 +165,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     variant="ghost"
                     className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
                   >
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
                       <User className="w-3 h-3 text-white" />
                     </div>
                     <span className="text-sm font-medium">
@@ -198,7 +198,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
             {/* Mobile account text */}
             <div className="md:hidden flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
                 <User className="w-3 h-3 text-white" />
               </div>
               <span className="text-sm font-medium text-muted-foreground">
