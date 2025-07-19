@@ -149,6 +149,87 @@ export default function Chat() {
     setInput(symptomText);
   };
 
+  const handleOptionSelect = (option: string) => {
+    // Send the selected option as a user message
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      type: "user",
+      content: option,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setIsTyping(true);
+
+    // Add typing indicator
+    const typingMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      type: "bot",
+      content: "",
+      timestamp: new Date(),
+      isTyping: true,
+    };
+    setMessages((prev) => [...prev, typingMessage]);
+
+    // Generate follow-up response based on selected option
+    handleFollowUpResponse(option);
+  };
+
+  const handleFollowUpResponse = async (selectedOption: string) => {
+    try {
+      const prompt = `User selected: "${selectedOption}". Provide a helpful follow-up response and if needed, ask a specific follow-up question with 2-3 multiple choice options. Format your response normally, but if you want to provide options, end your message with "OPTIONS:" followed by each option on a new line starting with "- ".`;
+
+      const response = await generateMedicalResponse(prompt, []);
+
+      setMessages((prev) => {
+        const newMessages = prev.filter((msg) => !msg.isTyping);
+
+        // Parse response for options
+        let content = response;
+        let options: string[] | undefined;
+
+        if (response.includes("OPTIONS:")) {
+          const parts = response.split("OPTIONS:");
+          content = parts[0].trim();
+          const optionText = parts[1];
+          options = optionText
+            .split("\n")
+            .map((line) => line.trim())
+            .filter((line) => line.startsWith("- "))
+            .map((line) => line.substring(2).trim())
+            .filter((line) => line.length > 0);
+        }
+
+        return [
+          ...newMessages,
+          {
+            id: (Date.now() + 2).toString(),
+            type: "bot",
+            content: content,
+            timestamp: new Date(),
+            options: options,
+          },
+        ];
+      });
+    } catch (error) {
+      setMessages((prev) => {
+        const newMessages = prev.filter((msg) => !msg.isTyping);
+        return [
+          ...newMessages,
+          {
+            id: (Date.now() + 3).toString(),
+            type: "bot",
+            content:
+              "I apologize, but I'm experiencing some technical difficulties. Please try again in a moment.",
+            timestamp: new Date(),
+          },
+        ];
+      });
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
   return (
     <MainLayout>
       <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-16 md:pb-0">
