@@ -29,7 +29,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   // Chat-specific header (blue bar with Nina centered)
   const renderChatHeader = () => (
-    <nav className="sticky top-0 z-50 bg-blue-500 shadow-sm">
+    <nav className="sticky top-0 z-50 bg-blue-400 shadow-sm">
       <div className="h-16 flex items-center justify-center">
         <h1 className="text-xl font-semibold text-white">Nina</h1>
       </div>
