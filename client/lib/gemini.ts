@@ -87,11 +87,13 @@ export async function generateMedicalResponse(
 export async function generateHealthInsight(
   symptoms: string[],
   duration: string,
+  retries: number = 2
 ) {
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = `${MEDICAL_PROMPT}
+      const prompt = `${MEDICAL_PROMPT}
 
 The user has reported the following symptoms: ${symptoms.join(", ")}
 Duration: ${duration}
@@ -105,13 +107,38 @@ Please provide a comprehensive but concise health insight including:
 
 Remember to be professional and emphasize that this is general information, not a diagnosis.`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
 
-    return text;
-  } catch (error) {
-    console.error("Error generating health insight:", error);
-    return "I'm unable to generate a health insight at this time. Please try again later.";
+      return text;
+    } catch (error: any) {
+      console.error(`Health insight attempt ${attempt + 1} failed:`, error);
+
+      if (error?.message?.includes('[503]') || error?.status === 503) {
+        if (attempt < retries) {
+          const waitTime = Math.pow(2, attempt) * 1000;
+          await delay(waitTime);
+          continue;
+        } else {
+          return "The health insight service is temporarily unavailable. Please try again in a few minutes.";
+        }
+      }
+
+      if (error?.message?.includes('[429]') || error?.status === 429) {
+        if (attempt < retries) {
+          await delay(2000);
+          continue;
+        } else {
+          return "Too many requests. Please wait a moment and try again.";
+        }
+      }
+
+      if (attempt === retries) {
+        return "I'm unable to generate a health insight at this time. Please try again later.";
+      }
+    }
   }
+
+  return "Unable to generate health insight after multiple attempts. Please try again later.";
 }
