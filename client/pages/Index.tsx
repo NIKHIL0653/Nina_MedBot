@@ -56,8 +56,8 @@ export default function Index() {
               <Stethoscope className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-foreground">Nina</h1>
-              <p className="text-xs text-muted-foreground">
+              <h1 className="text-xl font-semibold text-gray-900">Nina</h1>
+              <p className="text-xs text-gray-600">
                 AI Healthcare Assistant
               </p>
             </div>
@@ -67,7 +67,7 @@ export default function Index() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-muted-foreground"
+                className="text-gray-600"
               >
                 Sign In
               </Button>
@@ -91,10 +91,10 @@ export default function Index() {
             <Badge className="bg-sky-50 text-sky-700 border-sky-200">
               AI-Powered Healthcare Revolution
             </Badge>
-            <h1 className="text-6xl lg:text-7xl font-bold text-foreground leading-tight">
+            <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
               Your Personal Medical AI Companion
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
               Instant symptom analysis. Track records. Get personalized health
               insights powered by cutting-edge AI technology that understands
               your health journey.
@@ -122,10 +122,10 @@ export default function Index() {
                   className="bg-white border border-gray-200 rounded-xl p-4 text-center"
                 >
                   <Icon className="w-6 h-6 text-sky-500 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-foreground">
+                  <div className="text-2xl font-bold text-gray-900">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-gray-600">
                     {stat.label}
                   </div>
                 </div>
