@@ -23,13 +23,13 @@ When a user describes symptoms:
 Keep responses concise but thorough, and always maintain a caring, professional tone.`;
 
 async function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function generateMedicalResponse(
   userMessage: string,
   conversationHistory: string[] = [],
-  retries: number = 2
+  retries: number = 2,
 ) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
@@ -52,11 +52,13 @@ export async function generateMedicalResponse(
       console.error(`Attempt ${attempt + 1} failed:`, error);
 
       // Check if it's a 503 service unavailable error
-      if (error?.message?.includes('[503]') || error?.status === 503) {
+      if (error?.message?.includes("[503]") || error?.status === 503) {
         if (attempt < retries) {
           // Wait before retrying (exponential backoff)
           const waitTime = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s...
-          console.log(`Service temporarily unavailable. Retrying in ${waitTime}ms...`);
+          console.log(
+            `Service temporarily unavailable. Retrying in ${waitTime}ms...`,
+          );
           await delay(waitTime);
           continue;
         } else {
@@ -65,7 +67,7 @@ export async function generateMedicalResponse(
       }
 
       // Check for rate limiting
-      if (error?.message?.includes('[429]') || error?.status === 429) {
+      if (error?.message?.includes("[429]") || error?.status === 429) {
         if (attempt < retries) {
           await delay(2000); // Wait 2 seconds for rate limiting
           continue;
@@ -87,7 +89,7 @@ export async function generateMedicalResponse(
 export async function generateHealthInsight(
   symptoms: string[],
   duration: string,
-  retries: number = 2
+  retries: number = 2,
 ) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
@@ -115,7 +117,7 @@ Remember to be professional and emphasize that this is general information, not 
     } catch (error: any) {
       console.error(`Health insight attempt ${attempt + 1} failed:`, error);
 
-      if (error?.message?.includes('[503]') || error?.status === 503) {
+      if (error?.message?.includes("[503]") || error?.status === 503) {
         if (attempt < retries) {
           const waitTime = Math.pow(2, attempt) * 1000;
           await delay(waitTime);
@@ -125,7 +127,7 @@ Remember to be professional and emphasize that this is general information, not 
         }
       }
 
-      if (error?.message?.includes('[429]') || error?.status === 429) {
+      if (error?.message?.includes("[429]") || error?.status === 429) {
         if (attempt < retries) {
           await delay(2000);
           continue;

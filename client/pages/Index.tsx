@@ -57,18 +57,12 @@ export default function Index() {
             </div>
             <div>
               <h1 className="text-xl font-semibold text-gray-900">Nina</h1>
-              <p className="text-xs text-gray-600">
-                AI Healthcare Assistant
-              </p>
+              <p className="text-xs text-gray-600">AI Healthcare Assistant</p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
             <Link to="/login">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-600"
-              >
+              <Button variant="ghost" size="sm" className="text-gray-600">
                 Sign In
               </Button>
             </Link>
@@ -125,9 +119,7 @@ export default function Index() {
                   <div className="text-2xl font-bold text-gray-900">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-600">
-                    {stat.label}
-                  </div>
+                  <div className="text-sm text-gray-600">{stat.label}</div>
                 </div>
               );
             })}
