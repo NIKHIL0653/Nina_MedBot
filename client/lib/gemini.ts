@@ -22,30 +22,66 @@ When a user describes symptoms:
 
 Keep responses concise but thorough, and always maintain a caring, professional tone.`;
 
+async function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function generateMedicalResponse(
   userMessage: string,
   conversationHistory: string[] = [],
+  retries: number = 2
 ) {
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    // Build conversation context
-    const context =
-      conversationHistory.length > 0
-        ? `Previous conversation:\n${conversationHistory.join("\n")}\n\nCurrent message: ${userMessage}`
-        : userMessage;
+      // Build conversation context
+      const context =
+        conversationHistory.length > 0
+          ? `Previous conversation:\n${conversationHistory.join("\n")}\n\nCurrent message: ${userMessage}`
+          : userMessage;
 
-    const prompt = `${MEDICAL_PROMPT}\n\nUser: ${context}\n\nMother.ai:`;
+      const prompt = `${MEDICAL_PROMPT}\n\nUser: ${context}\n\nMother.ai:`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
 
-    return text;
-  } catch (error) {
-    console.error("Error generating response:", error);
-    return "I apologize, but I'm having trouble processing your request right now. Please try again in a moment, and if the issue persists, please contact support.";
+      return text;
+    } catch (error: any) {
+      console.error(`Attempt ${attempt + 1} failed:`, error);
+
+      // Check if it's a 503 service unavailable error
+      if (error?.message?.includes('[503]') || error?.status === 503) {
+        if (attempt < retries) {
+          // Wait before retrying (exponential backoff)
+          const waitTime = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s...
+          console.log(`Service temporarily unavailable. Retrying in ${waitTime}ms...`);
+          await delay(waitTime);
+          continue;
+        } else {
+          return "I'm currently experiencing high demand and can't process your request right now. Please try again in a few minutes. The service should be back to normal shortly.";
+        }
+      }
+
+      // Check for rate limiting
+      if (error?.message?.includes('[429]') || error?.status === 429) {
+        if (attempt < retries) {
+          await delay(2000); // Wait 2 seconds for rate limiting
+          continue;
+        } else {
+          return "I'm receiving too many requests right now. Please wait a moment and try again.";
+        }
+      }
+
+      // For other errors, don't retry
+      if (attempt === retries) {
+        return "I apologize, but I'm having trouble processing your request right now. Please try again in a moment, and if the issue persists, please contact support.";
+      }
+    }
   }
+
+  return "Unable to process your request after multiple attempts. Please try again later.";
 }
 
 export async function generateHealthInsight(
