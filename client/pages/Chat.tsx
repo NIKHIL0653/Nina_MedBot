@@ -207,7 +207,20 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
 
         return messages;
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Chat error:", error);
+
+      let errorMessage = "I apologize, but I'm having trouble analyzing your symptoms right now. Please try again or consult with a healthcare professional.";
+
+      // Provide more specific error messages
+      if (error?.message?.includes('[503]')) {
+        errorMessage = "I'm currently experiencing high demand and can't process your request right now. Please try again in a few minutes - the service should be back to normal shortly.";
+      } else if (error?.message?.includes('[429]')) {
+        errorMessage = "I'm receiving too many requests right now. Please wait a moment and try again.";
+      } else if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+        errorMessage = "There seems to be a connection issue. Please check your internet connection and try again.";
+      }
+
       setMessages((prev) => {
         const newMessages = prev.filter((msg) => !msg.isTyping);
         return [
@@ -215,8 +228,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
           {
             id: (Date.now() + 3).toString(),
             type: "bot",
-            content:
-              "I apologize, but I'm having trouble analyzing your symptoms right now. Please try again or consult with a healthcare professional.",
+            content: errorMessage,
             timestamp: new Date(),
           },
         ];
