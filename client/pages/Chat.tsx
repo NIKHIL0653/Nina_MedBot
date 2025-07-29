@@ -633,7 +633,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
             <Button
               onClick={handleSendMessage}
               disabled={!input.trim() || isTyping}
-              className="h-[44px] w-[44px] p-0 rounded-xl bg-gray-500 hover:bg-gray-600 shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="h-[48px] w-[48px] p-0 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group disabled:opacity-50"
             >
               {isTyping ? (
                 <Loader2 className="w-4 h-4 animate-spin text-white" />
