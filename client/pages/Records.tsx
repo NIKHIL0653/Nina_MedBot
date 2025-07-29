@@ -516,9 +516,66 @@ export default function Records() {
                                   <h4 className="font-medium text-sm">
                                     {record.testName}
                                   </h4>
-                                  <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                                    {record.date}
-                                  </span>
+                                  <div className="flex items-center space-x-2">
+                                    <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                                      {record.date}
+                                    </span>
+                                    <Dialog>
+                                      <DialogTrigger asChild>
+                                        <Button
+                                          variant="outline"
+                                          size="sm"
+                                          className="h-6 w-6 p-0"
+                                        >
+                                          <Eye className="h-3 w-3" />
+                                        </Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                                        <DialogHeader>
+                                          <DialogTitle>
+                                            {record.testName} - {record.date}
+                                          </DialogTitle>
+                                        </DialogHeader>
+                                        <div className="space-y-4">
+                                          <div className="grid md:grid-cols-2 gap-4">
+                                            {record.parameters.map((param: any, idx: number) => (
+                                              <div
+                                                key={idx}
+                                                className="bg-muted/50 p-4 rounded-lg"
+                                              >
+                                                <div className="flex justify-between items-start mb-2">
+                                                  <h5 className="font-medium text-sm">
+                                                    {param.name}
+                                                  </h5>
+                                                  {param.status && (
+                                                    <Badge
+                                                      className={cn(
+                                                        "text-xs px-2 py-1",
+                                                        getStatusColor(param.status),
+                                                      )}
+                                                    >
+                                                      {getStatusIcon(param.status)}
+                                                      <span className="ml-1 capitalize">
+                                                        {param.status}
+                                                      </span>
+                                                    </Badge>
+                                                  )}
+                                                </div>
+                                                <div className="space-y-1">
+                                                  <p className="text-lg font-semibold">
+                                                    {param.value} {param.unit}
+                                                  </p>
+                                                  <p className="text-xs text-muted-foreground">
+                                                    Normal Range: {param.normalRange}
+                                                  </p>
+                                                </div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      </DialogContent>
+                                    </Dialog>
+                                  </div>
                                 </div>
                                 <div className="space-y-2">
                                   {record.parameters
@@ -550,7 +607,7 @@ export default function Records() {
                                     ))}
                                   {record.parameters.length > 3 && (
                                     <p className="text-xs text-muted-foreground">
-                                      +{record.parameters.length - 3} more
+                                      +{record.parameters.length - 3} more parameters
                                     </p>
                                   )}
                                 </div>
