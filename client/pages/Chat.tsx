@@ -619,14 +619,14 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
               <span>New Chat</span>
             </Button>
           </div>
-          <div className="flex items-end space-x-3">
+          <div className="flex items-end space-x-4">
             <div className="flex-1 relative">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Describe your symptoms (e.g., headache, nausea, fever)..."
-                className="min-h-[44px] resize-none rounded-xl border-2 focus:border-primary transition-all duration-300"
+                className="min-h-[48px] resize-none rounded-xl border-2 focus:border-primary transition-all duration-300 bg-background/50 backdrop-blur-sm shadow-sm"
                 disabled={isTyping}
               />
             </div>
