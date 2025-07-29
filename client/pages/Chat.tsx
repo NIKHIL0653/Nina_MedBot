@@ -613,10 +613,10 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
               variant="outline"
               size="sm"
               onClick={handleNewChat}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors duration-200"
+              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors duration-200"
+              title="New Chat"
             >
               <Plus className="w-4 h-4" />
-              <span>New Chat</span>
             </Button>
           </div>
           <div className="flex items-end space-x-4">
