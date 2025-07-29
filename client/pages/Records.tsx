@@ -531,45 +531,56 @@ export default function Records() {
                                         </Button>
                                       </DialogTrigger>
                                       <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto mx-4 sm:mx-8 border-0 shadow-2xl bg-card/95 backdrop-blur-lg">
-                                        <DialogHeader>
-                                          <DialogTitle>
-                                            {record.testName} - {record.date}
+                                        <DialogHeader className="pb-6 border-b border-border/50">
+                                          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                            {record.testName}
                                           </DialogTitle>
+                                          <div className="flex items-center space-x-2 text-muted-foreground">
+                                            <Calendar className="w-4 h-4" />
+                                            <span className="text-sm">{record.date}</span>
+                                          </div>
                                         </DialogHeader>
-                                        <div className="space-y-4">
-                                          <div className="grid md:grid-cols-2 gap-4">
+                                        <div className="space-y-6 pt-6">
+                                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                                             {record.parameters.map((param: any, idx: number) => (
-                                              <div
+                                              <Card
                                                 key={idx}
-                                                className="bg-muted/50 p-4 rounded-lg"
+                                                className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-card to-card/80"
                                               >
-                                                <div className="flex justify-between items-start mb-2">
-                                                  <h5 className="font-medium text-sm">
-                                                    {param.name}
-                                                  </h5>
-                                                  {param.status && (
-                                                    <Badge
-                                                      className={cn(
-                                                        "text-xs px-2 py-1",
-                                                        getStatusColor(param.status),
-                                                      )}
-                                                    >
-                                                      {getStatusIcon(param.status)}
-                                                      <span className="ml-1 capitalize">
-                                                        {param.status}
+                                                <CardContent className="p-5">
+                                                  <div className="flex justify-between items-start mb-3">
+                                                    <h5 className="font-semibold text-sm text-foreground">
+                                                      {param.name}
+                                                    </h5>
+                                                    {param.status && (
+                                                      <Badge
+                                                        className={cn(
+                                                          "text-xs px-2 py-1 shadow-sm",
+                                                          getStatusColor(param.status),
+                                                        )}
+                                                      >
+                                                        {getStatusIcon(param.status)}
+                                                        <span className="ml-1 capitalize font-medium">
+                                                          {param.status}
+                                                        </span>
+                                                      </Badge>
+                                                    )}
+                                                  </div>
+                                                  <div className="space-y-2">
+                                                    <p className="text-2xl font-bold text-foreground">
+                                                      {param.value}
+                                                      <span className="text-sm font-normal text-muted-foreground ml-1">
+                                                        {param.unit}
                                                       </span>
-                                                    </Badge>
-                                                  )}
-                                                </div>
-                                                <div className="space-y-1">
-                                                  <p className="text-lg font-semibold">
-                                                    {param.value} {param.unit}
-                                                  </p>
-                                                  <p className="text-xs text-muted-foreground">
-                                                    Normal Range: {param.normalRange}
-                                                  </p>
-                                                </div>
-                                              </div>
+                                                    </p>
+                                                    <div className="bg-muted/30 rounded-md p-2">
+                                                      <p className="text-xs text-muted-foreground font-medium">
+                                                        Normal Range: {param.normalRange}
+                                                      </p>
+                                                    </div>
+                                                  </div>
+                                                </CardContent>
+                                              </Card>
                                             ))}
                                           </div>
                                         </div>
