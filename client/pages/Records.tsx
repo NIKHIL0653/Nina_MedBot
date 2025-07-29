@@ -344,7 +344,7 @@ export default function Records() {
         <div className="max-w-7xl mx-auto p-6">
           <div className="space-y-6">
             {/* Test Selection */}
-            <Card className="shadow-sm">
+            <Card className="shadow-md border-0 bg-card/95 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Activity className="w-5 h-5 text-primary" />
