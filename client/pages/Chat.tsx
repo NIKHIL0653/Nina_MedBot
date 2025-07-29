@@ -599,23 +599,21 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
 
         {/* Input */}
         <div className="border-t border-border bg-card p-6">
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowSymptomSelector(true)}
-                className="flex items-center space-x-2"
-              >
-                <Stethoscope className="w-4 h-4" />
-                <span>Quick Symptom Selector</span>
-              </Button>
-            </div>
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowSymptomSelector(true)}
+              className="flex items-center space-x-2 hover:bg-primary/10 transition-colors duration-200"
+            >
+              <Stethoscope className="w-4 h-4" />
+              <span>Quick Symptom Selector</span>
+            </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={handleNewChat}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground"
+              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors duration-200"
             >
               <Plus className="w-4 h-4" />
               <span>New Chat</span>
