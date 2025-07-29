@@ -530,7 +530,7 @@ export default function Records() {
                                           <Eye className="h-3 w-3" />
                                         </Button>
                                       </DialogTrigger>
-                                      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                                      <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto mx-4 sm:mx-8 border-0 shadow-2xl bg-card/95 backdrop-blur-lg">
                                         <DialogHeader>
                                           <DialogTitle>
                                             {record.testName} - {record.date}
