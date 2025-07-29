@@ -346,7 +346,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
         )}
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6 bg-muted/20">
+        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-8 bg-gradient-to-b from-background/50 to-muted/30">
           {messages.map((message) => (
             <div key={message.id}>
               {message.type === "analysis" ? (
