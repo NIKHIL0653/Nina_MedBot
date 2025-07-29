@@ -537,51 +537,60 @@ export default function Records() {
                                           </DialogTitle>
                                           <div className="flex items-center space-x-2 text-muted-foreground">
                                             <Calendar className="w-4 h-4" />
-                                            <span className="text-sm">{record.date}</span>
+                                            <span className="text-sm">
+                                              {record.date}
+                                            </span>
                                           </div>
                                         </DialogHeader>
                                         <div className="space-y-6 pt-6">
                                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                            {record.parameters.map((param: any, idx: number) => (
-                                              <Card
-                                                key={idx}
-                                                className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-card to-card/80"
-                                              >
-                                                <CardContent className="p-5">
-                                                  <div className="flex justify-between items-start mb-3">
-                                                    <h5 className="font-semibold text-sm text-foreground">
-                                                      {param.name}
-                                                    </h5>
-                                                    {param.status && (
-                                                      <Badge
-                                                        className={cn(
-                                                          "text-xs px-2 py-1 shadow-sm",
-                                                          getStatusColor(param.status),
-                                                        )}
-                                                      >
-                                                        {getStatusIcon(param.status)}
-                                                        <span className="ml-1 capitalize font-medium">
-                                                          {param.status}
-                                                        </span>
-                                                      </Badge>
-                                                    )}
-                                                  </div>
-                                                  <div className="space-y-2">
-                                                    <p className="text-2xl font-bold text-foreground">
-                                                      {param.value}
-                                                      <span className="text-sm font-normal text-muted-foreground ml-1">
-                                                        {param.unit}
-                                                      </span>
-                                                    </p>
-                                                    <div className="bg-muted/30 rounded-md p-2">
-                                                      <p className="text-xs text-muted-foreground font-medium">
-                                                        Normal Range: {param.normalRange}
-                                                      </p>
+                                            {record.parameters.map(
+                                              (param: any, idx: number) => (
+                                                <Card
+                                                  key={idx}
+                                                  className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-card to-card/80"
+                                                >
+                                                  <CardContent className="p-5">
+                                                    <div className="flex justify-between items-start mb-3">
+                                                      <h5 className="font-semibold text-sm text-foreground">
+                                                        {param.name}
+                                                      </h5>
+                                                      {param.status && (
+                                                        <Badge
+                                                          className={cn(
+                                                            "text-xs px-2 py-1 shadow-sm",
+                                                            getStatusColor(
+                                                              param.status,
+                                                            ),
+                                                          )}
+                                                        >
+                                                          {getStatusIcon(
+                                                            param.status,
+                                                          )}
+                                                          <span className="ml-1 capitalize font-medium">
+                                                            {param.status}
+                                                          </span>
+                                                        </Badge>
+                                                      )}
                                                     </div>
-                                                  </div>
-                                                </CardContent>
-                                              </Card>
-                                            ))}
+                                                    <div className="space-y-2">
+                                                      <p className="text-2xl font-bold text-foreground">
+                                                        {param.value}
+                                                        <span className="text-sm font-normal text-muted-foreground ml-1">
+                                                          {param.unit}
+                                                        </span>
+                                                      </p>
+                                                      <div className="bg-muted/30 rounded-md p-2">
+                                                        <p className="text-xs text-muted-foreground font-medium">
+                                                          Normal Range:{" "}
+                                                          {param.normalRange}
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </CardContent>
+                                                </Card>
+                                              ),
+                                            )}
                                           </div>
                                         </div>
                                       </DialogContent>
@@ -618,7 +627,8 @@ export default function Records() {
                                     ))}
                                   {record.parameters.length > 3 && (
                                     <p className="text-xs text-muted-foreground">
-                                      +{record.parameters.length - 3} more parameters
+                                      +{record.parameters.length - 3} more
+                                      parameters
                                     </p>
                                   )}
                                 </div>

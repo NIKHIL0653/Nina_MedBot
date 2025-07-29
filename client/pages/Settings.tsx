@@ -79,7 +79,7 @@ export default function Settings() {
     localStorage.setItem("userProfile", JSON.stringify(profile));
   };
 
-    const handleEditProfile = () => {
+  const handleEditProfile = () => {
     setIsEditing(true);
   };
 
