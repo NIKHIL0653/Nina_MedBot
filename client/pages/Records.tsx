@@ -29,6 +29,7 @@ import {
   CheckCircle,
   AlertTriangle,
   TrendingUp,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
