@@ -638,9 +638,9 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
               className="h-[44px] w-[44px] p-0 rounded-xl bg-gray-500 hover:bg-gray-600 shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               {isTyping ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
               ) : (
-                <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                <Send className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
               )}
             </Button>
           </div>
