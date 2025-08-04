@@ -16,6 +16,7 @@ import {
   ChevronDown,
   MessageCircle,
   FileText,
+  BarChart3,
 } from "lucide-react";
 import BottomNav from "./BottomNav";
 
@@ -146,16 +147,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 Records
               </Button>
             </Link>
-            <Link to="/settings">
+            <Link to="/dashboard">
               <Button
                 variant={
-                  location.pathname === "/settings" ? "default" : "ghost"
+                  location.pathname === "/dashboard" ? "default" : "ghost"
                 }
                 size="sm"
                 className="relative group transition-all duration-300"
               >
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Dashboard
               </Button>
             </Link>
           </div>
