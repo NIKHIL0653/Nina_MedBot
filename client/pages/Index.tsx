@@ -311,7 +311,7 @@ export default function Index() {
               Ready to Transform Your Healthcare?
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              Join thousands of users who trust Mother.ai for their health
+              Join thousands of users who trust NINA for their health
               insights
             </p>
             <Link to="/register">
