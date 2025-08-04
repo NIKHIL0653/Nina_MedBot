@@ -334,14 +334,14 @@ export default function Index() {
             <div className="w-8 h-8 bg-sky-500 rounded-xl flex items-center justify-center">
               <Stethoscope className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">Mother.ai</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">NINA</span>
           </div>
           <p className="text-gray-600 mb-8">
             Your trusted AI companion for better health management
           </p>
           <div className="border-t border-gray-200 pt-8">
             <p className="text-sm text-gray-500">
-              © 2024 Mother.ai. All rights reserved. This tool provides general
+              © 2024 NINA. All rights reserved. This tool provides general
               health information and should not replace professional medical
               advice.
             </p>
