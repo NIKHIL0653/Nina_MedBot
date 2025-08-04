@@ -297,7 +297,7 @@ export default function Records() {
       id: Date.now().toString(),
       testName: currentTest.name,
       testId: activeTest,
-      date: new Date().toISOString().split("T")[0],
+      date: testDate,
       parameters: currentTest.parameters.filter(
         (p) => p.value && p.value.trim() !== "",
       ),
