@@ -119,7 +119,7 @@ const medicalTests: MedicalTest[] = [
       { name: "BUN", unit: "mg/dL", normalRange: "6–24" },
       { name: "eGFR", unit: "mL/min/1.73 m²", normalRange: "> 90" },
       { name: "Sodium", unit: "mmol/L", normalRange: "135–145" },
-      { name: "Potassium", unit: "mmol/L", normalRange: "3.5��5.0" },
+      { name: "Potassium", unit: "mmol/L", normalRange: "3.5–5.0" },
     ],
   },
   {
@@ -165,6 +165,7 @@ export default function RecordsNew() {
   const [testDate, setTestDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     // Initialize test data with empty values
@@ -386,6 +387,19 @@ export default function RecordsNew() {
   const recordSections = groupRecordsByType();
   const totalRecords = savedRecords.length;
 
+  // Initialize open sections state
+  useEffect(() => {
+    const initialOpenState: Record<string, boolean> = {};
+    recordSections.forEach(section => {
+      if (!(section.id in openSections)) {
+        initialOpenState[section.id] = section.records.length > 0;
+      }
+    });
+    if (Object.keys(initialOpenState).length > 0) {
+      setOpenSections(prev => ({ ...prev, ...initialOpenState }));
+    }
+  }, [recordSections.length, savedRecords.length]);
+
   return (
     <MainLayout>
       <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-blue-50/30 to-white dark:from-gray-900 dark:to-gray-800 pb-20">
@@ -434,7 +448,10 @@ export default function RecordsNew() {
             <div className="space-y-4">
               {recordSections.map((section) => {
                 const Icon = section.icon;
-                const [isOpen, setIsOpen] = useState(section.records.length > 0);
+                const isOpen = openSections[section.id] ?? section.records.length > 0;
+                const setIsOpen = (open: boolean) => {
+                  setOpenSections(prev => ({ ...prev, [section.id]: open }));
+                };
                 
                 return (
                   <Card key={section.id} className="shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-200">
