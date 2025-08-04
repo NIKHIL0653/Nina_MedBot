@@ -292,30 +292,37 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="px-6 py-20 bg-white/50 dark:bg-gray-800/50">
+      {/* Featured Testimonial */}
+      <section className="px-6 py-24 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-16">
             Trusted by Healthcare Professionals
           </h2>
-          <div className="bg-white rounded-xl p-8 border border-gray-200">
-            <div className="flex justify-center mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-6 h-6 text-yellow-400 fill-current"
-                />
-              ))}
-            </div>
-            <blockquote className="text-xl text-gray-700 mb-6 leading-relaxed">
-              "Got accurate insights about my symptoms before my appointment.
-              Saved me time and anxiety."
-            </blockquote>
-            <div className="text-center">
-              <p className="font-semibold text-gray-900">Michael Rodriguez</p>
-              <p className="text-gray-600">Patient</p>
-            </div>
-          </div>
+          <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-2xl">
+            <CardContent className="p-12">
+              <div className="flex justify-center mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-8 h-8 text-yellow-400 fill-current"
+                  />
+                ))}
+              </div>
+              <blockquote className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed font-light italic">
+                "NINA provided accurate insights about my symptoms before my appointment.
+                It saved me time, reduced my anxiety, and helped me communicate better with my doctor."
+              </blockquote>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">MR</span>
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-xl text-gray-900 dark:text-white">Michael Rodriguez</p>
+                  <p className="text-gray-600 dark:text-gray-400">Healthcare Professional</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
