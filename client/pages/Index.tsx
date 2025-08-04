@@ -168,16 +168,16 @@ export default function Index() {
           {/* Chat Preview */}
           <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden backdrop-blur-sm">
             {/* Chat Header */}
-            <div className="bg-white border-b border-gray-100 px-6 py-4">
+            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-4">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center">
-                  <Brain className="w-5 h-5 text-white" />
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                  <Brain className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">
-                    Mother.ai Assistant
+                  <h3 className="font-semibold text-white text-lg">
+                    Nina AI Assistant
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-blue-100">
                     Powered by Gemini AI • Online
                   </p>
                 </div>
