@@ -17,8 +17,6 @@ import {
   Users,
   Brain,
   Zap,
-  Moon,
-  Sun,
   CheckCircle,
   Clock,
   UserCheck,
