@@ -184,12 +184,15 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto p-4 sm:p-6">
           <div className="space-y-6">
             {/* Header */}
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-4 py-8">
+              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center shadow-lg mb-4">
+                <BarChart3 className="w-8 h-8 text-white" />
+              </div>
               <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
                 Health Dashboard
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Stay informed with the latest healthcare insights, research, and expert guidance
+                Stay informed with the latest healthcare insights, research, and expert guidance from trusted medical professionals
               </p>
             </div>
 
