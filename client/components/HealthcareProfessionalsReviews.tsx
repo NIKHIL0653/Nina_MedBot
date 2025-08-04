@@ -112,21 +112,16 @@ const healthcareProfessionals: HealthcareProfessional[] = [
   }
 ];
 
-function HealthcareProfessionalCard({ 
-  professional, 
-  isCenter, 
-  className 
-}: { 
-  professional: HealthcareProfessional; 
-  isCenter: boolean;
+function HealthcareProfessionalCard({
+  professional,
+  className
+}: {
+  professional: HealthcareProfessional;
   className?: string;
 }) {
   return (
     <Card className={cn(
-      "transition-all duration-500 ease-out shadow-lg hover:shadow-2xl border-0 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/30",
-      isCenter 
-        ? "scale-110 shadow-2xl ring-2 ring-blue-500/50 bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/50 dark:to-gray-800" 
-        : "scale-95 opacity-75",
+      "transition-all duration-300 ease-out shadow-lg hover:shadow-xl border-0 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/30",
       className
     )}>
       <CardContent className="p-6 h-full flex flex-col">
@@ -176,24 +171,6 @@ function HealthcareProfessionalCard({
 
 export default function HealthcareProfessionalsReviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [centerIndex, setCenterIndex] = useState(0);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const containerWidth = container.offsetWidth;
-      const scrollLeft = container.scrollLeft;
-      const cardWidth = 320; // Approximate card width including margin
-      const centerPosition = scrollLeft + containerWidth / 2;
-      const newCenterIndex = Math.round(centerPosition / cardWidth);
-      setCenterIndex(Math.max(0, Math.min(newCenterIndex, healthcareProfessionals.length - 1)));
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="w-full">
@@ -209,30 +186,8 @@ export default function HealthcareProfessionalsReviews() {
           <div key={index} className="flex-shrink-0 w-80">
             <HealthcareProfessionalCard
               professional={professional}
-              isCenter={index === centerIndex}
             />
           </div>
-        ))}
-      </div>
-
-      {/* Scroll indicator dots */}
-      <div className="flex justify-center space-x-2 mt-6">
-        {healthcareProfessionals.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              const container = scrollRef.current;
-              if (container) {
-                container.scrollLeft = index * 320;
-              }
-            }}
-            className={cn(
-              "w-2 h-2 rounded-full transition-all duration-300",
-              index === centerIndex
-                ? "bg-blue-500 w-8"
-                : "bg-gray-300 hover:bg-gray-400"
-            )}
-          />
         ))}
       </div>
     </div>
