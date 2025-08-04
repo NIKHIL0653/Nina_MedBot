@@ -199,6 +199,70 @@ export default function RecordsNew() {
     }
   }, [savedRecords, user?.id]);
 
+  // Group records by type - moved here to ensure consistent hook order
+  const groupRecordsByType = (): RecordSection[] => {
+    const sections: RecordSection[] = [
+      {
+        id: "lab-results",
+        title: "Lab Results",
+        icon: FileText,
+        color: "text-blue-600",
+        description: "Blood tests, urine tests, and laboratory analyses",
+        records: savedRecords.filter(record =>
+          ["cbc", "lft", "kft", "lipid", "tft", "blood-sugar"].includes(record.testId)
+        ),
+      },
+      {
+        id: "vital-signs",
+        title: "Vital Signs",
+        icon: Activity,
+        color: "text-green-600",
+        description: "Blood pressure, heart rate, temperature measurements",
+        records: savedRecords.filter(record =>
+          ["vital-signs", "blood-pressure"].includes(record.testId)
+        ),
+      },
+      {
+        id: "medications",
+        title: "Medications",
+        icon: Pill,
+        color: "text-purple-600",
+        description: "Current medications and dosages",
+        records: savedRecords.filter(record =>
+          record.testId === "medications"
+        ),
+      },
+      {
+        id: "clinical-notes",
+        title: "Clinical Notes",
+        icon: Stethoscope,
+        color: "text-indigo-600",
+        description: "Doctor visits and consultation notes",
+        records: savedRecords.filter(record =>
+          record.testId === "clinical-notes"
+        ),
+      },
+    ];
+
+    return sections;
+  };
+
+  const recordSections = groupRecordsByType();
+  const totalRecords = savedRecords.length;
+
+  // Initialize open sections state
+  useEffect(() => {
+    const initialOpenState: Record<string, boolean> = {};
+    recordSections.forEach(section => {
+      if (!(section.id in openSections)) {
+        initialOpenState[section.id] = section.records.length > 0;
+      }
+    });
+    if (Object.keys(initialOpenState).length > 0) {
+      setOpenSections(prev => ({ ...prev, ...initialOpenState }));
+    }
+  }, [recordSections.length, savedRecords.length]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -336,69 +400,7 @@ export default function RecordsNew() {
     }
   };
 
-  // Group records by test type
-  const groupRecordsByType = (): RecordSection[] => {
-    const sections: RecordSection[] = [
-      {
-        id: "lab-results",
-        title: "Lab Results",
-        icon: FileText,
-        color: "text-blue-600",
-        description: "Blood tests, urine tests, and laboratory analyses",
-        records: savedRecords.filter(record => 
-          ["cbc", "lft", "kft", "lipid", "tft", "blood-sugar"].includes(record.testId)
-        ),
-      },
-      {
-        id: "vital-signs",
-        title: "Vital Signs",
-        icon: Activity,
-        color: "text-green-600",
-        description: "Blood pressure, heart rate, temperature measurements",
-        records: savedRecords.filter(record => 
-          ["vital-signs", "blood-pressure"].includes(record.testId)
-        ),
-      },
-      {
-        id: "medications",
-        title: "Medications",
-        icon: Pill,
-        color: "text-purple-600",
-        description: "Current medications and dosages",
-        records: savedRecords.filter(record => 
-          record.testId === "medications"
-        ),
-      },
-      {
-        id: "clinical-notes",
-        title: "Clinical Notes",
-        icon: Stethoscope,
-        color: "text-indigo-600",
-        description: "Doctor visits and consultation notes",
-        records: savedRecords.filter(record => 
-          record.testId === "clinical-notes"
-        ),
-      },
-    ];
 
-    return sections;
-  };
-
-  const recordSections = groupRecordsByType();
-  const totalRecords = savedRecords.length;
-
-  // Initialize open sections state
-  useEffect(() => {
-    const initialOpenState: Record<string, boolean> = {};
-    recordSections.forEach(section => {
-      if (!(section.id in openSections)) {
-        initialOpenState[section.id] = section.records.length > 0;
-      }
-    });
-    if (Object.keys(initialOpenState).length > 0) {
-      setOpenSections(prev => ({ ...prev, ...initialOpenState }));
-    }
-  }, [recordSections.length, savedRecords.length]);
 
   return (
     <MainLayout>
