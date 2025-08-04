@@ -42,7 +42,7 @@ const BottomNav = () => {
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
               )}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className="w-5 h-5 mb-1" />
               <span className="text-xs font-medium">{item.name}</span>
             </Link>
           );
