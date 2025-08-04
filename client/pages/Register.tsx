@@ -44,7 +44,7 @@ export default function Register() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-green-600" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Welcome to Mother.ai!</h2>
+              <h2 className="text-2xl font-bold mb-2">Welcome to NINA!</h2>
               <p className="text-gray-600 mb-4">
                 Your account has been created successfully. Please check your
                 email to verify your account.
@@ -72,7 +72,7 @@ export default function Register() {
               <Heart className="w-7 h-7 text-white" />
             </div>
             <span className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              Mother.ai
+              NINA
             </span>
           </div>
           <p className="text-gray-600">
