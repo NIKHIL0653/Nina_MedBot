@@ -329,8 +329,12 @@ export default function Index() {
       <footer className="border-t border-gray-200 px-6 py-12">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="w-8 h-8 bg-sky-500 rounded-xl flex items-center justify-center">
-              <Stethoscope className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 rounded-xl overflow-hidden">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                alt="Nina AI Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">NINA</span>
           </div>
