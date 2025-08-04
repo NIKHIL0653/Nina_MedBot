@@ -16,6 +16,7 @@ import {
   ChevronDown,
   MessageCircle,
   FileText,
+  Crown,
 } from "lucide-react";
 import BottomNav from "./BottomNav";
 
