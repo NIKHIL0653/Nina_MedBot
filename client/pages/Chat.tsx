@@ -599,7 +599,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
 
         {/* Input */}
         <div className="border-t border-border/50 bg-card/95 backdrop-blur-lg p-4 shadow-lg">
-          <div className="mb-4 flex items-center justify-between gap-4">
+          <div className="mb-3 flex items-center justify-between gap-3">
             <Button
               variant="outline"
               size="sm"
