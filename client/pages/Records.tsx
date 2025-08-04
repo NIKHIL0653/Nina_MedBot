@@ -319,6 +319,12 @@ export default function Records() {
     });
   };
 
+  const deleteRecord = (recordId: string) => {
+    if (confirm("Are you sure you want to delete this record?")) {
+      setSavedRecords((prev) => prev.filter((record) => record.id !== recordId));
+    }
+  };
+
   const getStatusColor = (status?: "normal" | "high" | "low") => {
     switch (status) {
       case "high":
