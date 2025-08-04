@@ -344,6 +344,9 @@ export default function Settings() {
             </CardContent>
           </Card>
 
+          {/* Support Section */}
+          <BuyMeCoffee />
+
           {/* Signout Section */}
           <Card className="shadow-sm border-destructive/20">
             <CardHeader>
