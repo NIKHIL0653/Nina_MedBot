@@ -225,14 +225,14 @@ export default function Index() {
             </div>
 
             {/* Chat Input */}
-            <div className="border-t border-gray-100 p-6">
-              <div className="flex items-center space-x-3">
-                <div className="flex-1 bg-gray-50 rounded-xl px-4 py-3">
-                  <span className="text-gray-500">
+            <div className="border-t border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900">
+              <div className="flex items-center space-x-4">
+                <div className="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3">
+                  <span className="text-gray-500 dark:text-gray-400">
                     Describe your symptoms or ask a health question...
                   </span>
                 </div>
-                <div className="w-12 h-12 bg-sky-500 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300">
                   <ChevronRight className="w-5 h-5 text-white" />
                 </div>
               </div>
