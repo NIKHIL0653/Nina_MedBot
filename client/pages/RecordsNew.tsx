@@ -395,16 +395,16 @@ export default function RecordsNew() {
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Clinical Records</h1>
                 <p className="text-muted-foreground mt-1">
-                  Manage your medical records and health data
+                  Manage your medical records and health data securely
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <Badge variant="outline" className="px-3 py-1">
-                  {totalRecords} records
+                <Badge variant="outline" className="px-3 py-1 bg-blue-50 text-blue-700 border-blue-200">
+                  {totalRecords} {totalRecords === 1 ? 'record' : 'records'}
                 </Badge>
-                <Button 
+                <Button
                   onClick={() => setShowAddForm(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Record
@@ -424,28 +424,35 @@ export default function RecordsNew() {
                 const [isOpen, setIsOpen] = useState(section.records.length > 0);
                 
                 return (
-                  <Card key={section.id} className="shadow-sm border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+                  <Card key={section.id} className="shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-200">
                     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
                       <CollapsibleTrigger asChild>
-                        <CardHeader className="cursor-pointer hover:bg-muted/50 transition-colors duration-200 rounded-t-lg">
+                        <CardHeader className="cursor-pointer hover:bg-muted/30 transition-colors duration-200 rounded-t-lg">
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <div className={cn("p-2 rounded-lg bg-muted/50", section.color)}>
-                                <Icon className="w-5 h-5" />
+                            <div className="flex items-center space-x-4">
+                              <div className={cn("p-3 rounded-xl bg-gradient-to-br",
+                                section.color === "text-blue-600" && "from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/20",
+                                section.color === "text-green-600" && "from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20",
+                                section.color === "text-purple-600" && "from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20",
+                                section.color === "text-indigo-600" && "from-indigo-100 to-indigo-50 dark:from-indigo-900/30 dark:to-indigo-800/20"
+                              )}>
+                                <Icon className={cn("w-5 h-5", section.color)} />
                               </div>
                               <div>
-                                <CardTitle className="text-lg">{section.title}</CardTitle>
+                                <CardTitle className="text-lg font-semibold">{section.title}</CardTitle>
                                 <p className="text-sm text-muted-foreground">{section.description}</p>
                               </div>
                             </div>
-                            <div className="flex items-center space-x-2">
-                              <Badge variant="secondary" className="px-2 py-1">
+                            <div className="flex items-center space-x-3">
+                              <Badge variant="secondary" className={cn("px-3 py-1 font-medium",
+                                section.records.length > 0 ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "bg-gray-100 text-gray-600"
+                              )}>
                                 {section.records.length}
                               </Badge>
                               {isOpen ? (
-                                <ChevronUp className="w-5 h-5 text-muted-foreground" />
+                                <ChevronUp className="w-5 h-5 text-muted-foreground transition-transform duration-200" />
                               ) : (
-                                <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                                <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform duration-200" />
                               )}
                             </div>
                           </div>
