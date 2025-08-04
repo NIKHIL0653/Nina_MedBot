@@ -531,7 +531,7 @@ export default function Records() {
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <div className="space-y-3 max-h-96 overflow-y-auto">
+                          <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
                             {savedRecords.map((record) => (
                               <div
                                 key={record.id}
