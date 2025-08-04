@@ -57,27 +57,30 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       {/* Navigation */}
-      <nav className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md px-6 py-4">
+      <nav className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md px-4 sm:px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center shadow-lg">
-              <Stethoscope className="w-6 h-6 text-white" />
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl overflow-hidden shadow-lg">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                alt="Nina AI Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Nina</h1>
-              <p className="text-xs text-gray-600 dark:text-gray-400">AI Healthcare Assistant</p>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Nina</h1>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <Link to="/login">
-              <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400">
+              <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 text-sm px-2 sm:px-3">
                 Sign In
               </Button>
             </Link>
             <Link to="/register">
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg"
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg text-sm px-3 sm:px-4"
               >
                 Get Started
               </Button>
@@ -87,34 +90,34 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="px-6 py-24">
+      <section className="px-4 sm:px-6 py-16 sm:py-24">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="space-y-10">
-            <Badge className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 px-4 py-2 text-sm font-medium">
+          <div className="space-y-8 sm:space-y-10">
+            <Badge className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium">
               ✨ AI-Powered Healthcare Revolution
             </Badge>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-600 dark:from-white dark:via-blue-200 dark:to-cyan-300 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-600 dark:from-white dark:via-blue-200 dark:to-cyan-300 bg-clip-text text-transparent leading-tight px-2">
               Your Personal Medical AI Companion
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto px-4">
               Get instant symptom analysis, track medical records, and receive personalized health
               insights powered by cutting-edge AI technology designed for your wellness journey.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Link to="/register">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-6 px-4">
+              <Link to="/register" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-10 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
                 >
                   Start Free Analysis
-                  <ChevronRight className="w-5 h-5 ml-2" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </Button>
               </Link>
-              <Link to="/login">
+              <Link to="/login" className="w-full sm:w-auto">
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-10 py-4 rounded-2xl text-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
+                  className="w-full sm:w-auto border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 sm:px-10 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
                 >
                   View Demo
                 </Button>
@@ -123,7 +126,7 @@ export default function Index() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mt-12 sm:mt-20 px-2">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -131,12 +134,12 @@ export default function Index() {
                   key={index}
                   className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <CardContent className="p-6 text-center">
-                    <Icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                  <CardContent className="p-3 sm:p-6 text-center">
+                    <Icon className={`w-6 h-6 sm:w-8 sm:h-8 ${stat.color} mx-auto mb-2 sm:mb-3`} />
+                    <div className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">{stat.label}</div>
+                    <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">{stat.label}</div>
                   </CardContent>
                 </Card>
               );
@@ -146,13 +149,13 @@ export default function Index() {
       </section>
 
       {/* Chat Interface Preview */}
-      <section className="px-6 py-24 bg-white/50 dark:bg-gray-800/50">
+      <section className="px-4 sm:px-6 py-16 sm:py-24 bg-white/50 dark:bg-gray-800/50">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 px-4">
               See Nina in Action
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
               Experience intelligent symptom analysis with our AI-powered medical assistant
             </p>
           </div>
@@ -234,30 +237,30 @@ export default function Index() {
       </section>
 
       {/* Features */}
-      <section className="px-6 py-20">
+      <section className="px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
               Advanced Healthcare Technology
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-gray-600 px-4">
               Everything you need for comprehensive health management
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 px-4">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <Card key={index} className="border border-gray-200 rounded-xl">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-sky-500 rounded-xl flex items-center justify-center mx-auto mb-6">
-                      <Icon className="w-8 h-8 text-white" />
+                  <CardContent className="p-6 sm:p-8 text-center">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-sky-500 rounded-xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                      <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>
@@ -269,13 +272,13 @@ export default function Index() {
       </section>
 
       {/* Reviews Marquee */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 px-4">
               Trusted by Thousands
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto px-4">
               See what our users are saying about NINA
             </p>
           </div>
@@ -284,13 +287,13 @@ export default function Index() {
       </section>
 
       {/* Healthcare Professionals Reviews */}
-      <section className="px-6 py-24 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
+      <section className="px-4 sm:px-6 py-16 sm:py-24 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 px-4">
               Trusted by Healthcare Professionals
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
               Leading medical professionals worldwide trust NINA for accurate symptom analysis and patient education
             </p>
           </div>
@@ -299,23 +302,23 @@ export default function Index() {
       </section>
 
       {/* CTA */}
-      <section className="px-6 py-20">
+      <section className="px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-sky-50 rounded-xl p-12 border border-sky-200">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <div className="bg-sky-50 rounded-xl p-6 sm:p-12 border border-sky-200 mx-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
               Ready to Transform Your Healthcare?
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8">
               Join thousands of users who trust NINA for their health
               insights
             </p>
             <Link to="/register">
               <Button
                 size="lg"
-                className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-4 rounded-xl"
+                className="bg-sky-500 hover:bg-sky-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg"
               >
                 Get Started Now
-                <ChevronRight className="w-5 h-5 ml-2" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
               </Button>
             </Link>
           </div>

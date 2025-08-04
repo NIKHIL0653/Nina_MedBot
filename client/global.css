@@ -189,11 +189,11 @@
   }
 
   .animate-marquee-up {
-    animation: marquee-up 25s linear infinite;
+    animation: marquee-up 40s linear infinite;
   }
 
   .animate-marquee-down {
-    animation: marquee-down 25s linear infinite;
+    animation: marquee-down 40s linear infinite;
   }
 
   /* Healthcare reviews scrollbar styles */

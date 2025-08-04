@@ -172,17 +172,17 @@ export default function MarqueeReviews() {
         <MarqueeColumn
           reviews={column1}
           direction="up"
-          className="w-1/3 h-full"
+          className="w-full md:w-1/3 h-full"
         />
         <MarqueeColumn
           reviews={column2}
           direction="down"
-          className="w-1/3 h-full"
+          className="hidden md:block w-1/3 h-full"
         />
         <MarqueeColumn
           reviews={column3}
           direction="up"
-          className="w-1/3 h-full"
+          className="hidden md:block w-1/3 h-full"
         />
       </div>
     </div>
