@@ -406,6 +406,18 @@ export default function Records() {
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
+                          <div className="mb-6">
+                            <Label htmlFor="test-date" className="text-sm font-medium">
+                              Test Date
+                            </Label>
+                            <Input
+                              id="test-date"
+                              type="date"
+                              value={testDate}
+                              onChange={(e) => setTestDate(e.target.value)}
+                              className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
+                            />
+                          </div>
                           <div className="grid md:grid-cols-2 gap-4">
                             {currentTest?.parameters.map((param, index) => (
                               <div key={index} className="space-y-3">
