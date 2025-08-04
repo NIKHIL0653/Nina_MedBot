@@ -3,6 +3,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useTheme } from "@/lib/theme-context";
 import { Navigate } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
+import BuyMeCoffee from "@/components/BuyMeCoffee";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
