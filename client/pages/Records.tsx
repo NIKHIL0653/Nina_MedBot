@@ -194,6 +194,7 @@ export default function Records() {
   const [testData, setTestData] = useState<Record<string, MedicalTest>>({});
   const [savedRecords, setSavedRecords] = useState<any[]>([]);
   const [recordLimit] = useState(5); // Free tier limit
+  const [testDate, setTestDate] = useState<string>(new Date().toISOString().split("T")[0]);
 
   useEffect(() => {
     // Initialize test data with empty values
