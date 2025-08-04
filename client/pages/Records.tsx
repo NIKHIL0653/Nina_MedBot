@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import MainLayout from "@/components/MainLayout";
+import RecordAnalytics from "@/components/RecordAnalytics";
 import {
   Save,
   Calendar,
