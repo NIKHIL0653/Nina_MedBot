@@ -185,39 +185,37 @@ export default function Index() {
             </div>
 
             {/* Chat Messages */}
-            <div className="p-6 space-y-6 min-h-[400px]">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <MessageCircle className="w-4 h-4 text-white" />
+            <div className="p-8 space-y-8 min-h-[450px] bg-gray-50/50 dark:bg-gray-800/50">
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <MessageCircle className="w-5 h-5 text-white" />
                 </div>
-                <div className="bg-sky-50 rounded-2xl p-4 max-w-sm">
-                  <p className="text-sm text-gray-700">
+                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-2xl rounded-tl-sm p-4 max-w-sm shadow-lg">
+                  <p className="text-sm">
                     I've been experiencing headaches and fatigue lately. The
                     headaches seem to get worse in the afternoon.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Stethoscope className="w-4 h-4 text-gray-600" />
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Stethoscope className="w-5 h-5 text-blue-500" />
                 </div>
-                <div className="bg-white border border-gray-200 rounded-2xl p-4 max-w-lg">
-                  <p className="text-sm text-gray-700 mb-3">
-                    I understand your concerns about headaches and fatigue. Let
-                    me ask some follow-up questions to better assess your
-                    symptoms:
+                <div className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-2xl rounded-tl-sm p-4 max-w-lg shadow-lg">
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                    I understand your concerns about headaches and fatigue. Based on your symptoms, this could indicate tension headaches or stress-related fatigue. Let me gather more details:
                   </p>
-                  <div className="space-y-2 text-sm text-gray-700">
-                    <p>• On a scale of 1-10, how would you rate the pain?</p>
-                    <p>• Where exactly do you feel the headache?</p>
-                    <p>• How has your sleep quality been lately?</p>
-                    <p>• Are you staying adequately hydrated?</p>
+                  <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300 bg-blue-50 dark:bg-gray-600 rounded-lg p-3">
+                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Rate your pain (1-10)?</p>
+                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Location of the headache?</p>
+                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Sleep quality recently?</p>
+                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Hydration levels?</p>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-gray-100">
+                  <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-600">
                     <div className="flex items-center space-x-2">
-                      <Heart className="w-3 h-3 text-sky-500" />
-                      <span className="text-xs text-gray-500">
+                      <Heart className="w-4 h-4 text-rose-500" />
+                      <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                         Powered by Gemini AI
                       </span>
                     </div>
