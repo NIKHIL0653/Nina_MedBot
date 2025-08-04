@@ -207,7 +207,25 @@ export default function Records() {
       };
     });
     setTestData(initialData);
+
+    // Load saved records from localStorage
+    const savedRecordsData = localStorage.getItem("medicalRecords");
+    if (savedRecordsData) {
+      try {
+        const parsedRecords = JSON.parse(savedRecordsData);
+        setSavedRecords(parsedRecords);
+      } catch (error) {
+        console.error("Error loading saved records:", error);
+      }
+    }
   }, []);
+
+  // Save records to localStorage whenever savedRecords changes
+  useEffect(() => {
+    if (savedRecords.length > 0) {
+      localStorage.setItem("medicalRecords", JSON.stringify(savedRecords));
+    }
+  }, [savedRecords]);
 
   if (loading) {
     return (
@@ -315,7 +333,16 @@ export default function Records() {
 
   const deleteRecord = (recordId: string) => {
     if (confirm("Are you sure you want to delete this record?")) {
-      setSavedRecords((prev) => prev.filter((record) => record.id !== recordId));
+      setSavedRecords((prev) => {
+        const updatedRecords = prev.filter((record) => record.id !== recordId);
+        // Update localStorage immediately
+        if (updatedRecords.length === 0) {
+          localStorage.removeItem("medicalRecords");
+        } else {
+          localStorage.setItem("medicalRecords", JSON.stringify(updatedRecords));
+        }
+        return updatedRecords;
+      });
     }
   };
 
