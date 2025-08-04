@@ -39,7 +39,6 @@ const App = () => (
               <Route path="/demo-records" element={<DemoRecords />} />
               <Route path="/records" element={<Records />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/subscription" element={<Subscription />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
