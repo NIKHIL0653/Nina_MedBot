@@ -24,11 +24,13 @@ import {
 } from "lucide-react";
 
 export default function Index() {
+  const { isDark, toggle } = useDarkMode();
+
   const stats = [
-    { value: "99.2%", label: "Accuracy Rate", icon: TrendingUp },
-    { value: "2.3M+", label: "Users Helped", icon: Users },
-    { value: "< 30s", label: "Response Time", icon: Zap },
-    { value: "24/7", label: "Available", icon: Heart },
+    { value: "99.2%", label: "Accuracy Rate", icon: TrendingUp, color: "text-emerald-500" },
+    { value: "2.3M+", label: "Users Helped", icon: Users, color: "text-blue-500" },
+    { value: "< 30s", label: "Response Time", icon: Zap, color: "text-amber-500" },
+    { value: "24/7", label: "Available", icon: Heart, color: "text-rose-500" },
   ];
 
   const features = [
