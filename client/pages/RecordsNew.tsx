@@ -466,31 +466,43 @@ export default function RecordsNew() {
                               {section.records.map((record) => (
                                 <div
                                   key={record.id}
-                                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/30 rounded-lg border"
+                                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-5 bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-750 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200"
                                 >
                                   <div className="flex-1">
-                                    <div className="flex items-center space-x-3 mb-2">
-                                      <h4 className="font-medium text-foreground">{record.testName}</h4>
-                                      <Badge variant="outline" className="text-xs">
-                                        {record.date}
-                                      </Badge>
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-3">
+                                      <h4 className="font-semibold text-foreground text-base">{record.testName}</h4>
+                                      <div className="flex items-center space-x-2 mt-1 sm:mt-0">
+                                        <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+                                          <Calendar className="w-3 h-3 mr-1" />
+                                          {new Date(record.date).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                          })}
+                                        </Badge>
+                                        <Badge variant="secondary" className="text-xs">
+                                          {record.parameters.length} parameters
+                                        </Badge>
+                                      </div>
                                     </div>
-                                    <div className="flex flex-wrap gap-2">
-                                      {record.parameters.slice(0, 3).map((param, idx) => (
-                                        <div key={idx} className="flex items-center space-x-1 text-xs">
-                                          <span className="text-muted-foreground">{param.name}:</span>
-                                          <span className="font-medium">{param.value} {param.unit}</span>
-                                          {param.status && (
-                                            <Badge className={cn("text-xs px-1 py-0", getStatusColor(param.status))}>
-                                              {param.status}
-                                            </Badge>
-                                          )}
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                                      {record.parameters.slice(0, 6).map((param, idx) => (
+                                        <div key={idx} className="flex items-center justify-between text-sm bg-white dark:bg-gray-700 rounded-lg p-2 border">
+                                          <span className="text-muted-foreground font-medium">{param.name}:</span>
+                                          <div className="flex items-center space-x-1">
+                                            <span className="font-semibold">{param.value} {param.unit}</span>
+                                            {param.status && (
+                                              <Badge className={cn("text-xs px-1.5 py-0.5", getStatusColor(param.status))}>
+                                                {param.status}
+                                              </Badge>
+                                            )}
+                                          </div>
                                         </div>
                                       ))}
-                                      {record.parameters.length > 3 && (
-                                        <span className="text-xs text-muted-foreground">
-                                          +{record.parameters.length - 3} more
-                                        </span>
+                                      {record.parameters.length > 6 && (
+                                        <div className="flex items-center justify-center text-xs text-muted-foreground bg-muted/50 rounded-lg p-2 border border-dashed">
+                                          +{record.parameters.length - 6} more parameters
+                                        </div>
                                       )}
                                     </div>
                                   </div>
