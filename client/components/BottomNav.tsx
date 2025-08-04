@@ -36,10 +36,10 @@ const BottomNav = () => {
               key={item.name}
               to={item.href}
               className={cn(
-                "flex flex-col items-center justify-center space-y-1 transition-colors duration-200",
+                "flex flex-col items-center justify-center space-y-1 transition-all duration-300 rounded-lg mx-1 my-1",
                 item.current
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground",
+                  ? "text-primary bg-primary/15 shadow-sm"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
               )}
             >
               <Icon className="w-5 h-5" />
