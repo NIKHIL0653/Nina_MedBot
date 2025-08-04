@@ -85,10 +85,10 @@ const reviews: Review[] = [
   }
 ];
 
-// Split reviews into 3 columns
-const column1 = reviews.slice(0, 4);
-const column2 = reviews.slice(4, 8);
-const column3 = reviews.slice(8, 12);
+// Split reviews into 3 columns with overlap to prevent gaps
+const column1 = reviews.slice(0, 6);
+const column2 = reviews.slice(4, 10);
+const column3 = reviews.slice(6, 12);
 
 function ReviewCard({ review, className }: { review: Review; className?: string }) {
   return (
