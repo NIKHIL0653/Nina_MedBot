@@ -388,9 +388,9 @@ export default function Records() {
                 );
                 if (!selectedTest) return null;
                 return (
-                  <div className="grid lg:grid-cols-3 gap-6">
+                  <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-8">
                     {/* Input Form */}
-                    <div className="lg:col-span-2">
+                    <div className="xl:col-span-2 lg:col-span-1">
                       <Card className="shadow-sm">
                         <CardHeader>
                           <CardTitle className="flex items-center space-x-2">
