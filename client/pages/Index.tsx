@@ -70,14 +70,6 @@ export default function Index() {
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggle}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-            >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
             <Link to="/login">
               <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400">
                 Sign In
