@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import {
   MessageCircle,
   Heart,
@@ -15,6 +16,11 @@ import {
   Users,
   Brain,
   Zap,
+  Moon,
+  Sun,
+  CheckCircle,
+  Clock,
+  UserCheck,
 } from "lucide-react";
 
 export default function Index() {
