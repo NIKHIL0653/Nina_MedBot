@@ -162,27 +162,27 @@ function MarqueeColumn({
 
 export default function MarqueeReviews() {
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden h-96">
       {/* Gradient overlays for blur effect */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 z-10" />
-      
+      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white via-white/90 to-transparent dark:from-gray-900 dark:via-gray-900/90 z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/90 to-transparent dark:from-gray-900 dark:via-gray-900/90 z-10" />
+
       {/* Review columns */}
-      <div className="flex space-x-6 py-8">
+      <div className="flex space-x-4 h-full">
         <MarqueeColumn
           reviews={column1}
           direction="up"
-          className="w-1/3"
+          className="w-1/3 h-full"
         />
         <MarqueeColumn
           reviews={column2}
           direction="down"
-          className="w-1/3"
+          className="w-1/3 h-full"
         />
         <MarqueeColumn
           reviews={column3}
           direction="up"
-          className="w-1/3"
+          className="w-1/3 h-full"
         />
       </div>
     </div>
