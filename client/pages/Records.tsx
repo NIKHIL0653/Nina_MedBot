@@ -381,8 +381,8 @@ export default function Records() {
   return (
     <MainLayout>
       <div className="min-h-[calc(100vh-4rem)] bg-muted/20 pb-20">
-        <div className="max-w-7xl mx-auto p-6">
-          <div className="space-y-8">
+        <div className="max-w-7xl mx-auto p-4 sm:p-6">
+          <div className="space-y-6 sm:space-y-8">
             {/* Analytics Section */}
             {savedRecords.length > 0 && (
               <RecordAnalytics savedRecords={savedRecords} />
@@ -391,10 +391,10 @@ export default function Records() {
             {/* Test Selection */}
             <Card className="shadow-md border-0 bg-card/95 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+                <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div className="flex items-center space-x-2">
                     <Activity className="w-5 h-5 text-primary" />
-                    <span>Select Medical Test</span>
+                    <span className="text-base sm:text-lg">Select Medical Test</span>
                   </div>
                   <div className="text-sm font-normal text-muted-foreground">
                     {savedRecords.length} records stored
