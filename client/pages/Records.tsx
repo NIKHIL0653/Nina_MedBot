@@ -533,10 +533,11 @@ export default function Records() {
                         <CardContent>
                           <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
                             {savedRecords.map((record) => (
-                              <div
+                              <Card
                                 key={record.id}
-                                className="border border-border rounded-lg p-4 transition-all duration-300 hover:shadow-md hover:border-primary/20"
+                                className="border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/80"
                               >
+                                <CardContent className="p-4">
                                 <div className="flex justify-between items-start mb-3">
                                   <h4 className="font-medium text-sm">
                                     {record.testName}
@@ -665,7 +666,8 @@ export default function Records() {
                                     </p>
                                   )}
                                 </div>
-                              </div>
+                                </CardContent>
+                              </Card>
                             ))}
                             {savedRecords.length === 0 && (
                               <p className="text-sm text-muted-foreground text-center py-8">
