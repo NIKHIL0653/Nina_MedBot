@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { MessageCircle, FileText, Settings } from "lucide-react";
+import { MessageCircle, FileText, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const BottomNav = () => {
@@ -19,10 +19,10 @@ const BottomNav = () => {
       current: location.pathname === "/records",
     },
     {
-      name: "Settings",
-      href: "/settings",
-      icon: Settings,
-      current: location.pathname === "/settings",
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: BarChart3,
+      current: location.pathname === "/dashboard",
     },
   ];
 
