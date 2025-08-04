@@ -353,9 +353,14 @@ export default function Records() {
             {/* Test Selection */}
             <Card className="shadow-md border-0 bg-card/95 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Activity className="w-5 h-5 text-primary" />
-                  <span>Select Medical Test</span>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Activity className="w-5 h-5 text-primary" />
+                    <span>Select Medical Test</span>
+                  </div>
+                  <div className="text-sm font-normal text-muted-foreground">
+                    {savedRecords.length}/{recordLimit} records used
+                  </div>
                 </CardTitle>
               </CardHeader>
               <CardContent>
