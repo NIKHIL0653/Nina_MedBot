@@ -516,7 +516,7 @@ export default function Records() {
                       {/* Current Test Summary */}
                       <Card className="shadow-sm">
                         <CardHeader>
-                          <CardTitle className="text-lg flex items-center space-x-2">
+                          <CardTitle className="text-base sm:text-lg flex items-center space-x-2">
                             <Activity className="w-5 h-5 text-green-500" />
                             <span>Test Summary</span>
                           </CardTitle>
@@ -528,7 +528,7 @@ export default function Records() {
                               .map((param, index) => (
                                 <div
                                   key={index}
-                                  className="flex justify-between items-center p-3 bg-muted/50 rounded-lg transition-all duration-300 hover:bg-muted"
+                                  className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 bg-muted/50 rounded-lg transition-all duration-300 hover:bg-muted gap-2"
                                 >
                                   <span className="text-sm font-medium">
                                     {param.name}
@@ -564,20 +564,20 @@ export default function Records() {
                       {/* Saved Records */}
                       <Card className="shadow-sm">
                         <CardHeader>
-                          <CardTitle className="text-lg flex items-center space-x-2">
+                          <CardTitle className="text-base sm:text-lg flex items-center space-x-2">
                             <Calendar className="w-5 h-5 text-purple-500" />
                             <span>Saved Records</span>
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                          <div className="space-y-4 max-h-[400px] sm:max-h-[500px] overflow-y-auto pr-2">
                             {savedRecords.map((record) => (
                               <Card
                                 key={record.id}
                                 className="border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/80"
                               >
-                                <CardContent className="p-4">
-                                <div className="flex justify-between items-start mb-3">
+                                <CardContent className="p-3 sm:p-4">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
                                   <h4 className="font-medium text-sm">
                                     {record.testName}
                                   </h4>
