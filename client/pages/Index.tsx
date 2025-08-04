@@ -57,27 +57,35 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       {/* Navigation */}
-      <nav className="border-b border-gray-100 px-6 py-4">
+      <nav className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center">
-              <Stethoscope className="w-5 h-5 text-white" />
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center shadow-lg">
+              <Stethoscope className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900">Nina</h1>
-              <p className="text-xs text-gray-600">AI Healthcare Assistant</p>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Nina</h1>
+              <p className="text-xs text-gray-600 dark:text-gray-400">AI Healthcare Assistant</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggle}
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </Button>
             <Link to="/login">
-              <Button variant="ghost" size="sm" className="text-gray-600">
+              <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400">
                 Sign In
               </Button>
             </Link>
             <Link to="/register">
               <Button
                 size="sm"
-                className="bg-sky-500 hover:bg-sky-600 text-white"
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg"
               >
                 Get Started
               </Button>
