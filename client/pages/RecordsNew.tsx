@@ -149,7 +149,7 @@ const medicalTests: MedicalTest[] = [
     id: "blood-sugar",
     name: "Blood Sugar Test",
     parameters: [
-      { name: "Fasting Blood Glucose", unit: "mg/dL", normalRange: "70–99" },
+      { name: "Fasting Blood Glucose", unit: "mg/dL", normalRange: "70���99" },
       { name: "Postprandial Glucose", unit: "mg/dL", normalRange: "< 140" },
       { name: "Random Blood Sugar", unit: "mg/dL", normalRange: "< 200" },
       { name: "Insulin (Fasting)", unit: "µIU/mL", normalRange: "2–25" },
@@ -584,17 +584,38 @@ export default function RecordsNew() {
 
             {/* Empty State */}
             {totalRecords === 0 && (
-              <Card className="text-center py-12">
+              <Card className="text-center py-16 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 dark:from-blue-900/10 dark:to-cyan-900/10 border-2 border-dashed border-blue-200 dark:border-blue-800">
                 <CardContent>
-                  <FileText className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">No medical records yet</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Start by adding your first medical record to track your health data.
+                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/20 rounded-full flex items-center justify-center">
+                    <FileText className="w-10 h-10 text-blue-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-foreground">Welcome to Your Health Records</h3>
+                  <p className="text-muted-foreground mb-8 max-w-md mx-auto leading-relaxed">
+                    Securely store and manage your medical test results, track health trends, and get insights into your wellness journey.
                   </p>
-                  <Button onClick={() => setShowAddForm(true)} className="bg-blue-600 hover:bg-blue-700">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Your First Record
-                  </Button>
+                  <div className="space-y-4">
+                    <Button
+                      onClick={() => setShowAddForm(true)}
+                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Your First Record
+                    </Button>
+                    <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground">
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        <span>Secure Storage</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <TrendingUp className="w-4 h-4 text-blue-500" />
+                        <span>Health Analytics</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Activity className="w-4 h-4 text-purple-500" />
+                        <span>Trend Tracking</span>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             )}
