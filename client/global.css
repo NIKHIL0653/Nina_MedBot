@@ -195,4 +195,22 @@
   .animate-marquee-down {
     animation: marquee-down 25s linear infinite;
   }
+
+  /* Healthcare reviews scrollbar styles */
+  .healthcare-reviews-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .healthcare-reviews-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .healthcare-reviews-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  .healthcare-reviews-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
 }
