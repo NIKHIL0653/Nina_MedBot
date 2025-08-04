@@ -154,19 +154,19 @@ export default function Index() {
       </section>
 
       {/* Chat Interface Preview */}
-      <section className="px-6 py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              See Mother.ai in Action
+      <section className="px-6 py-24 bg-white/50 dark:bg-gray-800/50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              See Nina in Action
             </h2>
-            <p className="text-lg text-gray-600">
-              Experience intelligent symptom analysis with our AI assistant
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Experience intelligent symptom analysis with our AI-powered medical assistant
             </p>
           </div>
 
           {/* Chat Preview */}
-          <div className="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden backdrop-blur-sm">
             {/* Chat Header */}
             <div className="bg-white border-b border-gray-100 px-6 py-4">
               <div className="flex items-center space-x-3">
