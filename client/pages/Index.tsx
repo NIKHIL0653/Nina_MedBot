@@ -95,28 +95,36 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="space-y-8">
-            <Badge className="bg-sky-50 text-sky-700 border-sky-200">
-              AI-Powered Healthcare Revolution
+      <section className="px-6 py-24">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="space-y-10">
+            <Badge className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 px-4 py-2 text-sm font-medium">
+              ✨ AI-Powered Healthcare Revolution
             </Badge>
-            <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-600 dark:from-white dark:via-blue-200 dark:to-cyan-300 bg-clip-text text-transparent leading-tight">
               Your Personal Medical AI Companion
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Instant symptom analysis. Track records. Get personalized health
-              insights powered by cutting-edge AI technology that understands
-              your health journey.
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto">
+              Get instant symptom analysis, track medical records, and receive personalized health
+              insights powered by cutting-edge AI technology designed for your wellness journey.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <Link to="/register">
                 <Button
                   size="lg"
-                  className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-4 rounded-xl"
+                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-10 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
                 >
                   Start Free Analysis
                   <ChevronRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-10 py-4 rounded-2xl text-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
+                >
+                  View Demo
                 </Button>
               </Link>
             </div>
