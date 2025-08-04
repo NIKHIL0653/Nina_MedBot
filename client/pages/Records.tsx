@@ -360,7 +360,7 @@ export default function Records() {
                     <span>Select Medical Test</span>
                   </div>
                   <div className="text-sm font-normal text-muted-foreground">
-                    {savedRecords.length}/{recordLimit} records used
+                    {savedRecords.length} records stored
                   </div>
                 </CardTitle>
               </CardHeader>
