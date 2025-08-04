@@ -128,28 +128,31 @@ function ReviewCard({ review, className }: { review: Review; className?: string 
   );
 }
 
-function MarqueeColumn({ 
-  reviews, 
-  direction = "up", 
-  className 
-}: { 
-  reviews: Review[]; 
+function MarqueeColumn({
+  reviews,
+  direction = "up",
+  className
+}: {
+  reviews: Review[];
   direction?: "up" | "down";
   className?: string;
 }) {
+  // Create seamless loop by tripling the reviews
+  const loopedReviews = [...reviews, ...reviews, ...reviews];
+
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div className={cn("flex flex-col overflow-hidden", className)}>
       <div
         className={cn(
-          "animate-marquee space-y-4",
+          "flex flex-col space-y-3",
           direction === "up" ? "animate-marquee-up" : "animate-marquee-down"
         )}
       >
-        {[...reviews, ...reviews].map((review, index) => (
-          <ReviewCard 
-            key={`${review.name}-${index}`} 
+        {loopedReviews.map((review, index) => (
+          <ReviewCard
+            key={`${review.name}-${index}`}
             review={review}
-            className="min-h-[200px]"
+            className="min-h-[180px] flex-shrink-0"
           />
         ))}
       </div>
