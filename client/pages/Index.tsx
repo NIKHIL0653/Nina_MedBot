@@ -131,20 +131,22 @@ export default function Index() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div
+                <Card
                   key={index}
-                  className="bg-white border border-gray-200 rounded-xl p-4 text-center"
+                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <Icon className="w-6 h-6 text-sky-500 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </div>
+                  <CardContent className="p-6 text-center">
+                    <Icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">{stat.label}</div>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>
