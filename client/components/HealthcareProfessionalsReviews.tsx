@@ -197,10 +197,10 @@ export default function HealthcareProfessionalsReviews() {
 
   return (
     <div className="w-full">
-      <div 
+      <div
         ref={scrollRef}
-        className="flex space-x-6 overflow-x-auto pb-6 px-8 scroll-smooth"
-        style={{ 
+        className="flex space-x-6 overflow-x-auto pb-6 px-8 scroll-smooth healthcare-reviews-scroll"
+        style={{
           scrollbarWidth: 'thin',
           scrollbarColor: '#cbd5e1 transparent'
         }}
@@ -214,7 +214,7 @@ export default function HealthcareProfessionalsReviews() {
           </div>
         ))}
       </div>
-      
+
       {/* Scroll indicator dots */}
       <div className="flex justify-center space-x-2 mt-6">
         {healthcareProfessionals.map((_, index) => (
@@ -228,29 +228,13 @@ export default function HealthcareProfessionalsReviews() {
             }}
             className={cn(
               "w-2 h-2 rounded-full transition-all duration-300",
-              index === centerIndex 
-                ? "bg-blue-500 w-8" 
+              index === centerIndex
+                ? "bg-blue-500 w-8"
                 : "bg-gray-300 hover:bg-gray-400"
             )}
           />
         ))}
       </div>
-      
-      <style jsx>{`
-        .flex::-webkit-scrollbar {
-          height: 6px;
-        }
-        .flex::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .flex::-webkit-scrollbar-thumb {
-          background: #cbd5e1;
-          border-radius: 3px;
-        }
-        .flex::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
-        }
-      `}</style>
     </div>
   );
 }
