@@ -119,7 +119,7 @@ const medicalTests: MedicalTest[] = [
       { name: "BUN", unit: "mg/dL", normalRange: "6–24" },
       { name: "eGFR", unit: "mL/min/1.73 m²", normalRange: "> 90" },
       { name: "Sodium", unit: "mmol/L", normalRange: "135–145" },
-      { name: "Potassium", unit: "mmol/L", normalRange: "3.5–5.0" },
+      { name: "Potassium", unit: "mmol/L", normalRange: "3.5��5.0" },
     ],
   },
   {
@@ -149,7 +149,7 @@ const medicalTests: MedicalTest[] = [
     id: "blood-sugar",
     name: "Blood Sugar Test",
     parameters: [
-      { name: "Fasting Blood Glucose", unit: "mg/dL", normalRange: "70���99" },
+      { name: "Fasting Blood Glucose", unit: "mg/dL", normalRange: "70–99" },
       { name: "Postprandial Glucose", unit: "mg/dL", normalRange: "< 140" },
       { name: "Random Blood Sugar", unit: "mg/dL", normalRange: "< 200" },
       { name: "Insulin (Fasting)", unit: "µIU/mL", normalRange: "2–25" },
@@ -164,6 +164,7 @@ export default function RecordsNew() {
   const [activeTest, setActiveTest] = useState<string>("");
   const [testDate, setTestDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     // Initialize test data with empty values
@@ -412,9 +413,21 @@ export default function RecordsNew() {
               </div>
             </div>
 
-            {/* Analytics Section */}
+            {/* Search and Analytics */}
             {savedRecords.length > 0 && (
-              <RecordAnalytics savedRecords={savedRecords} />
+              <>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Search records, test names, or parameters..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+                <RecordAnalytics savedRecords={savedRecords} />
+              </>
             )}
 
             {/* Records Sections */}
