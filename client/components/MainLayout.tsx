@@ -74,15 +74,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      to="/subscription"
-                      className="flex items-center space-x-2 cursor-pointer"
-                    >
-                      <Crown className="w-4 h-4" />
-                      <span>Subscription</span>
-                    </Link>
-                  </DropdownMenuItem>
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={signOut}
@@ -193,15 +185,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      to="/subscription"
-                      className="flex items-center space-x-2 cursor-pointer"
-                    >
-                      <Crown className="w-4 h-4" />
-                      <span>Subscription</span>
-                    </Link>
-                  </DropdownMenuItem>
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={signOut}
