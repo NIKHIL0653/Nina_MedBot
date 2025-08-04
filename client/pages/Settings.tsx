@@ -344,6 +344,21 @@ export default function Settings() {
             </CardContent>
           </Card>
 
+          {/* Pricing Section */}
+          <Card className="shadow-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-400 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">₹</span>
+                </div>
+                <span>Pricing Plans</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <PricingPlans />
+            </CardContent>
+          </Card>
+
           {/* Signout Section */}
           <Card className="shadow-sm border-destructive/20">
             <CardHeader>
