@@ -38,8 +38,12 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-medical-blue to-medical-blue-dark rounded-xl flex items-center justify-center">
-              <Heart className="w-7 h-7 text-white" />
+            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                alt="Nina AI Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               NINA
