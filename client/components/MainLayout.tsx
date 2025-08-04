@@ -211,11 +211,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
     </nav>
   );
 
-  // Settings-specific header (just logo and navigation)
+  // Settings-specific header (clean header without navigation)
   const renderSettingsHeader = () => (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="relative group">
@@ -227,42 +227,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <div>
               <h1 className="text-xl font-semibold text-foreground">Nina</h1>
             </div>
-          </div>
-
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center space-x-1 flex-1 justify-center">
-            <Link to="/chat">
-              <Button
-                variant={location.pathname === "/chat" ? "default" : "ghost"}
-                size="sm"
-                className="relative group transition-all duration-300"
-              >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Chat
-              </Button>
-            </Link>
-            <Link to="/records">
-              <Button
-                variant={location.pathname === "/records" ? "default" : "ghost"}
-                size="sm"
-                className="relative group transition-all duration-300"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                Records
-              </Button>
-            </Link>
-            <Link to="/settings">
-              <Button
-                variant={
-                  location.pathname === "/settings" ? "default" : "ghost"
-                }
-                size="sm"
-                className="relative group transition-all duration-300"
-              >
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
