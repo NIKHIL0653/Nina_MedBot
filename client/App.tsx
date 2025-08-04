@@ -17,7 +17,6 @@ import DemoChat from "./pages/DemoChat";
 import DemoRecords from "./pages/DemoRecords";
 import Records from "./pages/Records";
 import Settings from "./pages/Settings";
-import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
