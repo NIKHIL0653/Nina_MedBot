@@ -112,7 +112,7 @@ const medicalTests: MedicalTest[] = [
       },
       { name: "LDL", unit: "mg/dL", normalRange: "< 100" },
       { name: "Triglycerides", unit: "mg/dL", normalRange: "< 150" },
-      { name: "VLDL", unit: "mg/dL", normalRange: "5–40" },
+      { name: "VLDL", unit: "mg/dL", normalRange: "5��40" },
       { name: "Cholesterol/HDL Ratio", unit: "", normalRange: "< 5" },
     ],
   },
@@ -676,9 +676,9 @@ export default function Records() {
                                     .map((param: any, idx: number) => (
                                       <div
                                         key={idx}
-                                        className="flex justify-between text-xs"
+                                        className="flex flex-col sm:flex-row sm:justify-between text-xs gap-1"
                                       >
-                                        <span className="text-muted-foreground">
+                                        <span className="text-muted-foreground font-medium">
                                           {param.name}:
                                         </span>
                                         <div className="flex items-center space-x-1">
