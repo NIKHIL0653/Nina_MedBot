@@ -208,24 +208,26 @@ export default function Records() {
     });
     setTestData(initialData);
 
-    // Load saved records from localStorage
-    const savedRecordsData = localStorage.getItem("medicalRecords");
-    if (savedRecordsData) {
-      try {
-        const parsedRecords = JSON.parse(savedRecordsData);
-        setSavedRecords(parsedRecords);
-      } catch (error) {
-        console.error("Error loading saved records:", error);
+    // Load saved records from localStorage using user-specific key
+    if (user?.id) {
+      const savedRecordsData = localStorage.getItem(`medicalRecords_${user.id}`);
+      if (savedRecordsData) {
+        try {
+          const parsedRecords = JSON.parse(savedRecordsData);
+          setSavedRecords(parsedRecords);
+        } catch (error) {
+          console.error("Error loading saved records:", error);
+        }
       }
     }
-  }, []);
+  }, [user?.id]);
 
   // Save records to localStorage whenever savedRecords changes
   useEffect(() => {
-    if (savedRecords.length > 0) {
-      localStorage.setItem("medicalRecords", JSON.stringify(savedRecords));
+    if (user?.id && savedRecords.length > 0) {
+      localStorage.setItem(`medicalRecords_${user.id}`, JSON.stringify(savedRecords));
     }
-  }, [savedRecords]);
+  }, [savedRecords, user?.id]);
 
   if (loading) {
     return (
@@ -335,11 +337,13 @@ export default function Records() {
     if (confirm("Are you sure you want to delete this record?")) {
       setSavedRecords((prev) => {
         const updatedRecords = prev.filter((record) => record.id !== recordId);
-        // Update localStorage immediately
-        if (updatedRecords.length === 0) {
-          localStorage.removeItem("medicalRecords");
-        } else {
-          localStorage.setItem("medicalRecords", JSON.stringify(updatedRecords));
+        // Update localStorage immediately with user-specific key
+        if (user?.id) {
+          if (updatedRecords.length === 0) {
+            localStorage.removeItem(`medicalRecords_${user.id}`);
+          } else {
+            localStorage.setItem(`medicalRecords_${user.id}`, JSON.stringify(updatedRecords));
+          }
         }
         return updatedRecords;
       });
@@ -421,14 +425,16 @@ export default function Records() {
                 );
                 if (!selectedTest) return null;
                 return (
-                  <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-8">
+                  <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-4 md:gap-8">
                     {/* Input Form */}
                     <div className="xl:col-span-2 lg:col-span-1">
                       <Card className="shadow-sm">
                         <CardHeader>
-                          <CardTitle className="flex items-center space-x-2">
-                            <TrendingUp className="w-5 h-5 text-blue-500" />
-                            <span>{selectedTest.name}</span>
+                          <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-2">
+                            <div className="flex items-center space-x-2">
+                              <TrendingUp className="w-5 h-5 text-blue-500" />
+                              <span className="text-sm sm:text-base">{selectedTest.name}</span>
+                            </div>
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -444,7 +450,7 @@ export default function Records() {
                               className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                             />
                           </div>
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {currentTest?.parameters.map((param, index) => (
                               <div key={index} className="space-y-3">
                                 <Label
