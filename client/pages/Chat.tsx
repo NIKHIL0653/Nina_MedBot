@@ -334,7 +334,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
 
   return (
     <MainLayout>
-      <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-20">
+      <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-16">
         {/* Symptom Selector Overlay */}
         {showSymptomSelector && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
