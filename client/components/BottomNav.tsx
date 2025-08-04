@@ -27,7 +27,7 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-t border-border shadow-lg">
       <div className="grid grid-cols-3 h-16">
         {navigation.map((item) => {
           const Icon = item.icon;
