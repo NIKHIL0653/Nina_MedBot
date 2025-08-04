@@ -284,6 +284,12 @@ export default function Records() {
   const saveRecord = () => {
     if (!activeTest) return;
 
+    // Check record limit
+    if (savedRecords.length >= recordLimit) {
+      alert(`You've reached your limit of ${recordLimit} records. Upgrade to save more records.`);
+      return;
+    }
+
     const currentTest = testData[activeTest];
     const record = {
       id: Date.now().toString(),
