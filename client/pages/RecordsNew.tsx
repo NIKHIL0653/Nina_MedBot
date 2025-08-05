@@ -675,6 +675,14 @@ export default function RecordsNew() {
                         <span>Trend Tracking</span>
                       </div>
                     </div>
+
+                    {/* Note about local storage */}
+                    <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                      <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                        <strong>Note:</strong> Your records are currently saved locally in your browser.
+                        For persistent cloud storage across devices, the database needs to be set up.
+                      </p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
