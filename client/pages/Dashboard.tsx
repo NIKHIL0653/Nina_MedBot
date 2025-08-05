@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
@@ -18,121 +18,135 @@ import {
   BookOpen,
   Video,
   FileText,
+  RefreshCw,
+  BarChart3,
+  Newspaper,
+  Globe
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface HealthContent {
+interface NewsItem {
   id: string;
   title: string;
-  description: string;
-  type: "video" | "article" | "news";
-  category: string;
-  duration?: string;
-  readTime?: string;
-  publishedAt: string;
-  thumbnail?: string;
+  summary?: string;
+  content_text?: string;
+  content_html?: string;
   url: string;
-  featured?: boolean;
+  date_published: string;
+  author?: {
+    name: string;
+  };
+  tags?: string[];
+  image?: string;
 }
 
-const healthContent: HealthContent[] = [
-  {
-    id: "1",
-    title: "Understanding Blood Pressure: What Your Numbers Mean",
-    description: "Learn how to interpret your blood pressure readings and when to be concerned about hypertension. Dr. Sarah Chen explains the difference between systolic and diastolic pressure.",
-    type: "video",
-    category: "Cardiovascular Health",
-    duration: "8:45",
-    publishedAt: "2024-01-15",
-    url: "#",
-    featured: true,
-  },
-  {
-    id: "2",
-    title: "The Complete Guide to Cholesterol Management",
-    description: "Expert insights on managing cholesterol levels through diet, exercise, and medication when necessary. Includes meal planning tips and exercise routines.",
-    type: "article",
-    category: "Cardiovascular Health",
-    readTime: "5 min read",
-    publishedAt: "2024-01-14",
-    url: "#",
-  },
-  {
-    id: "3",
-    title: "Breaking: AI Detects Early Diabetes Risk 5 Years in Advance",
-    description: "Stanford researchers demonstrate how machine learning algorithms can identify diabetes risk 5 years before traditional methods using routine blood tests.",
-    type: "news",
-    category: "Medical Research",
-    readTime: "3 min read",
-    publishedAt: "2024-01-13",
-    url: "#",
-    featured: true,
-  },
-  {
-    id: "4",
-    title: "Mental Health and Physical Wellness: The Connection",
-    description: "Exploring the bidirectional relationship between mental health and physical health outcomes.",
-    type: "video",
-    category: "Mental Health",
-    duration: "12:30",
-    publishedAt: "2024-01-12",
-    url: "#",
-  },
-  {
-    id: "5",
-    title: "Preventive Care: Essential Health Screenings by Age",
-    description: "A comprehensive guide to recommended health screenings and when to schedule them for optimal prevention.",
-    type: "article",
-    category: "Preventive Medicine",
-    readTime: "7 min read",
-    publishedAt: "2024-01-11",
-    url: "#",
-  },
-  {
-    id: "6",
-    title: "Nutrition Myths Debunked: What Science Really Says",
-    description: "Evidence-based analysis of common nutrition claims and what current research actually supports.",
-    type: "video",
-    category: "Nutrition",
-    duration: "15:20",
-    publishedAt: "2024-01-10",
-    url: "#",
-  },
-  {
-    id: "7",
-    title: "Telemedicine Adoption Reaches Record High Post-Pandemic",
-    description: "Healthcare delivery continues to evolve with sustained high adoption rates of virtual care solutions.",
-    type: "news",
-    category: "Healthcare Technology",
-    readTime: "4 min read",
-    publishedAt: "2024-01-09",
-    url: "#",
-  },
-  {
-    id: "8",
-    title: "Sleep Hygiene: Building Better Rest Habits",
-    description: "Evidence-based strategies for improving sleep quality and duration for better overall health.",
-    type: "article",
-    category: "Sleep Medicine",
-    readTime: "6 min read",
-    publishedAt: "2024-01-08",
-    url: "#",
-  },
-];
+interface HealthFeed {
+  version: string;
+  title: string;
+  description?: string;
+  home_page_url?: string;
+  items: NewsItem[];
+}
 
 const categories = [
   { name: "All", icon: BookOpen, color: "bg-blue-500" },
-  { name: "Cardiovascular Health", icon: Heart, color: "bg-red-500" },
-  { name: "Mental Health", icon: Brain, color: "bg-purple-500" },
-  { name: "Nutrition", icon: Activity, color: "bg-green-500" },
-  { name: "Medical Research", icon: Stethoscope, color: "bg-indigo-500" },
-  { name: "Preventive Medicine", icon: TrendingUp, color: "bg-orange-500" },
+  { name: "Breaking News", icon: TrendingUp, color: "bg-red-500" },
+  { name: "Research", icon: Brain, color: "bg-purple-500" },
+  { name: "Technology", icon: Activity, color: "bg-green-500" },
+  { name: "Policy", icon: Stethoscope, color: "bg-indigo-500" },
 ];
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [isLoadingNews, setIsLoadingNews] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedType, setSelectedType] = useState<"all" | "video" | "article" | "news">("all");
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  const fetchHealthcareNews = async () => {
+    setIsLoadingNews(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('https://rss.app/feeds/v1.1/5rdWM6JSuqb3ZH4h.json');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch healthcare news');
+      }
+      
+      const data: HealthFeed = await response.json();
+      setNewsItems(data.items || []);
+      setLastUpdated(new Date());
+    } catch (err) {
+      console.error('Error fetching healthcare news:', err);
+      setError('Unable to load latest healthcare news. Please try again later.');
+      
+      // Fallback to sample news items
+      setNewsItems([
+        {
+          id: "1",
+          title: "AI-Powered Drug Discovery Accelerates Cancer Treatment Development",
+          summary: "New artificial intelligence algorithms are reducing drug discovery timelines from years to months, offering hope for faster cancer treatment options.",
+          url: "#",
+          date_published: new Date().toISOString(),
+          author: { name: "Healthcare Technology Review" },
+          tags: ["AI", "Cancer", "Drug Discovery"]
+        },
+        {
+          id: "2", 
+          title: "WHO Announces Global Health Initiative for Digital Healthcare Access",
+          summary: "The World Health Organization launches a comprehensive digital health program to improve healthcare accessibility in underserved regions worldwide.",
+          url: "#",
+          date_published: new Date(Date.now() - 3600000).toISOString(),
+          author: { name: "World Health Organization" },
+          tags: ["WHO", "Digital Health", "Global Health"]
+        },
+        {
+          id: "3",
+          title: "Breakthrough Gene Therapy Shows Promise for Rare Genetic Disorders",
+          summary: "Clinical trials reveal significant improvements in patients with rare genetic conditions using novel gene editing techniques.",
+          url: "#",
+          date_published: new Date(Date.now() - 7200000).toISOString(),
+          author: { name: "Medical Research Today" },
+          tags: ["Gene Therapy", "Research", "Rare Diseases"]
+        },
+        {
+          id: "4",
+          title: "Telemedicine Adoption Continues to Rise Post-Pandemic",
+          summary: "Healthcare providers report sustained growth in telehealth services, with patient satisfaction rates exceeding pre-pandemic levels.",
+          url: "#",
+          date_published: new Date(Date.now() - 10800000).toISOString(),
+          author: { name: "Healthcare Business Journal" },
+          tags: ["Telemedicine", "Healthcare Technology", "COVID-19"]
+        },
+        {
+          id: "5",
+          title: "Mental Health Apps Show Effectiveness in Clinical Studies",
+          summary: "Recent studies demonstrate that mobile mental health applications can significantly complement traditional therapy approaches.",
+          url: "#",
+          date_published: new Date(Date.now() - 14400000).toISOString(),
+          author: { name: "Journal of Digital Health" },
+          tags: ["Mental Health", "Mobile Apps", "Digital Therapeutics"]
+        },
+        {
+          id: "6",
+          title: "New Alzheimer's Drug Receives FDA Approval",
+          summary: "The FDA approves a promising new treatment for early-stage Alzheimer's disease, offering hope to millions of patients and families.",
+          url: "#",
+          date_published: new Date(Date.now() - 18000000).toISOString(),
+          author: { name: "FDA News Release" },
+          tags: ["Alzheimer's", "FDA", "Drug Approval", "Neurology"]
+        }
+      ]);
+    } finally {
+      setIsLoadingNews(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHealthcareNews();
+  }, []);
 
   if (loading) {
     return (
@@ -148,35 +162,36 @@ export default function Dashboard() {
     return <Navigate to="/login" replace />;
   }
 
-  const filteredContent = healthContent.filter(content => {
-    const categoryMatch = selectedCategory === "All" || content.category === selectedCategory;
-    const typeMatch = selectedType === "all" || content.type === selectedType;
-    return categoryMatch && typeMatch;
-  });
-
-  const featuredContent = healthContent.filter(content => content.featured);
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "video":
-        return <Video className="w-4 h-4" />;
-      case "article":
-        return <FileText className="w-4 h-4" />;
-      case "news":
-        return <TrendingUp className="w-4 h-4" />;
-      default:
-        return <BookOpen className="w-4 h-4" />;
+  const formatTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    
+    if (diffInHours < 1) {
+      return "Just now";
+    } else if (diffInHours < 24) {
+      return `${diffInHours}h ago`;
+    } else {
+      const diffInDays = Math.floor(diffInHours / 24);
+      return `${diffInDays}d ago`;
     }
   };
 
-  const getTypeBadge = (type: string) => {
-    const colors = {
-      video: "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400",
-      article: "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400",
-      news: "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400",
-    };
-    return colors[type as keyof typeof colors] || "bg-gray-100 text-gray-800";
+  const getCategoryFromTags = (tags?: string[]) => {
+    if (!tags || tags.length === 0) return "General";
+    
+    const tag = tags[0].toLowerCase();
+    if (tag.includes('research') || tag.includes('study') || tag.includes('clinical')) return "Research";
+    if (tag.includes('technology') || tag.includes('ai') || tag.includes('digital')) return "Technology";
+    if (tag.includes('policy') || tag.includes('regulation') || tag.includes('fda')) return "Policy";
+    if (tag.includes('breaking') || tag.includes('urgent') || tag.includes('alert')) return "Breaking News";
+    
+    return "General";
   };
+
+  const filteredNews = selectedCategory === "All" 
+    ? newsItems 
+    : newsItems.filter(item => getCategoryFromTags(item.tags) === selectedCategory);
 
   return (
     <MainLayout>
@@ -186,147 +201,164 @@ export default function Dashboard() {
             {/* Header */}
             <div className="text-center space-y-4 py-8">
               <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-                <BarChart3 className="w-8 h-8 text-white" />
+                <Newspaper className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
-                Health Dashboard
+                Healthcare News Dashboard
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Stay informed with the latest healthcare insights, research, and expert guidance from trusted medical professionals
+                Stay informed with the latest healthcare insights, research breakthroughs, and industry developments from trusted medical sources
               </p>
+              
+              {/* Refresh Button and Last Updated */}
+              <div className="flex items-center justify-center space-x-4 mt-6">
+                <Button
+                  onClick={fetchHealthcareNews}
+                  disabled={isLoadingNews}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center space-x-2"
+                >
+                  <RefreshCw className={cn("w-4 h-4", isLoadingNews && "animate-spin")} />
+                  <span>Refresh News</span>
+                </Button>
+                {lastUpdated && (
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <Clock className="w-4 h-4" />
+                    <span>Updated {formatTimeAgo(lastUpdated.toISOString())}</span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Featured Content */}
-            {featuredContent.length > 0 && (
+            {/* Error Message */}
+            {error && (
+              <Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-2 text-red-700 dark:text-red-400">
+                    <ExternalLink className="w-4 h-4" />
+                    <span>{error}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Loading State */}
+            {isLoadingNews && (
+              <div className="text-center py-12">
+                <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Loading latest healthcare news...</p>
+              </div>
+            )}
+
+            {/* Category Filters */}
+            {!isLoadingNews && (
               <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-foreground">Featured Content</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {featuredContent.map((content) => (
-                    <Card key={content.id} className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <Badge className={cn("flex items-center space-x-1", getTypeBadge(content.type))}>
-                            {getTypeIcon(content.type)}
-                            <span className="capitalize">{content.type}</span>
+                <h2 className="text-2xl font-semibold text-foreground">Browse by Category</h2>
+                
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => {
+                    const Icon = category.icon;
+                    const categoryCount = category.name === "All" 
+                      ? newsItems.length 
+                      : newsItems.filter(item => getCategoryFromTags(item.tags) === category.name).length;
+                    
+                    return (
+                      <Button
+                        key={category.name}
+                        variant={selectedCategory === category.name ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedCategory(category.name)}
+                        className="flex items-center space-x-2"
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span>{category.name}</span>
+                        {categoryCount > 0 && (
+                          <Badge variant="secondary" className="ml-1 text-xs">
+                            {categoryCount}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            {content.category}
-                          </Badge>
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors duration-200">
-                          {content.title}
-                        </h3>
-                        <p className="text-muted-foreground mb-4 line-clamp-3">
-                          {content.description}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                            <div className="flex items-center space-x-1">
-                              <Calendar className="w-4 h-4" />
-                              <span>{content.publishedAt}</span>
-                            </div>
-                            {content.duration && (
-                              <div className="flex items-center space-x-1">
-                                <Clock className="w-4 h-4" />
-                                <span>{content.duration}</span>
-                              </div>
-                            )}
-                            {content.readTime && (
-                              <div className="flex items-center space-x-1">
-                                <Clock className="w-4 h-4" />
-                                <span>{content.readTime}</span>
-                              </div>
-                            )}
-                          </div>
-                          <Button size="sm" className="group-hover:scale-105 transition-transform duration-200">
-                            {content.type === "video" ? <Play className="w-4 h-4 mr-2" /> : <ExternalLink className="w-4 h-4 mr-2" />}
-                            {content.type === "video" ? "Watch" : "Read"}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                        )}
+                      </Button>
+                    );
+                  })}
                 </div>
               </div>
             )}
 
-            {/* Filters */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-foreground">Browse by Category</h2>
-              
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => {
-                  const Icon = category.icon;
-                  return (
-                    <Button
-                      key={category.name}
-                      variant={selectedCategory === category.name ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedCategory(category.name)}
-                      className="flex items-center space-x-2"
-                    >
-                      <Icon className="w-4 h-4" />
-                      <span>{category.name}</span>
-                    </Button>
-                  );
-                })}
-              </div>
-
-              {/* Content Type Filter */}
-              <div className="flex flex-wrap gap-2">
-                {["all", "video", "article", "news"].map((type) => (
-                  <Button
-                    key={type}
-                    variant={selectedType === type ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedType(type as any)}
-                    className="flex items-center space-x-2"
+            {/* News Grid */}
+            {!isLoadingNews && filteredNews.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredNews.map((item, index) => (
+                  <Card 
+                    key={item.id} 
+                    className={cn(
+                      "group hover:shadow-lg transition-all duration-300 cursor-pointer",
+                      index === 0 && "md:col-span-2 lg:col-span-1" // Make first item larger on md screens
+                    )}
+                    onClick={() => window.open(item.url, '_blank')}
                   >
-                    {getTypeIcon(type)}
-                    <span className="capitalize">{type}</span>
-                  </Button>
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <Badge className="flex items-center space-x-1">
+                          <Globe className="w-3 h-3" />
+                          <span>{getCategoryFromTags(item.tags)}</span>
+                        </Badge>
+                        <div className="text-xs text-muted-foreground">
+                          {formatTimeAgo(item.date_published)}
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-lg font-semibold mb-3 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                        {item.title}
+                      </h3>
+                      
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                        {item.summary || item.content_text || "Read more to discover the latest healthcare insights..."}
+                      </p>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          {item.author && (
+                            <span className="font-medium">{item.author.name}</span>
+                          )}
+                        </div>
+                        <Button size="sm" variant="ghost" className="group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20">
+                          <ExternalLink className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      
+                      {item.tags && item.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-3">
+                          {item.tags.slice(0, 3).map((tag, tagIndex) => (
+                            <Badge key={tagIndex} variant="outline" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
-            </div>
+            )}
 
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredContent.map((content) => (
-                <Card key={content.id} className="group hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-5">
-                    <div className="flex items-start justify-between mb-3">
-                      <Badge className={cn("flex items-center space-x-1", getTypeBadge(content.type))}>
-                        {getTypeIcon(content.type)}
-                        <span className="capitalize">{content.type}</span>
-                      </Badge>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
-                      {content.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                      {content.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="text-xs text-muted-foreground">
-                        {content.duration || content.readTime}
-                      </div>
-                      <Button size="sm" variant="ghost" className="group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20">
-                        {content.type === "video" ? <Play className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {filteredContent.length === 0 && (
+            {/* No Content State */}
+            {!isLoadingNews && filteredNews.length === 0 && !error && (
               <div className="text-center py-12">
-                <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">No content found</h3>
+                <Newspaper className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">No news found</h3>
                 <p className="text-muted-foreground">
-                  Try adjusting your filters to see more health content.
+                  {selectedCategory === "All" 
+                    ? "No healthcare news available at the moment."
+                    : `No news found in the ${selectedCategory} category.`}
                 </p>
+                <Button 
+                  onClick={() => setSelectedCategory("All")}
+                  variant="outline"
+                  className="mt-4"
+                >
+                  View All News
+                </Button>
               </div>
             )}
           </div>
