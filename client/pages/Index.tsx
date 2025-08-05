@@ -167,13 +167,13 @@ export default function Index() {
           {/* iPhone Mockups Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center justify-items-center">
 
-            {/* Chat Feature iPhone */}
+            {/* Chat Feature Android */}
             <div className="w-full max-w-[280px] mx-auto">
               <div className="relative">
-                {/* iPhone Frame */}
-                <div className="bg-gray-900 rounded-[50px] p-2 shadow-2xl">
-                  <div className="bg-black rounded-[42px] p-1">
-                    <div className="bg-white dark:bg-gray-900 rounded-[36px] overflow-hidden h-[580px] relative">
+                {/* Android Frame */}
+                <div className="bg-gray-900 rounded-[24px] p-2 shadow-2xl">
+                  <div className="bg-black rounded-[20px] p-1">
+                    <div className="bg-white dark:bg-gray-900 rounded-[16px] overflow-hidden h-[580px] relative">
                       {/* Screen Content */}
                       <div className="h-full flex flex-col">
                         {/* Header */}
@@ -216,9 +216,6 @@ export default function Index() {
                           </div>
                         </div>
                       </div>
-
-                      {/* Dynamic Island */}
-                      <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-full"></div>
                     </div>
                   </div>
                 </div>
