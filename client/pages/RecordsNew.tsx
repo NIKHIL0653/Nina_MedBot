@@ -209,37 +209,7 @@ export default function RecordsNew() {
         color: "text-blue-600",
         description: "Blood tests, urine tests, and laboratory analyses",
         records: savedRecords.filter(record =>
-          ["cbc", "lft", "kft", "lipid", "tft", "blood-sugar"].includes(record.testId)
-        ),
-      },
-      {
-        id: "vital-signs",
-        title: "Vital Signs",
-        icon: Activity,
-        color: "text-green-600",
-        description: "Blood pressure, heart rate, temperature measurements",
-        records: savedRecords.filter(record =>
-          ["vital-signs", "blood-pressure"].includes(record.testId)
-        ),
-      },
-      {
-        id: "medications",
-        title: "Medications",
-        icon: Pill,
-        color: "text-purple-600",
-        description: "Current medications and dosages",
-        records: savedRecords.filter(record =>
-          record.testId === "medications"
-        ),
-      },
-      {
-        id: "clinical-notes",
-        title: "Clinical Notes",
-        icon: Stethoscope,
-        color: "text-indigo-600",
-        description: "Doctor visits and consultation notes",
-        records: savedRecords.filter(record =>
-          record.testId === "clinical-notes"
+          ["cbc", "lft", "kft", "lipid", "tft", "blood-sugar", "vitamin-d", "hba1c", "electrolytes", "urine"].includes(record.testId)
         ),
       },
     ];
