@@ -186,7 +186,7 @@ export const deleteMedicalRecord = async (userId: string, recordId: string) => {
 
     if (error) {
       // If table doesn't exist, handle deletion from localStorage
-      if (error.message.includes('relation "public.medical_records" does not exist')) {
+      if (error.message && error.message.includes('relation "public.medical_records" does not exist')) {
         console.log("Database table not available - deleting from local storage");
         const existingRecords = loadFromLocalStorage(userId);
         const updatedRecords = existingRecords.filter(record => record.id !== recordId);
@@ -194,7 +194,7 @@ export const deleteMedicalRecord = async (userId: string, recordId: string) => {
         return { success: true, fallback: true };
       }
 
-      console.warn("Database unavailable, deleting from local storage:", error.message);
+      console.warn("Database unavailable, deleting from local storage:", error.message || error);
       const existingRecords = loadFromLocalStorage(userId);
       const updatedRecords = existingRecords.filter(record => record.id !== recordId);
       saveToLocalStorage(userId, updatedRecords);
