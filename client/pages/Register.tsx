@@ -50,7 +50,7 @@ export default function Register() {
       return;
     }
 
-    const { error } = await signUp(email, password, fullName);
+    const { error } = await signUp(email, password, firstName, lastName);
 
     if (error) {
       setError(error.message);
