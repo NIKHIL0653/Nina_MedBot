@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "react-router-dom";
+import { saveMedicalRecord, loadMedicalRecords, deleteMedicalRecord, MedicalRecord } from "@/lib/medical-records";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -166,6 +167,7 @@ export default function RecordsNew() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // Initialize test data with empty values
@@ -178,26 +180,15 @@ export default function RecordsNew() {
     });
     setTestData(initialData);
 
-    // Load saved records from localStorage using user-specific key
+    // Load saved records from database
     if (user?.id) {
-      const savedRecordsData = localStorage.getItem(`medicalRecords_${user.id}`);
-      if (savedRecordsData) {
-        try {
-          const parsedRecords = JSON.parse(savedRecordsData);
-          setSavedRecords(parsedRecords);
-        } catch (error) {
-          console.error("Error loading saved records:", error);
-        }
-      }
+      loadMedicalRecords(user.id).then((records) => {
+        setSavedRecords(records);
+      });
     }
   }, [user?.id]);
 
-  // Save records to localStorage whenever savedRecords changes
-  useEffect(() => {
-    if (user?.id && savedRecords.length > 0) {
-      localStorage.setItem(`medicalRecords_${user.id}`, JSON.stringify(savedRecords));
-    }
-  }, [savedRecords, user?.id]);
+
 
   // Group records by type - moved here to ensure consistent hook order
   const groupRecordsByType = (): RecordSection[] => {
@@ -297,11 +288,11 @@ export default function RecordsNew() {
     });
   };
 
-  const saveRecord = () => {
-    if (!activeTest) return;
+  const saveRecord = async () => {
+    if (!activeTest || !user?.id) return;
 
     const currentTest = testData[activeTest];
-    const record: SavedRecord = {
+    const record: MedicalRecord = {
       id: Date.now().toString(),
       testName: currentTest.name,
       testId: activeTest,
@@ -309,38 +300,42 @@ export default function RecordsNew() {
       parameters: currentTest.parameters.filter((p) => p.value && p.value.trim() !== ""),
     };
 
-    setSavedRecords((prev) => [record, ...prev]);
+    // Save to database
+    const result = await saveMedicalRecord(user.id, record);
 
-    // Clear current test data
-    setTestData((prev) => {
-      const newData = { ...prev };
-      const test = { ...newData[activeTest] };
-      test.parameters = test.parameters.map((param) => ({
-        ...param,
-        value: "",
-        status: undefined,
-      }));
-      newData[activeTest] = test;
-      return newData;
-    });
+    if (result.success) {
+      // Update local state
+      setSavedRecords((prev) => [record, ...prev]);
 
-    setShowAddForm(false);
-    setActiveTest("");
+      // Clear current test data
+      setTestData((prev) => {
+        const newData = { ...prev };
+        const test = { ...newData[activeTest] };
+        test.parameters = test.parameters.map((param) => ({
+          ...param,
+          value: "",
+          status: undefined,
+        }));
+        newData[activeTest] = test;
+        return newData;
+      });
+
+      setShowAddForm(false);
+      setActiveTest("");
+    } else {
+      setError("Failed to save record. Please try again.");
+    }
   };
 
-  const deleteRecord = (recordId: string) => {
-    if (confirm("Are you sure you want to delete this record?")) {
-      setSavedRecords((prev) => {
-        const updatedRecords = prev.filter((record) => record.id !== recordId);
-        if (user?.id) {
-          if (updatedRecords.length === 0) {
-            localStorage.removeItem(`medicalRecords_${user.id}`);
-          } else {
-            localStorage.setItem(`medicalRecords_${user.id}`, JSON.stringify(updatedRecords));
-          }
-        }
-        return updatedRecords;
-      });
+  const deleteRecord = async (recordId: string) => {
+    if (confirm("Are you sure you want to delete this record?") && user?.id) {
+      const result = await deleteMedicalRecord(user.id, recordId);
+
+      if (result.success) {
+        setSavedRecords((prev) => prev.filter((record) => record.id !== recordId));
+      } else {
+        setError("Failed to delete record. Please try again.");
+      }
     }
   };
 
