@@ -148,8 +148,13 @@ export default function Settings() {
                 // Display saved profile as simple list
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Full Name</span>
-                    <span className="font-medium">{savedProfile.name || "Not provided"}</span>
+                    <span className="text-sm text-muted-foreground">First Name</span>
+                    <span className="font-medium">{savedProfile.firstName || "Not provided"}</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Last Name</span>
+                    <span className="font-medium">{savedProfile.lastName || "Not provided"}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between items-center">
