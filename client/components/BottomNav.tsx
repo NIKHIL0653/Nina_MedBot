@@ -27,26 +27,28 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border px-6 py-3">
-      <div className="flex items-center justify-around space-x-1">
-        {navigation.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "flex flex-col items-center space-y-1 p-2 h-auto transition-all duration-300",
-                item.current
-                  ? "text-blue-400 font-semibold"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              <Icon className="w-4 h-4" />
-              <span className="text-xs">{item.name}</span>
-            </Link>
-          );
-        })}
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border h-20">
+      <div className="flex items-center justify-center h-full">
+        <div className="flex items-center justify-around w-full max-w-md px-4">
+          {navigation.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "flex flex-col items-center justify-center space-y-1 p-2 min-w-[60px] transition-all duration-300",
+                  item.current
+                    ? "text-blue-400 font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Icon className="w-5 h-5" />
+                <span className="text-xs font-medium">{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
