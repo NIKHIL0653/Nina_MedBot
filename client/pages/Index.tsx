@@ -107,7 +107,7 @@ export default function Index() {
               <Link to="/register" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                  className="w-full sm:w-auto bg-blue-400 hover:bg-blue-500 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold shadow-lg transition-all duration-300"
                 >
                   Start Free Analysis
                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
