@@ -122,34 +122,7 @@ export default function RecordAnalytics({ savedRecords }: RecordAnalyticsProps) 
         </CardContent>
       </Card>
 
-      {/* Status Breakdown */}
-      {allParameters.length > 0 && (
-        <Card className="shadow-md border-0 bg-card/95 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Activity className="w-5 h-5 text-green-500" />
-              <span>Parameter Status Distribution</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-3">
-              {Object.entries(statusCounts).map(([status, count]) => (
-                <Badge
-                  key={status}
-                  className={cn(
-                    "px-3 py-2 text-sm font-medium",
-                    status === "normal" && "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-                    status === "high" && "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
-                    status === "low" && "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
-                  )}
-                >
-                  <span className="capitalize">{status}</span>: {count}
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+
 
       {/* Recent Activity */}
       <Card className="shadow-md border-0 bg-card/95 backdrop-blur-sm">
