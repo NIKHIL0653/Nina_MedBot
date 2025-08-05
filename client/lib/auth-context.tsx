@@ -2,6 +2,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@shared/supabase";
 
+interface UserProfile {
+  firstName?: string;
+  lastName?: string;
+  email: string;
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
