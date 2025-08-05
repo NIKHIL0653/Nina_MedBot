@@ -58,6 +58,8 @@ import {
   User,
   Settings,
   LogOut,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
