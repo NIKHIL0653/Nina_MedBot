@@ -24,12 +24,12 @@ import {
 } from "lucide-react";
 
 export default function Settings() {
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, signOut, getUserProfile } = useAuth();
   const { theme, setTheme } = useTheme();
 
   // User profile state
   const [profile, setProfile] = useState({
-    name: user?.email?.split("@")[0] || "",
+    name: "",
     age: "",
     height: "",
     weight: "",
@@ -40,13 +40,40 @@ export default function Settings() {
 
   // Load saved profile on component mount
   useEffect(() => {
-    const saved = localStorage.getItem("userProfile");
-    if (saved) {
-      const parsedProfile = JSON.parse(saved);
-      setSavedProfile(parsedProfile);
-      setProfile(parsedProfile);
-    }
-  }, []);
+    const loadUserData = async () => {
+      if (user) {
+        // Get user profile data for name
+        const userProfile = await getUserProfile();
+        const fullName = userProfile?.firstName && userProfile?.lastName
+          ? `${userProfile.firstName} ${userProfile.lastName}`
+          : "";
+
+        // Load saved settings profile
+        const saved = localStorage.getItem(`userProfile_${user.id}`);
+        if (saved) {
+          const parsedProfile = JSON.parse(saved);
+          // Merge with user name from signup
+          const updatedProfile = {
+            ...parsedProfile,
+            name: fullName || parsedProfile.name
+          };
+          setSavedProfile(updatedProfile);
+          setProfile(updatedProfile);
+        } else {
+          // Initialize with name from signup, other fields blank
+          const initialProfile = {
+            name: fullName,
+            age: "",
+            height: "",
+            weight: "",
+          };
+          setProfile(initialProfile);
+        }
+      }
+    };
+
+    loadUserData();
+  }, [user, getUserProfile]);
 
   if (loading) {
     return (
