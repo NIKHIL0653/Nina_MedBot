@@ -27,8 +27,8 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-t border-border shadow-lg">
-      <div className="grid grid-cols-3 h-16">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border px-6 py-3">
+      <div className="flex items-center justify-around space-x-1">
         {navigation.map((item) => {
           const Icon = item.icon;
           return (
@@ -36,14 +36,14 @@ const BottomNav = () => {
               key={item.name}
               to={item.href}
               className={cn(
-                "flex flex-col items-center justify-center space-y-1 transition-all duration-300 rounded-lg mx-1 my-1",
+                "flex flex-col items-center space-y-1 p-2 h-auto transition-all duration-300",
                 item.current
-                  ? "text-blue-400 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/30 shadow-sm font-semibold"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
+                  ? "text-blue-400 font-semibold"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
-              <Icon className="w-5 h-5 mb-1" />
-              <span className="text-xs font-medium">{item.name}</span>
+              <Icon className="w-4 h-4" />
+              <span className="text-xs">{item.name}</span>
             </Link>
           );
         })}
