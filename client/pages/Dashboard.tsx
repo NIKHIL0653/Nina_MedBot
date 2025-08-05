@@ -51,6 +51,7 @@ interface HealthFeed {
 
 export default function Dashboard() {
   const { user, loading, signOut } = useAuth();
+  const { isDark, toggle } = useDarkMode();
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [isLoadingNews, setIsLoadingNews] = useState(false);
   const [error, setError] = useState<string | null>(null);
