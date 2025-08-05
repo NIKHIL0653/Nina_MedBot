@@ -199,24 +199,64 @@ export default function Dashboard() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
         <div className="flex items-center justify-between h-16 px-6">
           <h1 className="text-xl font-semibold text-white">News</h1>
-          
-          {/* Refresh Button */}
+
+          {/* Right side buttons */}
           <div className="flex items-center space-x-3">
-            {lastUpdated && (
-              <div className="flex items-center space-x-2 text-sm text-white/80">
-                <Clock className="w-4 h-4" />
-                <span>Updated {formatTimeAgo(lastUpdated.toISOString())}</span>
-              </div>
-            )}
-            <Button
-              onClick={fetchHealthcareNews}
-              disabled={isLoadingNews}
-              variant="ghost"
-              size="sm"
-              className="text-white hover:bg-white/20 h-8 px-3"
-            >
-              <RefreshCw className={cn("w-4 h-4", isLoadingNews && "animate-spin")} />
-            </Button>
+            {/* Refresh Button */}
+            <div className="flex items-center space-x-2">
+              {lastUpdated && (
+                <div className="hidden sm:flex items-center space-x-1 text-xs text-white/80">
+                  <Clock className="w-3 h-3" />
+                  <span>{formatTimeAgo(lastUpdated.toISOString())}</span>
+                </div>
+              )}
+              <Button
+                onClick={fetchHealthcareNews}
+                disabled={isLoadingNews}
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20 h-8 w-8 p-0"
+              >
+                <RefreshCw className={cn("w-4 h-4", isLoadingNews && "animate-spin")} />
+              </Button>
+            </div>
+
+            {/* Profile Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex items-center space-x-2 px-3 py-1.5 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
+                >
+                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                    <User className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-sm font-medium hidden sm:block">
+                    {user?.email?.split("@")[0]}
+                  </span>
+                  <ChevronDown className="w-3 h-3 opacity-70" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <a
+                    href="/settings"
+                    className="flex items-center space-x-2 cursor-pointer"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Settings</span>
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={signOut}
+                  className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </nav>
