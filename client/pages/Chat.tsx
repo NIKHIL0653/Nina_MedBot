@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { generateMedicalResponse } from "@/lib/gemini";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
