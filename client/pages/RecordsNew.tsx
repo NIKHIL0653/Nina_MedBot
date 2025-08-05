@@ -430,49 +430,51 @@ export default function RecordsNew() {
           <h1 className="text-xl font-semibold text-white">Clinical Records</h1>
           
           {/* Profile Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center space-x-2 px-3 py-1.5 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
-              >
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-xs text-white font-semibold">{initials}</span>
+          <div className="flex-1 flex justify-end">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex items-center space-x-2 px-3 py-1.5 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
+                >
+                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-white font-semibold">{initials}</span>
+                  </div>
+                  <ChevronDown className="w-3 h-3 opacity-70" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <div className="px-3 py-2 border-b">
+                  <p className="text-sm font-medium">{displayName}</p>
+                  <p className="text-xs text-muted-foreground">{user?.email}</p>
                 </div>
-                <ChevronDown className="w-3 h-3 opacity-70" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <div className="px-3 py-2 border-b">
-                <p className="text-sm font-medium">{displayName}</p>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
-              </div>
-              <DropdownMenuItem asChild>
-                <a
-                  href="/settings"
+                <DropdownMenuItem asChild>
+                  <a
+                    href="/settings"
+                    className="flex items-center space-x-2 cursor-pointer"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Settings</span>
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={toggle}
                   className="flex items-center space-x-2 cursor-pointer"
                 >
-                  <Settings className="w-4 h-4" />
-                  <span>Settings</span>
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={toggle}
-                className="flex items-center space-x-2 cursor-pointer"
-              >
-                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={signOut}
-                className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Sign out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={signOut}
+                  className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </nav>
 
