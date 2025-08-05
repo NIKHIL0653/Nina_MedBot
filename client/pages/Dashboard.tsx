@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "react-router-dom";
-import MainLayout from "@/components/MainLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import BottomNav from "@/components/BottomNav";
 import {
   ExternalLink,
   Clock,
   RefreshCw,
   Newspaper,
-  Globe
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -184,134 +183,129 @@ export default function Dashboard() {
   };
 
   return (
-    <MainLayout>
-      <div className="min-h-[calc(100vh-4rem)] bg-background pb-20">
-        <div className="max-w-7xl mx-auto p-4 sm:p-6">
-          <div className="space-y-6">
-            {/* Header */}
-            <div className="text-center space-y-4 py-6">
-              <div className="w-16 h-16 mx-auto bg-blue-400 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-                <Newspaper className="w-8 h-8 text-white" />
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
-                Healthcare News
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Stay informed with the latest healthcare insights and medical breakthroughs
-              </p>
-              
-              {/* Refresh Button and Last Updated */}
-              <div className="flex items-center justify-center space-x-4 mt-6">
-                <Button
-                  onClick={fetchHealthcareNews}
-                  disabled={isLoadingNews}
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center space-x-2"
-                >
-                  <RefreshCw className={cn("w-4 h-4", isLoadingNews && "animate-spin")} />
-                  <span>Refresh</span>
-                </Button>
-                {lastUpdated && (
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                    <Clock className="w-4 h-4" />
-                    <span>Updated {formatTimeAgo(lastUpdated.toISOString())}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Error Message */}
-            {error && (
-              <Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20">
-                <CardContent className="p-4">
-                  <div className="flex items-center space-x-2 text-red-700 dark:text-red-400">
-                    <ExternalLink className="w-4 h-4" />
-                    <span>{error}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Loading State */}
-            {isLoadingNews && (
-              <div className="text-center py-12">
-                <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-muted-foreground">Loading latest healthcare news...</p>
+    <div className="min-h-screen bg-background">
+      {/* Fixed News Header */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
+        <div className="flex items-center justify-between h-16 px-6">
+          <h1 className="text-xl font-semibold text-white">News</h1>
+          
+          {/* Refresh Button */}
+          <div className="flex items-center space-x-3">
+            {lastUpdated && (
+              <div className="flex items-center space-x-2 text-sm text-white/80">
+                <Clock className="w-4 h-4" />
+                <span>Updated {formatTimeAgo(lastUpdated.toISOString())}</span>
               </div>
             )}
-
-            {/* 3-Column News Grid */}
-            {!isLoadingNews && newsItems.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[600px] overflow-y-auto pr-2">
-                {newsItems.map((item) => (
-                  <Card 
-                    key={item.id} 
-                    className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-200 dark:border-gray-700 h-fit"
-                    onClick={() => window.open(item.url, '_blank')}
-                  >
-                    {/* Image */}
-                    <div className="w-full h-48 bg-gray-100 dark:bg-gray-800">
-                      <img
-                        src={item.image || "https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    
-                    {/* Content */}
-                    <CardContent className="p-4">
-                      <div className="space-y-3">
-                        <h3 className="text-lg font-semibold text-foreground group-hover:text-blue-400 transition-colors duration-200 line-clamp-3 leading-tight">
-                          {item.title}
-                        </h3>
-                        
-                        <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed">
-                          {item.summary || item.content_text || "Read more to discover the latest healthcare insights..."}
-                        </p>
-                        
-                        <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
-                          <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                            <Clock className="w-3 h-3" />
-                            <span>{formatTimeAgo(item.date_published)}</span>
-                          </div>
-                          <Button size="sm" variant="ghost" className="group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 p-1 h-auto">
-                            <ExternalLink className="w-3 h-3" />
-                          </Button>
-                        </div>
-                        
-                        {item.author && (
-                          <div className="text-xs text-muted-foreground font-medium">
-                            {item.author.name}
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-
-            {/* No Content State */}
-            {!isLoadingNews && newsItems.length === 0 && !error && (
-              <div className="text-center py-12">
-                <Newspaper className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">No news available</h3>
-                <p className="text-muted-foreground">
-                  No healthcare news available at the moment.
-                </p>
-                <Button 
-                  onClick={fetchHealthcareNews}
-                  variant="outline"
-                  className="mt-4"
-                >
-                  Try Again
-                </Button>
-              </div>
-            )}
+            <Button
+              onClick={fetchHealthcareNews}
+              disabled={isLoadingNews}
+              variant="ghost"
+              size="sm"
+              className="text-white hover:bg-white/20 h-8 px-3"
+            >
+              <RefreshCw className={cn("w-4 h-4", isLoadingNews && "animate-spin")} />
+            </Button>
           </div>
         </div>
+      </nav>
+
+      {/* Main Content */}
+      <div className="pt-16 pb-20">
+        <div className="max-w-7xl mx-auto p-4 sm:p-6">
+          {/* Error Message */}
+          {error && (
+            <Card className="border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20 mb-6">
+              <CardContent className="p-4">
+                <div className="flex items-center space-x-2 text-red-700 dark:text-red-400">
+                  <ExternalLink className="w-4 h-4" />
+                  <span>{error}</span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Loading State */}
+          {isLoadingNews && (
+            <div className="text-center py-12">
+              <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-muted-foreground">Loading latest healthcare news...</p>
+            </div>
+          )}
+
+          {/* 3-Column News Grid */}
+          {!isLoadingNews && newsItems.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
+              {newsItems.map((item) => (
+                <Card 
+                  key={item.id} 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-200 dark:border-gray-700 h-fit"
+                  onClick={() => window.open(item.url, '_blank')}
+                >
+                  {/* Image */}
+                  <div className="w-full h-48 bg-gray-100 dark:bg-gray-800">
+                    <img
+                      src={item.image || "https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  {/* Content */}
+                  <CardContent className="p-4">
+                    <div className="space-y-3">
+                      <h3 className="text-lg font-semibold text-foreground group-hover:text-blue-400 transition-colors duration-200 line-clamp-3 leading-tight">
+                        {item.title}
+                      </h3>
+                      
+                      <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed">
+                        {item.summary || item.content_text || "Read more to discover the latest healthcare insights..."}
+                      </p>
+                      
+                      <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                        <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          <span>{formatTimeAgo(item.date_published)}</span>
+                        </div>
+                        <Button size="sm" variant="ghost" className="group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 p-1 h-auto">
+                          <ExternalLink className="w-3 h-3" />
+                        </Button>
+                      </div>
+                      
+                      {item.author && (
+                        <div className="text-xs text-muted-foreground font-medium">
+                          {item.author.name}
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {/* No Content State */}
+          {!isLoadingNews && newsItems.length === 0 && !error && (
+            <div className="text-center py-12">
+              <Newspaper className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">No news available</h3>
+              <p className="text-muted-foreground">
+                No healthcare news available at the moment.
+              </p>
+              <Button 
+                onClick={fetchHealthcareNews}
+                variant="outline"
+                className="mt-4"
+              >
+                Try Again
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </MainLayout>
+
+      {/* Bottom Navigation */}
+      <BottomNav />
+    </div>
   );
 }
