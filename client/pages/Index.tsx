@@ -254,15 +254,15 @@ export default function Index() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="border border-gray-200 rounded-xl">
+                <Card key={index} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl">
                   <CardContent className="p-6 sm:p-8 text-center">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-sky-500 rounded-xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-400 rounded-xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
                       <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                       {feature.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>
