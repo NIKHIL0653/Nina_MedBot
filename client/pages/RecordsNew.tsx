@@ -176,7 +176,7 @@ const medicalTests: MedicalTest[] = [
 export default function RecordsNew() {
   const { user, loading, signOut } = useAuth();
   const { isDark, toggle } = useDarkMode();
-  const { displayName } = useUserDisplayName();
+  const { displayName, initials } = useUserDisplayName();
   const [savedRecords, setSavedRecords] = useState<SavedRecord[]>([]);
   const [testData, setTestData] = useState<Record<string, MedicalTest>>({});
   const [activeTest, setActiveTest] = useState<string>("");
