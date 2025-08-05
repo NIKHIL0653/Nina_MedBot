@@ -181,8 +181,12 @@ export default function RecordsNew() {
     });
     setTestData(initialData);
 
+    console.log("User object:", user);
+    console.log("User ID:", user?.id);
+
     // Test database connection and load saved records
     if (user?.id) {
+      console.log("Starting database operations for user:", user.id);
       // First test the database connection
       testDatabaseConnection().then((testResult) => {
         console.log("Database test result:", testResult);
@@ -203,6 +207,8 @@ export default function RecordsNew() {
         console.error("Database test error:", testError);
         setError("Cannot connect to database. Please check your connection.");
       });
+    } else {
+      console.log("No user ID available");
     }
   }, [user?.id]);
 
