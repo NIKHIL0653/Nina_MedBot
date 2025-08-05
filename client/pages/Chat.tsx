@@ -610,7 +610,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
       </div>
 
       {/* Fixed Input Section */}
-      <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-border/50 bg-background backdrop-blur-lg p-4 shadow-lg">
+      <div className="fixed bottom-20 left-0 right-0 z-40 border-t border-border/50 bg-background backdrop-blur-lg p-4 shadow-lg">
         <div className="mb-3 flex items-center justify-between gap-3">
           <Button
             variant="outline"
