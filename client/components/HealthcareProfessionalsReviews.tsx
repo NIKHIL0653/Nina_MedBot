@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Quote } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 interface HealthcareProfessional {
   name: string;
@@ -121,7 +121,7 @@ function HealthcareProfessionalCard({
 }) {
   return (
     <Card className={cn(
-      "transition-all duration-300 ease-out shadow-lg hover:shadow-xl border-0 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/30",
+      "transition-all duration-300 ease-out shadow-lg hover:shadow-xl border-0 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/30 h-[300px] w-[380px] flex-shrink-0",
       className
     )}>
       <CardContent className="p-6 h-full flex flex-col">
@@ -139,7 +139,7 @@ function HealthcareProfessionalCard({
         
         <Quote className="w-8 h-8 text-blue-500/30 mb-3" />
         
-        <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-sm flex-grow">
+        <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-sm flex-grow line-clamp-4 overflow-hidden">
           "{professional.content}"
         </p>
         
@@ -172,24 +172,64 @@ function HealthcareProfessionalCard({
 export default function HealthcareProfessionalsReviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    const scroll = () => {
+      scrollContainer.scrollLeft += 0.3;
+      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+        scrollContainer.scrollLeft = 0;
+      }
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    animationId = requestAnimationFrame(scroll);
+
+    const handleMouseEnter = () => {
+      cancelAnimationFrame(animationId);
+    };
+
+    const handleMouseLeave = () => {
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+      scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  // Duplicate the professionals array for infinite scroll effect
+  const duplicatedProfessionals = [...healthcareProfessionals, ...healthcareProfessionals];
+
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <div
         ref={scrollRef}
-        className="flex space-x-6 overflow-x-auto pb-6 px-8 scroll-smooth healthcare-reviews-scroll"
+        className="flex space-x-6 overflow-x-hidden pb-6 px-8"
         style={{
-          scrollbarWidth: 'thin',
-          scrollbarColor: '#cbd5e1 transparent'
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
         }}
       >
-        {healthcareProfessionals.map((professional, index) => (
-          <div key={index} className="flex-shrink-0 w-80">
-            <HealthcareProfessionalCard
-              professional={professional}
-            />
-          </div>
+        {duplicatedProfessionals.map((professional, index) => (
+          <HealthcareProfessionalCard
+            key={`${professional.name}-${index}`}
+            professional={professional}
+          />
         ))}
       </div>
+      <style jsx>{`
+        div::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 }
