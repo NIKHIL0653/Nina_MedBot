@@ -97,7 +97,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <User className="w-3 h-3 text-white" />
               </div>
               <span className="text-sm font-medium text-muted-foreground">
-                Hi, {user?.email?.split("@")[0]}
+                Hi, {displayName}
               </span>
             </div>
           </div>
