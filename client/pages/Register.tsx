@@ -116,7 +116,7 @@ export default function Register() {
         {/* Register Form */}
         <Card className="shadow-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 overflow-hidden">
           <CardHeader className="bg-muted/30">
-            <CardTitle className="text-center text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">Create Your Account</CardTitle>
+            <CardTitle className="text-center text-2xl font-bold text-foreground">Create Your Account</CardTitle>
           </CardHeader>
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
