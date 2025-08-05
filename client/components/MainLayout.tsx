@@ -110,15 +110,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="relative group">
-              <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
-                  alt="Nina AI Logo"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-xl opacity-20 blur group-hover:opacity-40 transition-opacity duration-300"></div>
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                alt="Nina AI Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <h1 className="text-xl font-semibold text-foreground">Nina</h1>
@@ -225,15 +222,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <div className="flex items-center justify-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="relative group">
-              <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
-                  alt="Nina AI Logo"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-xl opacity-20 blur group-hover:opacity-40 transition-opacity duration-300"></div>
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                alt="Nina AI Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <h1 className="text-xl font-semibold text-foreground">Nina</h1>
