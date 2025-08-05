@@ -10,7 +10,17 @@ export const testDatabaseConnection = async () => {
       .limit(1);
 
     if (error) {
-      console.error("Database test failed:", error.message, error);
+      console.error("Database test failed:", error.message);
+
+      // Check if it's a "table doesn't exist" error
+      if (error.message.includes('relation "public.medical_records" does not exist')) {
+        return {
+          success: false,
+          error: "Database table not created yet",
+          needsSetup: true
+        };
+      }
+
       return { success: false, error: error.message };
     }
 
@@ -55,10 +65,15 @@ export const saveMedicalRecord = async (userId: string, record: MedicalRecord) =
       });
 
     if (error) {
-      console.error("Supabase error saving medical record:", error.message, error);
+      console.error("Supabase error saving medical record:", error.message);
 
       // Fallback to localStorage
-      console.log("Falling back to localStorage for saving");
+      if (error.message.includes('relation "public.medical_records" does not exist')) {
+        console.log("Medical records table doesn't exist, using localStorage only");
+      } else {
+        console.log("Database error, falling back to localStorage for saving");
+      }
+
       const existingRecords = loadFromLocalStorage(userId);
       const updatedRecords = [record, ...existingRecords];
       saveToLocalStorage(userId, updatedRecords);
@@ -95,9 +110,15 @@ export const loadMedicalRecords = async (userId: string): Promise<MedicalRecord[
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Supabase error loading medical records:", error.message, error);
-      // Fallback to localStorage
-      console.log("Falling back to localStorage");
+      console.error("Supabase error loading medical records:", error.message);
+
+      // Check if table doesn't exist
+      if (error.message.includes('relation "public.medical_records" does not exist')) {
+        console.log("Medical records table doesn't exist, using localStorage only");
+      } else {
+        console.log("Database error, falling back to localStorage");
+      }
+
       return loadFromLocalStorage(userId);
     }
 
@@ -168,14 +189,33 @@ export const deleteMedicalRecord = async (userId: string, recordId: string) => {
       .eq("test_data->>id", recordId);
 
     if (error) {
-      console.error("Supabase error deleting medical record:", error.message, error);
+      console.error("Supabase error deleting medical record:", error.message);
+
+      // If table doesn't exist, handle deletion from localStorage
+      if (error.message.includes('relation "public.medical_records" does not exist')) {
+        console.log("Medical records table doesn't exist, deleting from localStorage only");
+        const existingRecords = loadFromLocalStorage(userId);
+        const updatedRecords = existingRecords.filter(record => record.id !== recordId);
+        saveToLocalStorage(userId, updatedRecords);
+        return { success: true, fallback: true };
+      }
+
       return { success: false, error: error.message };
     }
 
-    console.log("Successfully deleted medical record");
+    console.log("Successfully deleted medical record from database");
     return { success: true };
   } catch (error) {
-    console.error("Unexpected error deleting medical record:", error instanceof Error ? error.message : String(error), error);
-    return { success: false, error: error instanceof Error ? error.message : String(error) };
+    console.error("Unexpected error deleting medical record:", error instanceof Error ? error.message : String(error));
+
+    // Fallback to localStorage delete
+    try {
+      const existingRecords = loadFromLocalStorage(userId);
+      const updatedRecords = existingRecords.filter(record => record.id !== recordId);
+      saveToLocalStorage(userId, updatedRecords);
+      return { success: true, fallback: true };
+    } catch (fallbackError) {
+      return { success: false, error: "Failed to delete from both database and localStorage" };
+    }
   }
 };
