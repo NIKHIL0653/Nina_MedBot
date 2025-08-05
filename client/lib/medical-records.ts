@@ -1,5 +1,27 @@
 import { supabase } from "@shared/supabase";
 
+// Test function to check if the table exists
+export const testDatabaseConnection = async () => {
+  try {
+    console.log("Testing database connection...");
+    const { data, error } = await supabase
+      .from("medical_records")
+      .select("id")
+      .limit(1);
+
+    if (error) {
+      console.error("Database test failed:", error.message, error);
+      return { success: false, error: error.message };
+    }
+
+    console.log("Database connection successful");
+    return { success: true };
+  } catch (error) {
+    console.error("Database connection test error:", error instanceof Error ? error.message : String(error));
+    return { success: false, error: error instanceof Error ? error.message : String(error) };
+  }
+};
+
 export interface MedicalRecord {
   id: string;
   testName: string;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "react-router-dom";
-import { saveMedicalRecord, loadMedicalRecords, deleteMedicalRecord, MedicalRecord } from "@/lib/medical-records";
+import { saveMedicalRecord, loadMedicalRecords, deleteMedicalRecord, testDatabaseConnection, MedicalRecord } from "@/lib/medical-records";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -181,10 +181,27 @@ export default function RecordsNew() {
     });
     setTestData(initialData);
 
-    // Load saved records from database
+    // Test database connection and load saved records
     if (user?.id) {
-      loadMedicalRecords(user.id).then((records) => {
-        setSavedRecords(records);
+      // First test the database connection
+      testDatabaseConnection().then((testResult) => {
+        console.log("Database test result:", testResult);
+
+        if (testResult.success) {
+          // If connection is good, load records
+          loadMedicalRecords(user.id).then((records) => {
+            console.log("Loaded records:", records);
+            setSavedRecords(records);
+          }).catch((loadError) => {
+            console.error("Error loading records:", loadError);
+            setError("Failed to load medical records. Please refresh the page.");
+          });
+        } else {
+          setError(`Database connection failed: ${testResult.error}`);
+        }
+      }).catch((testError) => {
+        console.error("Database test error:", testError);
+        setError("Cannot connect to database. Please check your connection.");
       });
     }
   }, [user?.id]);
