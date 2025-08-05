@@ -212,7 +212,7 @@ export default function HealthcareProfessionalsReviews() {
     <div className="w-full overflow-hidden">
       <div
         ref={scrollRef}
-        className="flex space-x-6 overflow-x-hidden pb-6 px-8"
+        className="flex space-x-6 overflow-x-hidden pb-6 px-8 [&::-webkit-scrollbar]:hidden"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
@@ -225,11 +225,6 @@ export default function HealthcareProfessionalsReviews() {
           />
         ))}
       </div>
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </div>
   );
 }
