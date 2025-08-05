@@ -11,7 +11,7 @@ export const testDatabaseConnection = async () => {
 
     if (error) {
       // Check if it's a "table doesn't exist" error
-      if (error.message.includes('relation "public.medical_records" does not exist')) {
+      if (error.message && error.message.includes('relation "public.medical_records" does not exist')) {
         console.log("Medical records table not found - using localStorage for data storage");
         return {
           success: false,
@@ -20,8 +20,8 @@ export const testDatabaseConnection = async () => {
         };
       }
 
-      console.warn("Database test failed:", error.message);
-      return { success: false, error: error.message };
+      console.warn("Database test failed:", error.message || error);
+      return { success: false, error: error.message || String(error) };
     }
 
     console.log("Database connection successful");
