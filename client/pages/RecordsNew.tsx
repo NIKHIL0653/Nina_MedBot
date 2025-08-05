@@ -196,12 +196,24 @@ export default function RecordsNew() {
           loadMedicalRecords(user.id).then((records) => {
             console.log("Loaded records:", records);
             setSavedRecords(records);
+            setError(""); // Clear any previous errors
           }).catch((loadError) => {
             console.error("Error loading records:", loadError);
-            setError("Failed to load medical records. Please refresh the page.");
+            setError("Failed to load medical records from database. Using local storage as fallback.");
           });
         } else {
-          setError(`Database connection failed: ${testResult.error}`);
+          console.log("Database test failed, attempting to load from localStorage");
+          // If database fails, try localStorage as fallback
+          loadMedicalRecords(user.id).then((records) => {
+            console.log("Loaded records from fallback:", records);
+            setSavedRecords(records);
+            if (records.length > 0) {
+              setError("Database unavailable. Showing records from local storage.");
+            }
+          }).catch((fallbackError) => {
+            console.error("Fallback also failed:", fallbackError);
+            setError("Unable to load medical records. Please try again later.");
+          });
         }
       }).catch((testError) => {
         console.error("Database test error:", testError);
@@ -330,7 +342,13 @@ export default function RecordsNew() {
     if (result.success) {
       // Update local state
       setSavedRecords((prev) => [record, ...prev]);
-      setError(""); // Clear any previous errors
+
+      // Show appropriate message based on whether fallback was used
+      if ((result as any).fallback) {
+        setError("Record saved to local storage (database unavailable).");
+      } else {
+        setError(""); // Clear any previous errors
+      }
 
       // Clear current test data
       setTestData((prev) => {
@@ -348,7 +366,7 @@ export default function RecordsNew() {
       setShowAddForm(false);
       setActiveTest("");
     } else {
-      setError("Failed to save record. Please try again.");
+      setError(`Failed to save record: ${result.error || "Unknown error"}`);
     }
   };
 
