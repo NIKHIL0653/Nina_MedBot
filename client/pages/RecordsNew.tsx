@@ -452,6 +452,13 @@ export default function RecordsNew() {
                   <span>Settings</span>
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={toggle}
+                className="flex items-center space-x-2 cursor-pointer"
+              >
+                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={signOut}
