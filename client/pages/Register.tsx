@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart, Loader2 } from "lucide-react";
+import { Heart, Loader2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/lib/auth-context";
+import { cn } from "@/lib/utils";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -18,10 +20,34 @@ export default function Register() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
+  // Password validation functions
+  const validatePassword = (password: string) => {
+    const requirements = {
+      length: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      lowercase: /[a-z]/.test(password),
+      special: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    };
+
+    const metRequirements = Object.values(requirements).filter(Boolean).length;
+    const strength = (metRequirements / 4) * 100;
+
+    return { requirements, strength, isValid: metRequirements === 4 };
+  };
+
+  const passwordValidation = validatePassword(password);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    // Validate password before submission
+    if (!passwordValidation.isValid) {
+      setError("Please ensure your password meets all requirements");
+      setLoading(false);
+      return;
+    }
 
     const { error } = await signUp(email, password, fullName);
 
@@ -121,7 +147,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
@@ -130,14 +156,96 @@ export default function Register() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Create a strong password"
-                  minLength={6}
+                  className={cn(
+                    "transition-colors",
+                    password && !passwordValidation.isValid && "border-red-300 focus:border-red-500",
+                    password && passwordValidation.isValid && "border-green-300 focus:border-green-500"
+                  )}
                 />
+
+                {/* Password Strength Bar */}
+                {password && (
+                  <div className="space-y-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-700">Password Strength</span>
+                        <span className={cn(
+                          "text-sm font-medium",
+                          passwordValidation.strength < 50 && "text-red-600",
+                          passwordValidation.strength >= 50 && passwordValidation.strength < 100 && "text-yellow-600",
+                          passwordValidation.strength === 100 && "text-green-600"
+                        )}>
+                          {passwordValidation.strength < 50 && "Weak"}
+                          {passwordValidation.strength >= 50 && passwordValidation.strength < 100 && "Medium"}
+                          {passwordValidation.strength === 100 && "Strong"}
+                        </span>
+                      </div>
+                      <Progress
+                        value={passwordValidation.strength}
+                        className={cn(
+                          "h-2",
+                          passwordValidation.strength < 50 && "[&>div]:bg-red-500",
+                          passwordValidation.strength >= 50 && passwordValidation.strength < 100 && "[&>div]:bg-yellow-500",
+                          passwordValidation.strength === 100 && "[&>div]:bg-green-500"
+                        )}
+                      />
+                    </div>
+
+                    {/* Requirements Checklist */}
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className={cn(
+                        "flex items-center space-x-2",
+                        passwordValidation.requirements.length ? "text-green-600" : "text-gray-500"
+                      )}>
+                        {passwordValidation.requirements.length ? (
+                          <Check className="w-3 h-3" />
+                        ) : (
+                          <X className="w-3 h-3" />
+                        )}
+                        <span>8+ characters</span>
+                      </div>
+                      <div className={cn(
+                        "flex items-center space-x-2",
+                        passwordValidation.requirements.uppercase ? "text-green-600" : "text-gray-500"
+                      )}>
+                        {passwordValidation.requirements.uppercase ? (
+                          <Check className="w-3 h-3" />
+                        ) : (
+                          <X className="w-3 h-3" />
+                        )}
+                        <span>Uppercase letter</span>
+                      </div>
+                      <div className={cn(
+                        "flex items-center space-x-2",
+                        passwordValidation.requirements.lowercase ? "text-green-600" : "text-gray-500"
+                      )}>
+                        {passwordValidation.requirements.lowercase ? (
+                          <Check className="w-3 h-3" />
+                        ) : (
+                          <X className="w-3 h-3" />
+                        )}
+                        <span>Lowercase letter</span>
+                      </div>
+                      <div className={cn(
+                        "flex items-center space-x-2",
+                        passwordValidation.requirements.special ? "text-green-600" : "text-gray-500"
+                      )}>
+                        {passwordValidation.requirements.special ? (
+                          <Check className="w-3 h-3" />
+                        ) : (
+                          <X className="w-3 h-3" />
+                        )}
+                        <span>Special character</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <Button
                 type="submit"
-                disabled={loading}
-                className="w-full bg-medical-blue hover:bg-medical-blue-dark"
+                disabled={loading || (password && !passwordValidation.isValid)}
+                className="w-full bg-medical-blue hover:bg-medical-blue-dark disabled:opacity-50"
               >
                 {loading ? (
                   <>
