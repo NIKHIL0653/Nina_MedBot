@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import MainLayout from "@/components/MainLayout";
+import BottomNav from "@/components/BottomNav";
 import SymptomSelector from "@/components/SymptomSelector";
 import {
   Send,
