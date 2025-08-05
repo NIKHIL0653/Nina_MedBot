@@ -101,7 +101,7 @@ export default function Register() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-600 dark:from-white dark:via-blue-200 dark:to-cyan-300 bg-clip-text text-transparent">
+            <span className="text-4xl font-bold text-foreground">
               NINA
             </span>
           </div>
