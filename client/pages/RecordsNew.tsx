@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Select,
   SelectContent,
@@ -306,6 +307,7 @@ export default function RecordsNew() {
     if (result.success) {
       // Update local state
       setSavedRecords((prev) => [record, ...prev]);
+      setError(""); // Clear any previous errors
 
       // Clear current test data
       setTestData((prev) => {
@@ -333,6 +335,7 @@ export default function RecordsNew() {
 
       if (result.success) {
         setSavedRecords((prev) => prev.filter((record) => record.id !== recordId));
+        setError(""); // Clear any previous errors
       } else {
         setError("Failed to delete record. Please try again.");
       }
@@ -393,6 +396,13 @@ export default function RecordsNew() {
                 </Button>
               </div>
             </div>
+
+            {/* Error Display */}
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
 
             {/* Search and Analytics */}
             {savedRecords.length > 0 && (
