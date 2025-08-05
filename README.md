@@ -4,6 +4,19 @@
 
 ![Nina AI Healthcare Assistant](https://img.shields.io/badge/Nina-AI%20Healthcare-blue?style=for-the-badge&logo=medical&logoColor=white)
 
+## 🛠️ Tech Stack
+
+### 🚀 Badges
+![React](https://img.shields.io/badge/React-2023-blue?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.x-blue?style=flat-square&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-Fast-blueviolet?style=flat-square&logo=vite)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-06b6d4?style=flat-square&logo=tailwindcss)
+![Express](https://img.shields.io/badge/Express.js-Backend-black?style=flat-square&logo=express)
+![Supabase](https://img.shields.io/badge/Supabase-BaaS-3fcf8e?style=flat-square&logo=supabase)
+![Gemini AI](https://img.shields.io/badge/Gemini_AI-Google-blue?style=flat-square&logo=google)
+![Netlify](https://img.shields.io/badge/Netlify-Deploy-00C7B7?style=flat-square&logo=netlify)
+
+
 ## 🌟 Features
 
 ### 🤖 Intelligent Symptom Analysis
