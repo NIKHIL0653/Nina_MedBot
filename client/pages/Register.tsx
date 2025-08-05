@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart, Loader2, Check, X } from "lucide-react";
+import { Heart, Loader2, Check, X, Mail, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -63,23 +63,23 @@ export default function Register() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-medical-blue flex items-center justify-center p-6">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          <Card className="shadow-xl">
+          <Card className="shadow-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0">
             <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-green-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Heart className="w-10 h-10 text-white" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Welcome to NINA!</h2>
-              <p className="text-gray-600 mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Welcome to NINA!</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Your account has been created successfully. Please check your
                 email to verify your account.
               </p>
               <Button
                 onClick={() => navigate("/chat")}
-                className="bg-medical-blue hover:bg-medical-blue-dark"
+                className="w-full h-12 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-xl"
               >
-                Start Chatting
+                Start Your Health Journey
               </Button>
             </CardContent>
           </Card>
@@ -89,66 +89,77 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-medical-blue flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-6">
       <div className="w-full max-w-md space-y-8">
         {/* Logo */}
         <div className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg">
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
                 alt="Nina AI Logo"
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            <span className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-cyan-600 dark:from-white dark:via-blue-200 dark:to-cyan-300 bg-clip-text text-transparent">
               NINA
             </span>
           </div>
-          <p className="text-gray-600">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
             Join thousands using AI for better health
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Create your account to get personalized health insights
           </p>
         </div>
 
         {/* Register Form */}
-        <Card className="shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-center">Create Account</CardTitle>
+        <Card className="shadow-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 dark:from-blue-500/20 dark:to-cyan-500/20">
+            <CardTitle className="text-center text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">Create Your Account</CardTitle>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <CardContent className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
 
-              <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                  placeholder="Enter your full name"
-                />
+              <div className="space-y-4">
+                <Label htmlFor="fullName" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Input
+                    id="fullName"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                    placeholder="Enter your full name"
+                    className="h-14 pl-12 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-xl"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="Enter your email"
-                />
+              <div className="space-y-4">
+                <Label htmlFor="email" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Email Address</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="Enter your email address"
+                    className="h-14 pl-12 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-xl"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-3">
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-4">
+                <Label htmlFor="password" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -157,18 +168,19 @@ export default function Register() {
                   required
                   placeholder="Create a strong password"
                   className={cn(
-                    "transition-colors",
+                    "h-14 border-2 transition-all duration-300 rounded-xl",
                     password && !passwordValidation.isValid && "border-red-300 focus:border-red-500",
-                    password && passwordValidation.isValid && "border-green-300 focus:border-green-500"
+                    password && passwordValidation.isValid && "border-green-300 focus:border-green-500",
+                    !password && "border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400"
                   )}
                 />
 
                 {/* Password Strength Bar */}
                 {password && (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700">Password Strength</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Password Strength</span>
                         <span className={cn(
                           "text-sm font-medium",
                           passwordValidation.strength < 50 && "text-red-600",
@@ -192,7 +204,7 @@ export default function Register() {
                     </div>
 
                     {/* Requirements Checklist */}
-                    <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="grid grid-cols-2 gap-3 text-xs">
                       <div className={cn(
                         "flex items-center space-x-2",
                         passwordValidation.requirements.length ? "text-green-600" : "text-gray-500"
@@ -245,7 +257,7 @@ export default function Register() {
               <Button
                 type="submit"
                 disabled={loading || (password && !passwordValidation.isValid)}
-                className="w-full bg-medical-blue hover:bg-medical-blue-dark disabled:opacity-50"
+                className="w-full h-14 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl rounded-xl text-lg disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -258,14 +270,14 @@ export default function Register() {
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+            <div className="mt-8 text-center">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Already have an account?{" "}
                 <Link
                   to="/login"
-                  className="text-medical-blue-dark hover:underline font-medium"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline font-semibold transition-colors duration-200"
                 >
-                  Sign in
+                  Sign In
                 </Link>
               </p>
             </div>
@@ -275,7 +287,7 @@ export default function Register() {
         <div className="text-center">
           <Link
             to="/"
-            className="text-sm text-gray-600 hover:text-medical-blue-dark"
+            className="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium"
           >
             ← Back to home
           </Link>
