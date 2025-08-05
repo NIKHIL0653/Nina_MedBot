@@ -132,7 +132,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-foreground">Nina</h1>
+              <h1 className="text-xl font-semibold text-foreground">NINA</h1>
             </div>
           </div>
 
