@@ -154,7 +154,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 className={cn("relative group transition-all duration-300", location.pathname === "/dashboard" && "bg-blue-400 hover:bg-blue-500 text-white")}
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
-                Dashboard
+                News
               </Button>
             </Link>
           </div>
