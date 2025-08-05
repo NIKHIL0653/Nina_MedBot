@@ -328,7 +328,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 px-6 py-12">
+      <footer className="border-t border-gray-200 dark:border-gray-700 px-6 py-12">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-8 h-8 rounded-xl overflow-hidden">
@@ -340,11 +340,11 @@ export default function Index() {
             </div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">NINA</span>
           </div>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 dark:text-gray-300 mb-8">
             Your trusted AI companion for better health management
           </p>
-          <div className="border-t border-gray-200 pt-8">
-            <p className="text-sm text-gray-500">
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               © 2024 NINA. All rights reserved. This tool provides general
               health information and should not replace professional medical
               advice.
