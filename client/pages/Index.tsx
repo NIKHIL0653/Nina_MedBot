@@ -311,13 +311,13 @@ export default function Index() {
               </div>
             </div>
 
-            {/* News Feature iPhone */}
+            {/* News Feature Android */}
             <div className="w-full max-w-[280px] mx-auto">
               <div className="relative">
-                {/* iPhone Frame */}
-                <div className="bg-gray-900 rounded-[50px] p-2 shadow-2xl">
-                  <div className="bg-black rounded-[42px] p-1">
-                    <div className="bg-white dark:bg-gray-900 rounded-[36px] overflow-hidden h-[580px] relative">
+                {/* Android Frame */}
+                <div className="bg-gray-900 rounded-[24px] p-2 shadow-2xl">
+                  <div className="bg-black rounded-[20px] p-1">
+                    <div className="bg-white dark:bg-gray-900 rounded-[16px] overflow-hidden h-[580px] relative">
                       {/* Screen Content */}
                       <div className="h-full flex flex-col">
                         {/* Header */}
@@ -338,7 +338,7 @@ export default function Index() {
                         </div>
 
                         {/* News Articles */}
-                        <div className="flex-1 p-3 space-y-3 bg-gray-50 dark:bg-gray-800 overflow-y-auto">
+                        <div className="flex-1 p-3 space-y-3 bg-gray-50 dark:bg-gray-800">
                           <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
                             <img
                               src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"
@@ -364,24 +364,8 @@ export default function Index() {
                               <span className="text-xs text-blue-600 font-medium">Gene Therapy Research</span>
                             </div>
                           </div>
-
-                          <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
-                            <img
-                              src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"
-                              alt="Health News"
-                              className="w-full h-20 object-cover"
-                            />
-                            <div className="p-3">
-                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white mb-1">Mental Health Tech Revolution</h4>
-                              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Digital therapeutics platform shows 70% improvement in anxiety management...</p>
-                              <span className="text-xs text-blue-600 font-medium">Digital Health Journal</span>
-                            </div>
-                          </div>
                         </div>
                       </div>
-
-                      {/* Dynamic Island */}
-                      <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-full"></div>
                     </div>
                   </div>
                 </div>
