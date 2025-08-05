@@ -77,7 +77,7 @@ export default function Register() {
               </p>
               <Button
                 onClick={() => navigate("/chat")}
-                className="w-full h-12 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-xl"
+                className="w-full h-12 bg-blue-400 hover:bg-blue-500 text-white font-semibold rounded-xl"
               >
                 Start Your Health Journey
               </Button>
@@ -257,7 +257,7 @@ export default function Register() {
               <Button
                 type="submit"
                 disabled={loading || (password && !passwordValidation.isValid)}
-                className="w-full h-14 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl rounded-xl text-lg disabled:opacity-50"
+                className="w-full h-14 bg-blue-400 hover:bg-blue-500 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl rounded-xl text-lg disabled:opacity-50"
               >
                 {loading ? (
                   <>
