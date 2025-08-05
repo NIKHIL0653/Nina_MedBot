@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
+import { useUserDisplayName } from "@/hooks/use-user-display-name";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
