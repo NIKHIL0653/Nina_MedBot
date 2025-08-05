@@ -105,10 +105,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
             {/* Mobile account text */}
             <div className="md:hidden flex items-center space-x-2">
               <div className="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center">
-                <User className="w-3 h-3 text-white" />
+                <span className="text-xs text-white font-semibold">{initials}</span>
               </div>
               <span className="text-sm font-medium text-muted-foreground">
-                Hi, {displayName}
+                {displayName}
               </span>
             </div>
           </div>
