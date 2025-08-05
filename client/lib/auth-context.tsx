@@ -94,6 +94,49 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await supabase.auth.signOut();
   };
 
+  const getUserProfile = async (): Promise<UserProfile | null> => {
+    if (!user) return null;
+
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("first_name, last_name, email")
+        .eq("id", user.id)
+        .single();
+
+      if (error || !data) {
+        // Fallback to localStorage
+        const fallbackProfile = localStorage.getItem(`profile_${user.id}`);
+        if (fallbackProfile) {
+          const parsed = JSON.parse(fallbackProfile);
+          return {
+            firstName: parsed.firstName,
+            lastName: parsed.lastName,
+            email: parsed.email || user.email || "",
+          };
+        }
+        return {
+          firstName: "",
+          lastName: "",
+          email: user.email || "",
+        };
+      }
+
+      return {
+        firstName: data.first_name || "",
+        lastName: data.last_name || "",
+        email: data.email || user.email || "",
+      };
+    } catch (error) {
+      console.warn("Error fetching user profile:", error);
+      return {
+        firstName: "",
+        lastName: "",
+        email: user.email || "",
+      };
+    }
+  };
+
   const value = {
     user,
     session,
@@ -101,6 +144,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signIn,
     signUp,
     signOut,
+    getUserProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
