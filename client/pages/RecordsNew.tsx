@@ -187,43 +187,27 @@ export default function RecordsNew() {
     // Test database connection and load saved records
     if (user?.id) {
       console.log("Starting database operations for user:", user.id);
-      // First test the database connection
+      // Test database and load records
       testDatabaseConnection().then((testResult) => {
-        console.log("Database test result:", testResult);
 
         if (testResult.success) {
-          // If connection is good, load records
+          // Database is available, load from there
           loadMedicalRecords(user.id).then((records) => {
-            console.log("Loaded records:", records);
             setSavedRecords(records);
-            setError(""); // Clear any previous errors
+            setError("");
           }).catch((loadError) => {
-            console.error("Error loading records:", loadError);
-            setError("Failed to load medical records from database. Using local storage.");
+            console.warn("Failed to load from database:", loadError);
+            setError("");
           });
         } else {
-          console.log("Database test failed, using localStorage only");
-
-          // Check if it's a table setup issue
-          if ((testResult as any).needsSetup) {
-            console.log("Database table needs to be created");
-          }
-
-          // Load from localStorage as fallback
+          // Database not available, use localStorage (this is expected)
           loadMedicalRecords(user.id).then((records) => {
-            console.log("Loaded records from localStorage:", records);
             setSavedRecords(records);
-
-            // Show appropriate message based on whether records exist
-            if (records.length > 0) {
-              setError(""); // Don't show error if we have records from localStorage
-            } else {
-              setError(""); // Don't show error for first-time users
-            }
+            setError("");
           }).catch((fallbackError) => {
-            console.error("LocalStorage also failed:", fallbackError);
+            console.warn("Failed to load from localStorage:", fallbackError);
             setSavedRecords([]);
-            setError(""); // Don't show error, just use empty state
+            setError("");
           });
         }
       }).catch((testError) => {

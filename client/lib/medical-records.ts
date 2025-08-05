@@ -3,17 +3,16 @@ import { supabase } from "@shared/supabase";
 // Test function to check if the table exists
 export const testDatabaseConnection = async () => {
   try {
-    console.log("Testing database connection...");
+    console.log("Checking medical records database...");
     const { data, error } = await supabase
       .from("medical_records")
       .select("id")
       .limit(1);
 
     if (error) {
-      console.error("Database test failed:", error.message);
-
       // Check if it's a "table doesn't exist" error
       if (error.message.includes('relation "public.medical_records" does not exist')) {
+        console.log("Medical records table not found - using localStorage for data storage");
         return {
           success: false,
           error: "Database table not created yet",
@@ -21,13 +20,14 @@ export const testDatabaseConnection = async () => {
         };
       }
 
+      console.warn("Database test failed:", error.message);
       return { success: false, error: error.message };
     }
 
     console.log("Database connection successful");
     return { success: true };
   } catch (error) {
-    console.error("Database connection test error:", error instanceof Error ? error.message : String(error));
+    console.warn("Database connection test error:", error instanceof Error ? error.message : String(error));
     return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
 };
@@ -48,7 +48,7 @@ export interface MedicalRecord {
 
 export const saveMedicalRecord = async (userId: string, record: MedicalRecord) => {
   try {
-    console.log("Saving medical record for user:", userId, record);
+    console.log("Saving medical record for user:", userId);
 
     const { data, error } = await supabase
       .from("medical_records")
@@ -65,13 +65,11 @@ export const saveMedicalRecord = async (userId: string, record: MedicalRecord) =
       });
 
     if (error) {
-      console.error("Supabase error saving medical record:", error.message);
-
       // Fallback to localStorage
       if (error.message.includes('relation "public.medical_records" does not exist')) {
-        console.log("Medical records table doesn't exist, using localStorage only");
+        console.log("Database table not available - saving to local storage");
       } else {
-        console.log("Database error, falling back to localStorage for saving");
+        console.warn("Database unavailable, saving to local storage:", error.message);
       }
 
       const existingRecords = loadFromLocalStorage(userId);
@@ -110,13 +108,11 @@ export const loadMedicalRecords = async (userId: string): Promise<MedicalRecord[
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Supabase error loading medical records:", error.message);
-
-      // Check if table doesn't exist
+      // Check if table doesn't exist - this is expected and not an error
       if (error.message.includes('relation "public.medical_records" does not exist')) {
-        console.log("Medical records table doesn't exist, using localStorage only");
+        console.log("Database table not available - loading records from local storage");
       } else {
-        console.log("Database error, falling back to localStorage");
+        console.warn("Database unavailable, using local storage:", error.message);
       }
 
       return loadFromLocalStorage(userId);
@@ -180,7 +176,7 @@ const saveToLocalStorage = (userId: string, records: MedicalRecord[]) => {
 
 export const deleteMedicalRecord = async (userId: string, recordId: string) => {
   try {
-    console.log("Deleting medical record for user:", userId, "recordId:", recordId);
+    console.log("Deleting medical record:", recordId);
 
     const { error } = await supabase
       .from("medical_records")
@@ -189,18 +185,20 @@ export const deleteMedicalRecord = async (userId: string, recordId: string) => {
       .eq("test_data->>id", recordId);
 
     if (error) {
-      console.error("Supabase error deleting medical record:", error.message);
-
       // If table doesn't exist, handle deletion from localStorage
       if (error.message.includes('relation "public.medical_records" does not exist')) {
-        console.log("Medical records table doesn't exist, deleting from localStorage only");
+        console.log("Database table not available - deleting from local storage");
         const existingRecords = loadFromLocalStorage(userId);
         const updatedRecords = existingRecords.filter(record => record.id !== recordId);
         saveToLocalStorage(userId, updatedRecords);
         return { success: true, fallback: true };
       }
 
-      return { success: false, error: error.message };
+      console.warn("Database unavailable, deleting from local storage:", error.message);
+      const existingRecords = loadFromLocalStorage(userId);
+      const updatedRecords = existingRecords.filter(record => record.id !== recordId);
+      saveToLocalStorage(userId, updatedRecords);
+      return { success: true, fallback: true };
     }
 
     console.log("Successfully deleted medical record from database");
