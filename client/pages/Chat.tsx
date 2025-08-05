@@ -333,324 +333,365 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
   };
 
   return (
-    <MainLayout>
-      <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col pb-16">
-        {/* Symptom Selector Overlay */}
-        {showSymptomSelector && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
-            <SymptomSelector
-              onSymptomSelect={handleSymptomSelect}
-              onClose={() => setShowSymptomSelector(false)}
-            />
-          </div>
-        )}
+    <div className="h-screen flex flex-col bg-background">
+      {/* Fixed Header - Chat specific (blue bar with Nina centered) */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
+        <div className="h-16 flex items-center justify-center">
+          <h1 className="text-xl font-semibold text-white">Nina</h1>
+        </div>
+      </nav>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-8 bg-gradient-to-b from-background/50 to-muted/30">
-          {messages.map((message) => (
-            <div key={message.id}>
-              {message.type === "analysis" ? (
-                // Analysis Display
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md bg-gradient-to-br from-green-500 to-emerald-400">
-                      <Bot className="w-4 h-4 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-muted-foreground mb-4">
-                        {message.content}
-                      </p>
+      {/* Symptom Selector Overlay */}
+      {showSymptomSelector && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-6 z-50">
+          <SymptomSelector
+            onSymptomSelect={handleSymptomSelect}
+            onClose={() => setShowSymptomSelector(false)}
+          />
+        </div>
+      )}
 
-                      {message.analysis && (
-                        <div className="space-y-4">
-                          {/* Diagnosis & Severity */}
-                          <Card>
-                            <CardContent className="p-4">
-                              <div className="flex items-center justify-between mb-3">
-                                <h3 className="font-semibold flex items-center space-x-2">
-                                  <Stethoscope className="w-4 h-4" />
-                                  <span>Diagnosis</span>
-                                </h3>
-                                <Badge
-                                  className={getSeverityColor(
-                                    message.analysis.severity,
-                                  )}
-                                >
-                                  {message.analysis.severity.toUpperCase()} RISK
-                                </Badge>
-                              </div>
-                              <p className="text-muted-foreground">
-                                {message.analysis.diagnosis}
-                              </p>
-                            </CardContent>
-                          </Card>
+      {/* Messages - Scrollable content between fixed header and input */}
+      <div 
+        className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-6 bg-background" 
+        style={{ marginTop: '64px', marginBottom: '140px' }}
+      >
+        {messages.map((message) => (
+          <div key={message.id}>
+            {message.type === "analysis" ? (
+              // Analysis Display
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md bg-blue-400">
+                    <Bot className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {message.content}
+                    </p>
 
-                          {/* Symptoms */}
-                          <Card>
-                            <CardContent className="p-4">
-                              <h3 className="font-semibold mb-3 flex items-center space-x-2">
-                                <Heart className="w-4 h-4" />
-                                <span>Identified Symptoms</span>
+                    {message.analysis && (
+                      <div className="space-y-4">
+                        {/* Diagnosis & Severity */}
+                        <Card>
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between mb-3">
+                              <h3 className="font-semibold flex items-center space-x-2">
+                                <Stethoscope className="w-4 h-4" />
+                                <span>Diagnosis</span>
                               </h3>
-                              <div className="flex flex-wrap gap-2">
-                                {message.analysis.symptoms.map(
-                                  (symptom, index) => (
-                                    <Badge key={index} variant="outline">
-                                      {symptom}
-                                    </Badge>
-                                  ),
+                              <Badge
+                                className={getSeverityColor(
+                                  message.analysis.severity,
                                 )}
-                              </div>
-                            </CardContent>
-                          </Card>
+                              >
+                                {message.analysis.severity.toUpperCase()} RISK
+                              </Badge>
+                            </div>
+                            <p className="text-muted-foreground">
+                              {message.analysis.diagnosis}
+                            </p>
+                          </CardContent>
+                        </Card>
 
-                          {/* Medications */}
-                          {message.analysis.medications.length > 0 && (
-                            <Card>
-                              <CardContent className="p-4">
-                                <h3 className="font-semibold mb-3 flex items-center space-x-2">
-                                  <Pill className="w-4 h-4" />
-                                  <span>Recommended Medications</span>
-                                </h3>
-                                <div className="space-y-3">
-                                  {message.analysis.medications.map(
-                                    (med, index) => (
-                                      <div
-                                        key={index}
-                                        className="border rounded-lg p-3 bg-muted/50"
-                                      >
-                                        <div className="flex items-center justify-between mb-2">
-                                          <h4 className="font-medium">
-                                            {med.name}
-                                          </h4>
-                                          <Badge
-                                            className={
-                                              getMedicationType(med.type).color
-                                            }
-                                          >
-                                            {getMedicationType(med.type).label}
-                                          </Badge>
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
-                                          <p>
-                                            <strong>Dosage:</strong>{" "}
-                                            {med.dosage}
-                                          </p>
-                                          <p>
-                                            <strong>Frequency:</strong>{" "}
-                                            {med.frequency}
-                                          </p>
-                                        </div>
-                                        {med.notes && (
-                                          <p className="text-xs text-muted-foreground mt-2">
-                                            <strong>Note:</strong> {med.notes}
-                                          </p>
-                                        )}
-                                      </div>
-                                    ),
-                                  )}
-                                </div>
-                              </CardContent>
-                            </Card>
-                          )}
+                        {/* Symptoms */}
+                        <Card>
+                          <CardContent className="p-4">
+                            <h3 className="font-semibold mb-3 flex items-center space-x-2">
+                              <Heart className="w-4 h-4" />
+                              <span>Identified Symptoms</span>
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                              {message.analysis.symptoms.map(
+                                (symptom, index) => (
+                                  <Badge key={index} variant="outline">
+                                    {symptom}
+                                  </Badge>
+                                ),
+                              )}
+                            </div>
+                          </CardContent>
+                        </Card>
 
-                          {/* Recommendations */}
+                        {/* Medications */}
+                        {message.analysis.medications.length > 0 && (
                           <Card>
                             <CardContent className="p-4">
                               <h3 className="font-semibold mb-3 flex items-center space-x-2">
-                                <Shield className="w-4 h-4" />
-                                <span>Recommendations</span>
+                                <Pill className="w-4 h-4" />
+                                <span>Recommended Medications</span>
                               </h3>
-                              <ul className="space-y-2">
-                                {message.analysis.recommendations.map(
-                                  (rec, index) => (
-                                    <li
+                              <div className="space-y-3">
+                                {message.analysis.medications.map(
+                                  (med, index) => (
+                                    <div
                                       key={index}
-                                      className="flex items-start space-x-2"
+                                      className="border rounded-lg p-3 bg-muted/50"
                                     >
-                                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                                      <span className="text-sm text-muted-foreground">
-                                        {rec}
-                                      </span>
-                                    </li>
+                                      <div className="flex items-center justify-between mb-2">
+                                        <h4 className="font-medium">
+                                          {med.name}
+                                        </h4>
+                                        <Badge
+                                          className={
+                                            getMedicationType(med.type).color
+                                          }
+                                        >
+                                          {getMedicationType(med.type).label}
+                                        </Badge>
+                                      </div>
+                                      <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
+                                        <p>
+                                          <strong>Dosage:</strong>{" "}
+                                          {med.dosage}
+                                        </p>
+                                        <p>
+                                          <strong>Frequency:</strong>{" "}
+                                          {med.frequency}
+                                        </p>
+                                      </div>
+                                      {med.notes && (
+                                        <p className="text-xs text-muted-foreground mt-2">
+                                          <strong>Note:</strong> {med.notes}
+                                        </p>
+                                      )}
+                                    </div>
                                   ),
                                 )}
-                              </ul>
+                              </div>
                             </CardContent>
                           </Card>
+                        )}
 
-                          {/* When to Seek Help */}
-                          <Card className="border-orange-200 bg-orange-50 dark:bg-orange-950 dark:border-orange-800">
-                            <CardContent className="p-4">
-                              <h3 className="font-semibold mb-3 flex items-center space-x-2 text-orange-800 dark:text-orange-200">
-                                <Clock className="w-4 h-4" />
-                                <span>When to Seek Medical Help</span>
-                              </h3>
-                              <p className="text-sm text-orange-700 dark:text-orange-300">
-                                {message.analysis.whenToSeekHelp}
-                              </p>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      )}
+                        {/* Recommendations */}
+                        <Card>
+                          <CardContent className="p-4">
+                            <h3 className="font-semibold mb-3 flex items-center space-x-2">
+                              <Shield className="w-4 h-4" />
+                              <span>Recommendations</span>
+                            </h3>
+                            <ul className="space-y-2">
+                              {message.analysis.recommendations.map(
+                                (rec, index) => (
+                                  <li
+                                    key={index}
+                                    className="flex items-start space-x-2"
+                                  >
+                                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                                    <span className="text-sm text-muted-foreground">
+                                      {rec}
+                                    </span>
+                                  </li>
+                                ),
+                              )}
+                            </ul>
+                          </CardContent>
+                        </Card>
 
-                      <p className="text-xs text-muted-foreground mt-4">
-                        {message.timestamp.toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "2-digit",
-                        })}{" "}
-                        {message.timestamp.toLocaleTimeString("en-GB", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        })}
-                      </p>
-                    </div>
+                        {/* When to Seek Help */}
+                        <Card className="border-orange-200 bg-orange-50 dark:bg-orange-950 dark:border-orange-800">
+                          <CardContent className="p-4">
+                            <h3 className="font-semibold mb-3 flex items-center space-x-2 text-orange-800 dark:text-orange-200">
+                              <Clock className="w-4 h-4" />
+                              <span>When to Seek Medical Help</span>
+                            </h3>
+                            <p className="text-sm text-orange-700 dark:text-orange-300">
+                              {message.analysis.whenToSeekHelp}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    )}
+
+                    <p className="text-xs text-muted-foreground mt-4">
+                      {message.timestamp.toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                      })}{" "}
+                      {message.timestamp.toLocaleTimeString("en-GB", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      })}
+                    </p>
                   </div>
                 </div>
-              ) : (
-                // Regular Message Display
+              </div>
+            ) : (
+              // Regular Message Display
+              <div
+                className={cn(
+                  "flex items-start space-x-3 group",
+                  message.type === "user"
+                    ? "flex-row-reverse space-x-reverse"
+                    : "",
+                )}
+              >
                 <div
                   className={cn(
-                    "flex items-start space-x-3 group",
+                    "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md",
                     message.type === "user"
-                      ? "flex-row-reverse space-x-reverse"
-                      : "",
+                      ? "bg-blue-400"
+                      : "bg-blue-400",
                   )}
                 >
-                  <div
-                    className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md",
-                      message.type === "user"
-                        ? "bg-gradient-to-br from-blue-500 to-cyan-400"
-                        : "bg-gradient-to-br from-green-500 to-emerald-400",
-                    )}
-                  >
-                    {message.type === "user" ? (
-                      <User className="w-4 h-4 text-white" />
-                    ) : (
-                      <Bot className="w-4 h-4 text-white" />
-                    )}
-                  </div>
-
-                  <div
-                    className={cn(
-                      "max-w-[75%] rounded-2xl px-4 py-3 shadow-sm",
-                      message.type === "user"
-                        ? "bg-blue-400 text-white dark:bg-blue-500 dark:text-white"
-                        : "bg-muted text-muted-foreground",
-                    )}
-                  >
-                    {message.isTyping ? (
-                      <div className="flex items-center space-x-1">
-                        <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                          <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce delay-100"></div>
-                          <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce delay-200"></div>
-                        </div>
-                        <span className="text-xs text-muted-foreground ml-2">
-                          Analyzing symptoms...
-                        </span>
-                      </div>
-                    ) : (
-                      <>
-                        <p className="whitespace-pre-wrap leading-relaxed">
-                          {message.content}
-                        </p>
-                        <div className="flex items-center justify-between mt-3">
-                          <p
-                            className={cn(
-                              "text-xs",
-                              message.type === "user"
-                                ? "text-white/70"
-                                : "text-muted-foreground",
-                            )}
-                          >
-                            {message.timestamp.toLocaleDateString("en-GB", {
-                              day: "2-digit",
-                              month: "2-digit",
-                            })}{" "}
-                            {message.timestamp.toLocaleTimeString("en-GB", {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              hour12: false,
-                            })}
-                          </p>
-                          {message.type === "bot" && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => copyMessage(message.content)}
-                              className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                            >
-                              <Copy className="w-3 h-3" />
-                            </Button>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </div>
+                  {message.type === "user" ? (
+                    <User className="w-4 h-4 text-white" />
+                  ) : (
+                    <Bot className="w-4 h-4 text-white" />
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
 
-        {/* Input */}
-        <div className="border-t border-border/50 bg-card/95 backdrop-blur-lg p-4 shadow-lg">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowSymptomSelector(true)}
-              className="flex items-center space-x-2 hover:bg-primary/10 transition-colors duration-200"
-            >
-              <Stethoscope className="w-4 h-4" />
-              <span>Quick Symptom Selector</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleNewChat}
-              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors duration-200"
-              title="New Chat"
-            >
-              <Plus className="w-4 h-4" />
-            </Button>
+                <div
+                  className={cn(
+                    "max-w-[75%] rounded-2xl px-4 py-3 shadow-sm",
+                    message.type === "user"
+                      ? "bg-blue-400 text-white"
+                      : "bg-muted text-muted-foreground",
+                  )}
+                >
+                  {message.isTyping ? (
+                    <div className="flex items-center space-x-1">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce delay-100"></div>
+                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce delay-200"></div>
+                      </div>
+                      <span className="text-xs text-muted-foreground ml-2">
+                        Analyzing symptoms...
+                      </span>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="whitespace-pre-wrap leading-relaxed">
+                        {message.content}
+                      </p>
+                      <div className="flex items-center justify-between mt-3">
+                        <p
+                          className={cn(
+                            "text-xs",
+                            message.type === "user"
+                              ? "text-white/70"
+                              : "text-muted-foreground",
+                          )}
+                        >
+                          {message.timestamp.toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                          })}{" "}
+                          {message.timestamp.toLocaleTimeString("en-GB", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })}
+                        </p>
+                        {message.type === "bot" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyMessage(message.content)}
+                            className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          >
+                            <Copy className="w-3 h-3" />
+                          </Button>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-          <div className="flex items-end space-x-4">
-            <div className="flex-1 relative">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Describe your symptoms (e.g., headache, nausea, fever)..."
-                className="min-h-[48px] resize-none rounded-xl border-2 focus:border-primary transition-all duration-300 bg-background/50 backdrop-blur-sm shadow-sm"
-                disabled={isTyping}
-              />
-            </div>
-            <Button
-              onClick={handleSendMessage}
-              disabled={!input.trim() || isTyping}
-              className="h-[48px] w-[48px] p-0 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group disabled:opacity-50"
-            >
-              {isTyping ? (
-                <Loader2 className="w-4 h-4 animate-spin text-white" />
-              ) : (
-                <Send className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-              )}
-            </Button>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Fixed Input Section */}
+      <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-border/50 bg-background backdrop-blur-lg p-4 shadow-lg">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowSymptomSelector(true)}
+            className="flex items-center space-x-2 hover:bg-blue-50 transition-colors duration-200"
+          >
+            <Stethoscope className="w-4 h-4" />
+            <span>Quick Symptom Selector</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleNewChat}
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-blue-50 transition-colors duration-200"
+            title="New Chat"
+          >
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
+        <div className="flex items-end space-x-4">
+          <div className="flex-1 relative">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Describe your symptoms (e.g., headache, nausea, fever)..."
+              className="min-h-[48px] resize-none rounded-xl border-2 focus:border-blue-400 transition-all duration-300 bg-background shadow-sm"
+              disabled={isTyping}
+            />
           </div>
-          <div className="mt-3 flex items-center space-x-2 text-xs text-muted-foreground">
-            <AlertTriangle className="w-3 h-3" />
-            <span>
-              This is for informational purposes only. Always consult healthcare
-              professionals for medical advice.
-            </span>
-          </div>
+          <Button
+            onClick={handleSendMessage}
+            disabled={!input.trim() || isTyping}
+            className="h-[48px] w-[48px] p-0 rounded-xl bg-blue-400 hover:bg-blue-500 shadow-lg hover:shadow-xl transition-all duration-300 group disabled:opacity-50"
+          >
+            {isTyping ? (
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
+            ) : (
+              <Send className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            )}
+          </Button>
+        </div>
+        <div className="mt-3 flex items-center space-x-2 text-xs text-muted-foreground">
+          <AlertTriangle className="w-3 h-3" />
+          <span>
+            This is for informational purposes only. Always consult healthcare
+            professionals for medical advice.
+          </span>
         </div>
       </div>
-    </MainLayout>
+
+      {/* Fixed Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 z-50">
+        {/* Render bottom nav directly since we can't use MainLayout for this special layout */}
+        <nav className="bg-background border-t border-border px-6 py-3 md:hidden">
+          <div className="flex items-center justify-around space-x-1">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="flex flex-col items-center space-y-1 p-2 h-auto text-blue-400"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="text-xs">Chat</span>
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="flex flex-col items-center space-y-1 p-2 h-auto"
+            >
+              <FileText className="w-4 h-4" />
+              <span className="text-xs">Records</span>
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="flex flex-col items-center space-y-1 p-2 h-auto"
+            >
+              <BarChart3 className="w-4 h-4" />
+              <span className="text-xs">Dashboard</span>
+            </Button>
+          </div>
+        </nav>
+      </div>
+    </div>
   );
 }
