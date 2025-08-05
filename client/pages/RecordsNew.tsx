@@ -754,7 +754,7 @@ export default function RecordsNew() {
                 <Button 
                   onClick={saveRecord} 
                   disabled={!activeTest}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-blue-400 hover:bg-blue-500"
                 >
                   Save Record
                 </Button>
