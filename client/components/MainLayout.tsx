@@ -63,7 +63,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       <User className="w-3 h-3 text-white" />
                     </div>
                     <span className="text-sm font-medium">
-                      Hi, {user?.email?.split("@")[0]}
+                      Hi, {displayName}
                     </span>
                     <ChevronDown className="w-3 h-3 opacity-50" />
                   </Button>
