@@ -218,22 +218,57 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   // Settings-specific header (clean header without navigation)
   const renderSettingsHeader = () => (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 bg-blue-400 shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-center h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16">
+          {/* Logo and Title */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg">
+            <div className="w-8 h-8 rounded-xl overflow-hidden shadow-lg">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
-                alt="Nina AI Logo"
+                alt="NINA AI Logo"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>
-              <h1 className="text-xl font-semibold text-foreground">Nina</h1>
-            </div>
+            <h1 className="text-xl font-semibold text-white">Settings</h1>
           </div>
+
+          {/* Profile Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center space-x-2 px-3 py-1.5 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
+              >
+                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                  <User className="w-3 h-3 text-white" />
+                </div>
+                <span className="text-sm font-medium hidden sm:block">
+                  {user?.email?.split("@")[0]}
+                </span>
+                <ChevronDown className="w-3 h-3 opacity-70" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem asChild>
+                <Link
+                  to="/settings"
+                  className="flex items-center space-x-2 cursor-pointer"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={signOut}
+                className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </nav>
