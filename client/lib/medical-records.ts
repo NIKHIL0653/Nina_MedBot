@@ -56,14 +56,31 @@ export const saveMedicalRecord = async (userId: string, record: MedicalRecord) =
 
     if (error) {
       console.error("Supabase error saving medical record:", error.message, error);
-      return { success: false, error: error.message };
+
+      // Fallback to localStorage
+      console.log("Falling back to localStorage for saving");
+      const existingRecords = loadFromLocalStorage(userId);
+      const updatedRecords = [record, ...existingRecords];
+      saveToLocalStorage(userId, updatedRecords);
+
+      return { success: true, data: null, fallback: true };
     }
 
     console.log("Successfully saved medical record:", data);
     return { success: true, data };
   } catch (error) {
     console.error("Unexpected error saving medical record:", error instanceof Error ? error.message : String(error), error);
-    return { success: false, error: error instanceof Error ? error.message : String(error) };
+
+    // Fallback to localStorage
+    console.log("Using localStorage fallback due to error");
+    try {
+      const existingRecords = loadFromLocalStorage(userId);
+      const updatedRecords = [record, ...existingRecords];
+      saveToLocalStorage(userId, updatedRecords);
+      return { success: true, data: null, fallback: true };
+    } catch (fallbackError) {
+      return { success: false, error: "Failed to save to both database and localStorage" };
+    }
   }
 };
 
@@ -79,18 +96,20 @@ export const loadMedicalRecords = async (userId: string): Promise<MedicalRecord[
 
     if (error) {
       console.error("Supabase error loading medical records:", error.message, error);
-      return [];
+      // Fallback to localStorage
+      console.log("Falling back to localStorage");
+      return loadFromLocalStorage(userId);
     }
 
     console.log("Loaded medical records data:", data);
 
     if (!data || data.length === 0) {
-      console.log("No medical records found for user");
-      return [];
+      console.log("No medical records found in database, checking localStorage");
+      return loadFromLocalStorage(userId);
     }
 
     // Transform the data back to the expected format
-    return data.map((record) => {
+    const transformedRecords = data.map((record) => {
       try {
         return {
           id: record.test_data.id,
@@ -104,9 +123,37 @@ export const loadMedicalRecords = async (userId: string): Promise<MedicalRecord[
         return null;
       }
     }).filter(record => record !== null) as MedicalRecord[];
+
+    console.log("Successfully transformed records:", transformedRecords);
+    return transformedRecords;
   } catch (error) {
     console.error("Unexpected error loading medical records:", error instanceof Error ? error.message : String(error), error);
-    return [];
+    // Fallback to localStorage
+    return loadFromLocalStorage(userId);
+  }
+};
+
+// Fallback localStorage functions
+const loadFromLocalStorage = (userId: string): MedicalRecord[] => {
+  try {
+    const savedRecordsData = localStorage.getItem(`medicalRecords_${userId}`);
+    if (savedRecordsData) {
+      const parsedRecords = JSON.parse(savedRecordsData);
+      console.log("Loaded records from localStorage:", parsedRecords);
+      return parsedRecords;
+    }
+  } catch (error) {
+    console.error("Error loading from localStorage:", error);
+  }
+  return [];
+};
+
+const saveToLocalStorage = (userId: string, records: MedicalRecord[]) => {
+  try {
+    localStorage.setItem(`medicalRecords_${userId}`, JSON.stringify(records));
+    console.log("Saved records to localStorage");
+  } catch (error) {
+    console.error("Error saving to localStorage:", error);
   }
 };
 
