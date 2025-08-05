@@ -67,7 +67,7 @@ export default function Index() {
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl overflow-hidden shadow-lg">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
-                alt="Nina AI Logo"
+                alt="NINA AI Logo"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -491,7 +491,7 @@ export default function Index() {
             <div className="w-8 h-8 rounded-xl overflow-hidden">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
-                alt="Nina AI Logo"
+                alt="NINA AI Logo"
                 className="w-full h-full object-cover"
               />
             </div>
