@@ -613,7 +613,7 @@ export default function RecordsNew() {
                                       )}
                                     </div>
                                   </div>
-                                  <div className="flex items-center space-x-1 mt-3 sm:mt-0">
+                                  <div className="flex flex-col space-y-2 mt-3 sm:mt-0">
                                     <Dialog>
                                       <DialogTrigger asChild>
                                         <Button variant="outline" size="sm" className="h-8 px-2">
