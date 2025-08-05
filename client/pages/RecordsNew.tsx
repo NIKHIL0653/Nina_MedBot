@@ -426,7 +426,7 @@ export default function RecordsNew() {
                 </Badge>
                 <Button
                   onClick={() => setShowAddForm(true)}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="bg-blue-400 hover:bg-blue-500 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Record
@@ -640,7 +640,7 @@ export default function RecordsNew() {
                   <div className="space-y-4">
                     <Button
                       onClick={() => setShowAddForm(true)}
-                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                      className="bg-blue-400 hover:bg-blue-500 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       Add Your First Record
