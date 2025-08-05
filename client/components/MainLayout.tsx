@@ -18,6 +18,7 @@ import {
   FileText,
   BarChart3,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import BottomNav from "./BottomNav";
 
 interface MainLayoutProps {
@@ -56,7 +57,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     variant="ghost"
                     className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
                   >
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center">
                       <User className="w-3 h-3 text-white" />
                     </div>
                     <span className="text-sm font-medium">
@@ -90,7 +91,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
             {/* Mobile account text */}
             <div className="md:hidden flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center">
                 <User className="w-3 h-3 text-white" />
               </div>
               <span className="text-sm font-medium text-muted-foreground">
@@ -128,7 +129,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               <Button
                 variant={location.pathname === "/chat" ? "default" : "ghost"}
                 size="sm"
-                className="relative group transition-all duration-300"
+                className={cn("relative group transition-all duration-300", location.pathname === "/chat" && "bg-blue-400 hover:bg-blue-500 text-white")}
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Chat
@@ -138,7 +139,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               <Button
                 variant={location.pathname === "/records" ? "default" : "ghost"}
                 size="sm"
-                className="relative group transition-all duration-300"
+                className={cn("relative group transition-all duration-300", location.pathname === "/records" && "bg-blue-400 hover:bg-blue-500 text-white")}
               >
                 <FileText className="w-4 h-4 mr-2" />
                 Records
@@ -150,7 +151,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   location.pathname === "/dashboard" ? "default" : "ghost"
                 }
                 size="sm"
-                className="relative group transition-all duration-300"
+                className={cn("relative group transition-all duration-300", location.pathname === "/dashboard" && "bg-blue-400 hover:bg-blue-500 text-white")}
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
                 Dashboard
@@ -168,7 +169,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     variant="ghost"
                     className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
                   >
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center">
                       <User className="w-3 h-3 text-white" />
                     </div>
                     <span className="text-sm font-medium">
@@ -202,7 +203,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
             {/* Mobile account text */}
             <div className="md:hidden flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center">
                 <User className="w-3 h-3 text-white" />
               </div>
               <span className="text-sm font-medium text-muted-foreground">
