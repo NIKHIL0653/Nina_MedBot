@@ -67,7 +67,7 @@ const SymptomSelector = ({
           </Button>
         </div>
         <p className="text-sm text-muted-foreground">
-          Choose the symptoms you're experiencing to help Nina provide better
+          Choose the symptoms you're experiencing to help NINA provide better
           assistance
         </p>
       </CardHeader>
@@ -96,7 +96,7 @@ const SymptomSelector = ({
           {/* Available symptoms */}
           <div className="space-y-2">
             <p className="text-sm font-medium">Common symptoms:</p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-64 overflow-y-auto">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-64 overflow-y-auto">
               {commonSymptoms.map((symptom) => (
                 <Button
                   key={symptom}
