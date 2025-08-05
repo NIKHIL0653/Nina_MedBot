@@ -176,14 +176,26 @@ export default function Settings() {
                 // Show edit form
                 <>
                   <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        value={profile.name}
-                        onChange={(e) => handleProfileUpdate("name", e.target.value)}
-                        placeholder="Enter your full name"
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input
+                          id="firstName"
+                          value={profile.firstName}
+                          onChange={(e) => handleProfileUpdate("firstName", e.target.value)}
+                          placeholder="Enter your first name"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input
+                          id="lastName"
+                          value={profile.lastName}
+                          onChange={(e) => handleProfileUpdate("lastName", e.target.value)}
+                          placeholder="Enter your last name"
+                        />
+                      </div>
                     </div>
 
                     <div className="space-y-2">
