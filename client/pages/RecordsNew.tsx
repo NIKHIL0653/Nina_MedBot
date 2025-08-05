@@ -426,7 +426,7 @@ export default function RecordsNew() {
       {/* Fixed Records Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
         <div className="flex items-center justify-between h-16 px-6">
-          <div className="flex-1"></div>
+          {/* Move heading to the left */}
           <h1 className="text-xl font-semibold text-white">Clinical Records</h1>
           
           {/* Profile Dropdown */}
