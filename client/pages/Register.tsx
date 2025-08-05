@@ -120,73 +120,67 @@ export default function Register() {
             <CardTitle className="text-center text-xl font-bold text-foreground">Create Account</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-sm font-semibold text-gray-700 dark:text-gray-300">First Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <Input
-                      id="firstName"
-                      type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      required
-                      placeholder="First name"
-                      className="h-14 pl-12 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-xl"
-                    />
-                  </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="firstName" className="text-sm font-medium text-gray-700 dark:text-gray-300">First Name</Label>
+                  <Input
+                    id="firstName"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    placeholder="First name"
+                    className="h-10 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-lg"
+                  />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Last Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <Input
-                      id="lastName"
-                      type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      required
-                      placeholder="Last name"
-                      className="h-14 pl-12 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-xl"
-                    />
-                  </div>
+                <div className="space-y-1">
+                  <Label htmlFor="lastName" className="text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                    placeholder="Last name"
+                    className="h-10 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-lg"
+                  />
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <Label htmlFor="email" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Email Address</Label>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder="Enter your email address"
-                    className="h-14 pl-12 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-xl"
+                    placeholder="Enter your email"
+                    className="h-10 pl-10 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 rounded-lg"
                   />
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <Label htmlFor="password" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Password</Label>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Create a strong password"
+                  placeholder="Create a password"
                   className={cn(
-                    "h-14 border-2 transition-all duration-300 rounded-xl",
+                    "h-10 border-2 transition-all duration-300 rounded-lg",
                     password && !passwordValidation.isValid && "border-red-300 focus:border-red-500",
                     password && passwordValidation.isValid && "border-green-300 focus:border-green-500",
                     !password && "border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400"
@@ -195,12 +189,12 @@ export default function Register() {
 
                 {/* Password Strength Bar */}
                 {password && (
-                  <div className="space-y-4">
-                    <div className="space-y-2">
+                  <div className="space-y-3">
+                    <div className="space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Password Strength</span>
+                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Password Strength</span>
                         <span className={cn(
-                          "text-sm font-medium",
+                          "text-xs font-medium",
                           passwordValidation.strength < 50 && "text-red-600",
                           passwordValidation.strength >= 50 && passwordValidation.strength < 100 && "text-yellow-600",
                           passwordValidation.strength === 100 && "text-green-600"
@@ -213,7 +207,7 @@ export default function Register() {
                       <Progress
                         value={passwordValidation.strength}
                         className={cn(
-                          "h-2",
+                          "h-1",
                           passwordValidation.strength < 50 && "[&>div]:bg-red-500",
                           passwordValidation.strength >= 50 && passwordValidation.strength < 100 && "[&>div]:bg-yellow-500",
                           passwordValidation.strength === 100 && "[&>div]:bg-green-500"
@@ -222,9 +216,9 @@ export default function Register() {
                     </div>
 
                     {/* Requirements Checklist */}
-                    <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
                       <div className={cn(
-                        "flex items-center space-x-2",
+                        "flex items-center space-x-1",
                         passwordValidation.requirements.length ? "text-green-600" : "text-gray-500"
                       )}>
                         {passwordValidation.requirements.length ? (
@@ -232,10 +226,10 @@ export default function Register() {
                         ) : (
                           <X className="w-3 h-3" />
                         )}
-                        <span>8+ characters</span>
+                        <span>8+ chars</span>
                       </div>
                       <div className={cn(
-                        "flex items-center space-x-2",
+                        "flex items-center space-x-1",
                         passwordValidation.requirements.uppercase ? "text-green-600" : "text-gray-500"
                       )}>
                         {passwordValidation.requirements.uppercase ? (
@@ -243,10 +237,10 @@ export default function Register() {
                         ) : (
                           <X className="w-3 h-3" />
                         )}
-                        <span>Uppercase letter</span>
+                        <span>Uppercase</span>
                       </div>
                       <div className={cn(
-                        "flex items-center space-x-2",
+                        "flex items-center space-x-1",
                         passwordValidation.requirements.lowercase ? "text-green-600" : "text-gray-500"
                       )}>
                         {passwordValidation.requirements.lowercase ? (
@@ -254,10 +248,10 @@ export default function Register() {
                         ) : (
                           <X className="w-3 h-3" />
                         )}
-                        <span>Lowercase letter</span>
+                        <span>Lowercase</span>
                       </div>
                       <div className={cn(
-                        "flex items-center space-x-2",
+                        "flex items-center space-x-1",
                         passwordValidation.requirements.special ? "text-green-600" : "text-gray-500"
                       )}>
                         {passwordValidation.requirements.special ? (
@@ -265,7 +259,7 @@ export default function Register() {
                         ) : (
                           <X className="w-3 h-3" />
                         )}
-                        <span>Special character</span>
+                        <span>Special</span>
                       </div>
                     </div>
                   </div>
@@ -275,12 +269,12 @@ export default function Register() {
               <Button
                 type="submit"
                 disabled={loading || (password && !passwordValidation.isValid)}
-                className="w-full h-14 bg-blue-400 hover:bg-blue-500 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl rounded-xl text-lg disabled:opacity-50"
+                className="w-full h-10 bg-blue-400 hover:bg-blue-500 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl rounded-lg disabled:opacity-50"
               >
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Creating Account...
+                    Creating...
                   </>
                 ) : (
                   "Create Account"
@@ -288,7 +282,7 @@ export default function Register() {
               </Button>
             </form>
 
-            <div className="mt-8 text-center">
+            <div className="mt-6 text-center">
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Already have an account?{" "}
                 <Link
