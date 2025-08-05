@@ -66,10 +66,10 @@ export const saveMedicalRecord = async (userId: string, record: MedicalRecord) =
 
     if (error) {
       // Fallback to localStorage
-      if (error.message.includes('relation "public.medical_records" does not exist')) {
+      if (error.message && error.message.includes('relation "public.medical_records" does not exist')) {
         console.log("Database table not available - saving to local storage");
       } else {
-        console.warn("Database unavailable, saving to local storage:", error.message);
+        console.warn("Database unavailable, saving to local storage:", error.message || error);
       }
 
       const existingRecords = loadFromLocalStorage(userId);
