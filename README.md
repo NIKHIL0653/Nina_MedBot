@@ -317,16 +317,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Issues**: [GitHub Issues](https://github.com/your-username/nina-ai-healthcare/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/your-username/nina-ai-healthcare/discussions)
 
-## 🙏 Acknowledgments
-
-- **Google AI**: For providing the Gemini AI platform
-- **Radix UI**: For accessible component primitives
-- **Tailwind Labs**: For the utility-first CSS framework
-- **Healthcare Community**: For inspiration and feedback
-- **Open Source Contributors**: For ongoing improvements and feature additions
-
----
-
 **Made with ❤️ for better healthcare accessibility**
 
 *Nina AI Healthcare Assistant - Empowering informed health decisions through AI technology*
