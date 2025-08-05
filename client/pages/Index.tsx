@@ -70,7 +70,7 @@ export default function Index() {
               />
             </div>
             <div>
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Nina</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">NINA</h1>
             </div>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-3">
