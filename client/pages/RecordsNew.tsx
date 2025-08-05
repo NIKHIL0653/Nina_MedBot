@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "react-router-dom";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import { saveMedicalRecord, loadMedicalRecords, deleteMedicalRecord, testDatabaseConnection, MedicalRecord } from "@/lib/medical-records";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
