@@ -244,15 +244,16 @@ export default function Dashboard() {
                   className="flex items-center space-x-2 px-3 py-1.5 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
                 >
                   <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                    <User className="w-3 h-3 text-white" />
+                    <span className="text-xs text-white font-semibold">{initials}</span>
                   </div>
-                  <span className="text-sm font-medium hidden sm:block">
-                    {displayName}
-                  </span>
                   <ChevronDown className="w-3 h-3 opacity-70" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
+                <div className="px-3 py-2 border-b">
+                  <p className="text-sm font-medium">{displayName}</p>
+                  <p className="text-xs text-muted-foreground">{user?.email}</p>
+                </div>
                 <DropdownMenuItem asChild>
                   <a
                     href="/settings"
