@@ -150,90 +150,267 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Chat Interface Preview */}
-      <section className="px-4 sm:px-6 py-16 sm:py-24 bg-white/50 dark:bg-gray-800/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+      {/* iPhone Mockups Section */}
+      <section className="px-4 sm:px-6 py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 sm:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 px-4">
-              See Nina in Action
+              See NINA in Action
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
-              Experience intelligent symptom analysis with our AI-powered medical assistant
+              Experience intelligent health management across all features
             </p>
           </div>
 
-          {/* Chat Preview */}
-          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden backdrop-blur-sm">
-            {/* Chat Header */}
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white text-lg">
-                    Nina AI Assistant
-                  </h3>
-                  <p className="text-sm text-blue-100">
-                    Powered by Gemini AI • Online
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* iPhone Mockups Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center justify-items-center">
 
-            {/* Chat Messages */}
-            <div className="p-8 space-y-8 min-h-[450px] bg-gray-50/50 dark:bg-gray-800/50">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <MessageCircle className="w-5 h-5 text-white" />
-                </div>
-                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-2xl rounded-tl-sm p-4 max-w-sm shadow-lg">
-                  <p className="text-sm">
-                    I've been experiencing headaches and fatigue lately. The
-                    headaches seem to get worse in the afternoon.
-                  </p>
-                </div>
-              </div>
+            {/* Chat Feature iPhone */}
+            <div className="w-full max-w-[280px] mx-auto">
+              <div className="relative">
+                {/* iPhone Frame */}
+                <div className="bg-gray-900 rounded-[50px] p-2 shadow-2xl">
+                  <div className="bg-black rounded-[42px] p-1">
+                    <div className="bg-white dark:bg-gray-900 rounded-[36px] overflow-hidden h-[580px] relative">
+                      {/* Screen Content */}
+                      <div className="h-full flex flex-col">
+                        {/* Header */}
+                        <div className="bg-blue-400 px-4 py-3 flex items-center">
+                          <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                            <Brain className="w-4 h-4 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-white font-semibold text-sm">NINA AI</h3>
+                            <p className="text-blue-100 text-xs">Online</p>
+                          </div>
+                        </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Stethoscope className="w-5 h-5 text-blue-500" />
-                </div>
-                <div className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-2xl rounded-tl-sm p-4 max-w-lg shadow-lg">
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                    I understand your concerns about headaches and fatigue. Based on your symptoms, this could indicate tension headaches or stress-related fatigue. Let me gather more details:
-                  </p>
-                  <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300 bg-blue-50 dark:bg-gray-600 rounded-lg p-3">
-                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Rate your pain (1-10)?</p>
-                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Location of the headache?</p>
-                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Sleep quality recently?</p>
-                    <p className="flex items-center"><CheckCircle className="w-4 h-4 text-green-500 mr-2" /> Hydration levels?</p>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-600">
-                    <div className="flex items-center space-x-2">
-                      <Heart className="w-4 h-4 text-rose-500" />
-                      <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                        Powered by Gemini AI
-                      </span>
+                        {/* Chat Messages */}
+                        <div className="flex-1 p-4 space-y-4 bg-gray-50 dark:bg-gray-800">
+                          <div className="flex justify-end">
+                            <div className="bg-blue-500 text-white rounded-2xl rounded-br-sm p-3 max-w-[200px]">
+                              <p className="text-xs">I have a headache and feel tired</p>
+                            </div>
+                          </div>
+                          <div className="flex">
+                            <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-bl-sm p-3 max-w-[200px] shadow-sm">
+                              <p className="text-xs text-gray-700 dark:text-gray-300">Let me help analyze your symptoms. Can you rate your pain from 1-10?</p>
+                            </div>
+                          </div>
+                          <div className="flex justify-end">
+                            <div className="bg-blue-500 text-white rounded-2xl rounded-br-sm p-3 max-w-[200px]">
+                              <p className="text-xs">About 6-7</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Input */}
+                        <div className="p-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+                          <div className="bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-2 flex items-center">
+                            <span className="text-xs text-gray-500 flex-1">Type a message...</span>
+                            <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                              <ChevronRight className="w-3 h-3 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Dynamic Island */}
+                      <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-full"></div>
                     </div>
                   </div>
                 </div>
+                <div className="text-center mt-6">
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">AI Chat Assistant</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Get instant symptom analysis</p>
+                </div>
               </div>
             </div>
 
-            {/* Chat Input */}
-            <div className="border-t border-gray-200 dark:border-gray-700 p-6 bg-white dark:bg-gray-900">
-              <div className="flex items-center space-x-4">
-                <div className="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3">
-                  <span className="text-gray-500 dark:text-gray-400">
-                    Describe your symptoms or ask a health question...
-                  </span>
+            {/* Records Feature iPhone */}
+            <div className="w-full max-w-[280px] mx-auto">
+              <div className="relative">
+                {/* iPhone Frame */}
+                <div className="bg-gray-900 rounded-[50px] p-2 shadow-2xl">
+                  <div className="bg-black rounded-[42px] p-1">
+                    <div className="bg-white dark:bg-gray-900 rounded-[36px] overflow-hidden h-[580px] relative">
+                      {/* Screen Content */}
+                      <div className="h-full flex flex-col">
+                        {/* Header */}
+                        <div className="bg-blue-400 px-4 py-3 flex items-center">
+                          <div className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center mr-2">
+                            <img
+                              src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                              alt="NINA"
+                              className="w-full h-full object-cover rounded"
+                            />
+                          </div>
+                          <h3 className="text-white font-semibold text-sm">Clinical Records</h3>
+                        </div>
+
+                        {/* Records List */}
+                        <div className="flex-1 p-3 space-y-3 bg-gray-50 dark:bg-gray-800">
+                          <div className="bg-white dark:bg-gray-700 rounded-xl p-3 shadow-sm">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white">Blood Test</h4>
+                              <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">Aug 5</span>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between text-xs">
+                                <span className="text-gray-600 dark:text-gray-400">Hemoglobin</span>
+                                <span className="font-medium">14.2 g/dL</span>
+                              </div>
+                              <div className="flex justify-between text-xs">
+                                <span className="text-gray-600 dark:text-gray-400">WBC Count</span>
+                                <span className="font-medium">7,200</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-white dark:bg-gray-700 rounded-xl p-3 shadow-sm">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white">Vitamin D</h4>
+                              <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">Aug 4</span>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between text-xs">
+                                <span className="text-gray-600 dark:text-gray-400">25(OH) Vitamin D</span>
+                                <span className="font-medium">34 ng/mL</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-white dark:bg-gray-700 rounded-xl p-3 shadow-sm">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white">HbA1c Test</h4>
+                              <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">Aug 4</span>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between text-xs">
+                                <span className="text-gray-600 dark:text-gray-400">HbA1c</span>
+                                <span className="font-medium">5.8%</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Add Button */}
+                        <div className="p-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+                          <button className="w-full bg-blue-400 text-white rounded-xl py-2 text-sm font-semibold flex items-center justify-center">
+                            <Plus className="w-4 h-4 mr-1" />
+                            Add Record
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Dynamic Island */}
+                      <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-full"></div>
+                    </div>
+                  </div>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300">
-                  <ChevronRight className="w-5 h-5 text-white" />
+                <div className="text-center mt-6">
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">Smart Records</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Track your health data</p>
                 </div>
               </div>
             </div>
+
+            {/* News Feature iPhone */}
+            <div className="w-full max-w-[280px] mx-auto">
+              <div className="relative">
+                {/* iPhone Frame */}
+                <div className="bg-gray-900 rounded-[50px] p-2 shadow-2xl">
+                  <div className="bg-black rounded-[42px] p-1">
+                    <div className="bg-white dark:bg-gray-900 rounded-[36px] overflow-hidden h-[580px] relative">
+                      {/* Screen Content */}
+                      <div className="h-full flex flex-col">
+                        {/* Header */}
+                        <div className="bg-blue-400 px-4 py-3 flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center mr-2">
+                              <img
+                                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                                alt="NINA"
+                                className="w-full h-full object-cover rounded"
+                              />
+                            </div>
+                            <h3 className="text-white font-semibold text-sm">News</h3>
+                          </div>
+                          <button className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center">
+                            <RefreshCw className="w-3 h-3 text-white" />
+                          </button>
+                        </div>
+
+                        {/* News Articles */}
+                        <div className="flex-1 p-3 space-y-3 bg-gray-50 dark:bg-gray-800 overflow-y-auto">
+                          <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
+                            <img
+                              src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"
+                              alt="Health News"
+                              className="w-full h-20 object-cover"
+                            />
+                            <div className="p-3">
+                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white mb-1">New AI Breakthrough in Early Disease Detection</h4>
+                              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Researchers develop AI system that can detect diseases weeks before symptoms appear...</p>
+                              <span className="text-xs text-blue-600 font-medium">Medical News Today</span>
+                            </div>
+                          </div>
+
+                          <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
+                            <img
+                              src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"
+                              alt="Health News"
+                              className="w-full h-20 object-cover"
+                            />
+                            <div className="p-3">
+                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white mb-1">Revolutionary Gene Therapy Shows Promise</h4>
+                              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Clinical trials demonstrate remarkable success in treating rare genetic disorders...</p>
+                              <span className="text-xs text-blue-600 font-medium">Gene Therapy Research</span>
+                            </div>
+                          </div>
+
+                          <div className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-sm">
+                            <img
+                              src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F79f8aec8ed8147bebbb4994b9e8da688?format=webp&width=800"
+                              alt="Health News"
+                              className="w-full h-20 object-cover"
+                            />
+                            <div className="p-3">
+                              <h4 className="font-semibold text-xs text-gray-900 dark:text-white mb-1">Mental Health Tech Revolution</h4>
+                              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Digital therapeutics platform shows 70% improvement in anxiety management...</p>
+                              <span className="text-xs text-blue-600 font-medium">Digital Health Journal</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Dynamic Island */}
+                      <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center mt-6">
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">Health News</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Stay updated with medical breakthroughs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Below iPhones */}
+          <div className="text-center mt-16">
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+              Experience all features on any device
+            </p>
+            <Link to="/register">
+              <Button
+                size="lg"
+                className="bg-blue-400 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-lg transition-all duration-300"
+              >
+                Start Your Health Journey
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
