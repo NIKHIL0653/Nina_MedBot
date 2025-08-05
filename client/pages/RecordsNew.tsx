@@ -19,6 +19,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Select,
@@ -27,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import MainLayout from "@/components/MainLayout";
+import BottomNav from "@/components/BottomNav";
 import RecordAnalytics from "@/components/RecordAnalytics";
 import {
   Plus,
@@ -47,6 +54,9 @@ import {
   Droplets,
   Pill,
   Stethoscope,
+  User,
+  Settings,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -160,7 +170,7 @@ const medicalTests: MedicalTest[] = [
 ];
 
 export default function RecordsNew() {
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const [savedRecords, setSavedRecords] = useState<SavedRecord[]>([]);
   const [testData, setTestData] = useState<Record<string, MedicalTest>>({});
   const [activeTest, setActiveTest] = useState<string>("");
@@ -405,17 +415,59 @@ export default function RecordsNew() {
     }
   };
 
-
-
   return (
-    <MainLayout>
-      <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-blue-50/30 to-white dark:from-gray-900 dark:to-gray-800 pb-20">
+    <div className="min-h-screen bg-background">
+      {/* Fixed Records Header */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
+        <div className="flex items-center justify-between h-16 px-6">
+          <h1 className="text-xl font-semibold text-white">Clinical Records</h1>
+          
+          {/* Profile Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center space-x-2 px-3 py-1.5 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
+              >
+                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                  <User className="w-3 h-3 text-white" />
+                </div>
+                <span className="text-sm font-medium">
+                  {user?.email?.split("@")[0]}
+                </span>
+                <ChevronDown className="w-3 h-3 opacity-70" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem asChild>
+                <a
+                  href="/settings"
+                  className="flex items-center space-x-2 cursor-pointer"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={signOut}
+                className="flex items-center space-x-2 cursor-pointer text-destructive focus:text-destructive"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <div className="pt-16 pb-20">
         <div className="max-w-4xl mx-auto p-4 sm:p-6">
           <div className="space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Clinical Records</h1>
                 <p className="text-muted-foreground mt-1">
                   Manage your medical records and health data securely
                 </p>
@@ -535,8 +587,8 @@ export default function RecordsNew() {
                                           <div className="flex items-center space-x-1 ml-2">
                                             <span className="font-semibold text-xs">{param.value}</span>
                                             {param.status && (
-                                              <div className={cn("w-2 h-2 rounded-full",
-                                                param.status === 'normal' ? 'bg-green-500' :
+                                              <div className={cn("w-2 h-2 rounded-full", 
+                                                param.status === 'normal' ? 'bg-green-500' : 
                                                 param.status === 'high' ? 'bg-red-500' : 'bg-yellow-500'
                                               )}></div>
                                             )}
@@ -763,6 +815,9 @@ export default function RecordsNew() {
           </DialogContent>
         </Dialog>
       </div>
-    </MainLayout>
+
+      {/* Bottom Navigation */}
+      <BottomNav />
+    </div>
   );
 }
