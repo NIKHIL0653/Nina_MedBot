@@ -19,7 +19,7 @@ const BottomNav = () => {
       current: location.pathname === "/records",
     },
     {
-      name: "Dashboard",
+      name: "News",
       href: "/dashboard",
       icon: BarChart3,
       current: location.pathname === "/dashboard",
