@@ -98,8 +98,10 @@ export default function Settings() {
     setSavedProfile({ ...profile });
     setIsEditing(false);
 
-    // Store in localStorage for persistence
-    localStorage.setItem("userProfile", JSON.stringify(profile));
+    // Store in localStorage for persistence with user-specific key
+    if (user?.id) {
+      localStorage.setItem(`userProfile_${user.id}`, JSON.stringify(profile));
+    }
   };
 
   const handleEditProfile = () => {
