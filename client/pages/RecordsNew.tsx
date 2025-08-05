@@ -424,7 +424,16 @@ export default function RecordsNew() {
       {/* Fixed Records Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
         <div className="flex items-center justify-between h-16 px-6">
-          <h1 className="text-xl font-semibold text-white">Clinical Records</h1>
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-xl overflow-hidden shadow-lg">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
+                alt="NINA AI Logo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h1 className="text-xl font-semibold text-white">Clinical Records</h1>
+          </div>
           
           {/* Profile Dropdown */}
           <DropdownMenu>
