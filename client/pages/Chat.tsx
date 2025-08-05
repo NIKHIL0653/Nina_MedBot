@@ -63,7 +63,7 @@ export default function Chat() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm Nina, your AI medical assistant. Describe your symptoms and I'll provide analysis with treatment recommendations and medication suggestions.",
+        "Hello! I'm NINA, your AI medical assistant. Describe your symptoms and I'll provide analysis with treatment recommendations and medication suggestions.",
       timestamp: new Date(),
     },
   ]);
@@ -300,7 +300,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
         id: "1",
         type: "bot",
         content:
-          "Hello! I'm Nina, your AI medical assistant. Describe your symptoms and I'll provide analysis with treatment recommendations and medication suggestions.",
+          "Hello! I'm NINA, your AI medical assistant. Describe your symptoms and I'll provide analysis with treatment recommendations and medication suggestions.",
         timestamp: new Date(),
       },
     ]);
