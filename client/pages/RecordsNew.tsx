@@ -448,7 +448,7 @@ export default function RecordsNew() {
                   <User className="w-3 h-3 text-white" />
                 </div>
                 <span className="text-sm font-medium">
-                  {user?.email?.split("@")[0]}
+                  {displayName}
                 </span>
                 <ChevronDown className="w-3 h-3 opacity-70" />
               </Button>
