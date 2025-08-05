@@ -306,18 +306,18 @@ export default function Index() {
       {/* CTA */}
       <section className="px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-sky-50 rounded-xl p-6 sm:p-12 border border-sky-200 mx-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 sm:p-12 border border-blue-200 dark:border-blue-800 mx-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
               Ready to Transform Your Healthcare?
             </h2>
-            <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
               Join thousands of users who trust NINA for their health
               insights
             </p>
             <Link to="/register">
               <Button
                 size="lg"
-                className="bg-sky-500 hover:bg-sky-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg"
+                className="bg-blue-400 hover:bg-blue-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg"
               >
                 Get Started Now
                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
