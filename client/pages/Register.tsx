@@ -90,36 +90,36 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6">
-      <div className="w-full max-w-md space-y-8">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="w-full max-w-md space-y-4">
         {/* Logo */}
         <div className="text-center">
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg">
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fc8ab0ccd1c1f4c0983053a74f900b6ee%2F80852419a0194244b22ef22578b3e48b?format=webp&width=800"
                 alt="NINA AI Logo"
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-4xl font-bold text-foreground">
+            <span className="text-3xl font-bold text-foreground">
               NINA
             </span>
           </div>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
-            Join thousands using AI for better health
+          <p className="text-base text-gray-600 dark:text-gray-300 mb-1">
+            Join NINA
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Create your account to get personalized health insights
+            Create your account
           </p>
         </div>
 
         {/* Register Form */}
         <Card className="shadow-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 overflow-hidden">
-          <CardHeader className="bg-muted/30">
-            <CardTitle className="text-center text-2xl font-bold text-foreground">Create Your Account</CardTitle>
+          <CardHeader className="bg-muted/30 pb-4">
+            <CardTitle className="text-center text-xl font-bold text-foreground">Create Account</CardTitle>
           </CardHeader>
-          <CardContent className="p-8">
+          <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <Alert variant="destructive">
