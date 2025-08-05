@@ -343,11 +343,14 @@ export default function Index() {
           <p className="text-gray-600 dark:text-gray-300 mb-8">
             Your trusted AI companion for better health management
           </p>
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-8 space-y-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               © 2024 NINA. All rights reserved. This tool provides general
               health information and should not replace professional medical
               advice.
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+              Built by Nikhil Choudhary
             </p>
           </div>
         </div>
