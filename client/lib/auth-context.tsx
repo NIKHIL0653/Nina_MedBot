@@ -10,7 +10,8 @@ interface AuthContextType {
   signUp: (
     email: string,
     password: string,
-    fullName: string,
+    firstName: string,
+    lastName: string,
   ) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
