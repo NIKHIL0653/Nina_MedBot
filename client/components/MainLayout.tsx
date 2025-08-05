@@ -64,15 +64,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     className="flex items-center space-x-2 px-3 py-1.5 bg-accent/50 rounded-lg hover:bg-accent transition-all duration-300"
                   >
                     <div className="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center">
-                      <User className="w-3 h-3 text-white" />
+                      <span className="text-xs text-white font-semibold">{initials}</span>
                     </div>
-                    <span className="text-sm font-medium">
-                      Hi, {displayName}
-                    </span>
                     <ChevronDown className="w-3 h-3 opacity-50" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
+                  <div className="px-3 py-2 border-b">
+                    <p className="text-sm font-medium">{displayName}</p>
+                    <p className="text-xs text-muted-foreground">{user?.email}</p>
+                  </div>
                   <DropdownMenuItem asChild>
                     <Link
                       to="/settings"
@@ -82,7 +83,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
-
+                  <DropdownMenuItem
+                    onClick={toggle}
+                    className="flex items-center space-x-2 cursor-pointer"
+                  >
+                    {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                    <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={signOut}
