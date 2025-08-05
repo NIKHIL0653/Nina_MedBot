@@ -120,7 +120,7 @@ export default function Chat() {
 
     try {
       const prompt = `
-You are Nina, a caring and knowledgeable medical AI assistant. Analyze these symptoms: "${input}"
+You are NINA, a caring and knowledgeable medical AI assistant. Analyze these symptoms: "${input}"
 
 Provide a human-like, conversational response that includes:
 1. A brief, warm acknowledgment of their symptoms
