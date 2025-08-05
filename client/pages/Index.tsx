@@ -74,6 +74,15 @@ export default function Index() {
             </div>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-3">
+            {/* Dark Mode Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggle}
+              className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </Button>
             <Link to="/login">
               <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 text-sm px-2 sm:px-3">
                 Sign In
@@ -82,7 +91,7 @@ export default function Index() {
             <Link to="/register">
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg text-sm px-3 sm:px-4"
+                className="bg-blue-400 hover:bg-blue-500 text-white shadow-lg text-sm px-3 sm:px-4"
               >
                 Get Started
               </Button>
