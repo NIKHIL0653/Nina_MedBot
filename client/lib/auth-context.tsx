@@ -20,6 +20,7 @@ interface AuthContextType {
     lastName: string,
   ) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
+  getUserProfile: () => Promise<UserProfile | null>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
