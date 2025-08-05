@@ -109,10 +109,10 @@ export const loadMedicalRecords = async (userId: string): Promise<MedicalRecord[
 
     if (error) {
       // Check if table doesn't exist - this is expected and not an error
-      if (error.message.includes('relation "public.medical_records" does not exist')) {
+      if (error.message && error.message.includes('relation "public.medical_records" does not exist')) {
         console.log("Database table not available - loading records from local storage");
       } else {
-        console.warn("Database unavailable, using local storage:", error.message);
+        console.warn("Database unavailable, using local storage:", error.message || error);
       }
 
       return loadFromLocalStorage(userId);
