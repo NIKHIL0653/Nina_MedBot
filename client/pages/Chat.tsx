@@ -663,47 +663,8 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
         </div>
       </div>
 
-      {/* Fixed Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 z-50">
-        {/* Render bottom nav directly since we can't use MainLayout for this special layout */}
-        <nav className="bg-background border-t border-border px-6 py-3">
-          <div className="flex items-center justify-around space-x-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex flex-col items-center space-y-1 p-2 h-auto text-blue-400"
-              asChild
-            >
-              <Link to="/chat">
-                <MessageCircle className="w-4 h-4" />
-                <span className="text-xs">Chat</span>
-              </Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex flex-col items-center space-y-1 p-2 h-auto"
-              asChild
-            >
-              <Link to="/records">
-                <FileText className="w-4 h-4" />
-                <span className="text-xs">Records</span>
-              </Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex flex-col items-center space-y-1 p-2 h-auto"
-              asChild
-            >
-              <Link to="/dashboard">
-                <BarChart3 className="w-4 h-4" />
-                <span className="text-xs">Dashboard</span>
-              </Link>
-            </Button>
-          </div>
-        </nav>
-      </div>
+      {/* Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 }
