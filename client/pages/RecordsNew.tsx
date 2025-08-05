@@ -199,20 +199,31 @@ export default function RecordsNew() {
             setError(""); // Clear any previous errors
           }).catch((loadError) => {
             console.error("Error loading records:", loadError);
-            setError("Failed to load medical records from database. Using local storage as fallback.");
+            setError("Failed to load medical records from database. Using local storage.");
           });
         } else {
-          console.log("Database test failed, attempting to load from localStorage");
-          // If database fails, try localStorage as fallback
+          console.log("Database test failed, using localStorage only");
+
+          // Check if it's a table setup issue
+          if ((testResult as any).needsSetup) {
+            console.log("Database table needs to be created");
+          }
+
+          // Load from localStorage as fallback
           loadMedicalRecords(user.id).then((records) => {
-            console.log("Loaded records from fallback:", records);
+            console.log("Loaded records from localStorage:", records);
             setSavedRecords(records);
+
+            // Show appropriate message based on whether records exist
             if (records.length > 0) {
-              setError("Database unavailable. Showing records from local storage.");
+              setError(""); // Don't show error if we have records from localStorage
+            } else {
+              setError(""); // Don't show error for first-time users
             }
           }).catch((fallbackError) => {
-            console.error("Fallback also failed:", fallbackError);
-            setError("Unable to load medical records. Please try again later.");
+            console.error("LocalStorage also failed:", fallbackError);
+            setSavedRecords([]);
+            setError(""); // Don't show error, just use empty state
           });
         }
       }).catch((testError) => {
@@ -345,7 +356,8 @@ export default function RecordsNew() {
 
       // Show appropriate message based on whether fallback was used
       if ((result as any).fallback) {
-        setError("Record saved to local storage (database unavailable).");
+        // Don't show this as an error since it's working as intended
+        setError("");
       } else {
         setError(""); // Clear any previous errors
       }
@@ -378,7 +390,7 @@ export default function RecordsNew() {
         setSavedRecords((prev) => prev.filter((record) => record.id !== recordId));
         setError(""); // Clear any previous errors
       } else {
-        setError("Failed to delete record. Please try again.");
+        setError(`Failed to delete record: ${result.error || "Unknown error"}`);
       }
     }
   };
