@@ -28,6 +28,7 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const { user, signOut } = useAuth();
+  const { displayName } = useUserDisplayName();
   const location = useLocation();
 
   // Chat-specific header (blue bar with Nina centered)
