@@ -3,7 +3,6 @@ import { useAuth } from "@/lib/auth-context";
 import { useTheme } from "@/lib/theme-context";
 import { Navigate } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
-import BuyMeCoffee from "@/components/BuyMeCoffee";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,10 +19,6 @@ import {
   User,
   Save,
   Palette,
-  UserCircle,
-  Scale,
-  Ruler,
-  Calendar,
   LogOut,
   Edit,
 } from "lucide-react";
@@ -86,31 +81,24 @@ export default function Settings() {
 
   return (
     <MainLayout>
-      <div className="min-h-[calc(100vh-4rem)] bg-muted/20 pb-20">
-        <div className="max-w-4xl mx-auto p-6 space-y-6">
+      <div className="min-h-[calc(100vh-4rem)] bg-background pb-20">
+        <div className="max-w-2xl mx-auto p-6 space-y-6">
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center space-x-3 mb-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
-                <UserCircle className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-semibold text-foreground">
-                  Settings
-                </h1>
-                <p className="text-muted-foreground">
-                  Manage your profile and preferences
-                </p>
-              </div>
-            </div>
+            <h1 className="text-2xl font-semibold text-foreground mb-2">
+              Settings
+            </h1>
+            <p className="text-muted-foreground">
+              Manage your profile and preferences
+            </p>
           </div>
 
           {/* Profile Settings */}
-          <Card className="shadow-sm">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <User className="w-5 h-5 text-primary" />
+                  <User className="w-5 h-5" />
                   <span>Profile Information</span>
                 </div>
                 {savedProfile && !isEditing && (
@@ -128,159 +116,83 @@ export default function Settings() {
             </CardHeader>
             <CardContent className="space-y-6">
               {savedProfile && !isEditing ? (
-                // Display saved profile as cards
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <UserCircle className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium text-muted-foreground">
-                        Full Name
-                      </span>
-                    </div>
-                    <p className="font-semibold">
-                      {savedProfile.name || "Not provided"}
-                    </p>
+                // Display saved profile as simple list
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Full Name</span>
+                    <span className="font-medium">{savedProfile.name || "Not provided"}</span>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Calendar className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium text-muted-foreground">
-                        Age
-                      </span>
-                    </div>
-                    <p className="font-semibold">
-                      {savedProfile.age
-                        ? `${savedProfile.age} years`
-                        : "Not provided"}
-                    </p>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Age</span>
+                    <span className="font-medium">{savedProfile.age ? `${savedProfile.age} years` : "Not provided"}</span>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Ruler className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium text-muted-foreground">
-                        Height
-                      </span>
-                    </div>
-                    <p className="font-semibold">
-                      {savedProfile.height
-                        ? `${savedProfile.height} cm`
-                        : "Not provided"}
-                    </p>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Height</span>
+                    <span className="font-medium">{savedProfile.height ? `${savedProfile.height} cm` : "Not provided"}</span>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Scale className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium text-muted-foreground">
-                        Weight
-                      </span>
-                    </div>
-                    <p className="font-semibold">
-                      {savedProfile.weight
-                        ? `${savedProfile.weight} kg`
-                        : "Not provided"}
-                    </p>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Weight</span>
+                    <span className="font-medium">{savedProfile.weight ? `${savedProfile.weight} kg` : "Not provided"}</span>
                   </div>
                 </div>
               ) : (
                 // Show edit form
                 <>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label
-                        htmlFor="name"
-                        className="flex items-center space-x-2"
-                      >
-                        <UserCircle className="w-4 h-4" />
-                        <span>Full Name</span>
-                      </Label>
+                      <Label htmlFor="name">Full Name</Label>
                       <Input
                         id="name"
                         value={profile.name}
-                        onChange={(e) =>
-                          handleProfileUpdate("name", e.target.value)
-                        }
+                        onChange={(e) => handleProfileUpdate("name", e.target.value)}
                         placeholder="Enter your full name"
-                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label
-                        htmlFor="age"
-                        className="flex items-center space-x-2"
-                      >
-                        <Calendar className="w-4 h-4" />
-                        <span>Age</span>
-                      </Label>
+                      <Label htmlFor="age">Age</Label>
                       <Input
                         id="age"
                         type="number"
                         value={profile.age}
-                        onChange={(e) =>
-                          handleProfileUpdate("age", e.target.value)
-                        }
+                        onChange={(e) => handleProfileUpdate("age", e.target.value)}
                         placeholder="Enter your age"
-                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label
-                        htmlFor="height"
-                        className="flex items-center space-x-2"
-                      >
-                        <Ruler className="w-4 h-4" />
-                        <span>Height (cm)</span>
-                      </Label>
+                      <Label htmlFor="height">Height (cm)</Label>
                       <Input
                         id="height"
                         type="number"
                         value={profile.height}
-                        onChange={(e) =>
-                          handleProfileUpdate("height", e.target.value)
-                        }
+                        onChange={(e) => handleProfileUpdate("height", e.target.value)}
                         placeholder="Enter your height in cm"
-                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label
-                        htmlFor="weight"
-                        className="flex items-center space-x-2"
-                      >
-                        <Scale className="w-4 h-4" />
-                        <span>Weight (kg)</span>
-                      </Label>
+                      <Label htmlFor="weight">Weight (kg)</Label>
                       <Input
                         id="weight"
                         type="number"
                         value={profile.weight}
-                        onChange={(e) =>
-                          handleProfileUpdate("weight", e.target.value)
-                        }
+                        onChange={(e) => handleProfileUpdate("weight", e.target.value)}
                         placeholder="Enter your weight in kg"
-                        className="transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                       />
                     </div>
                   </div>
 
                   <div className="flex justify-end space-x-2 pt-4">
                     {savedProfile && (
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsEditing(false)}
-                      >
+                      <Button variant="outline" onClick={() => setIsEditing(false)}>
                         Cancel
                       </Button>
                     )}
-                    <Button
-                      onClick={handleSaveProfile}
-                      className="bg-blue-400 hover:bg-blue-500 transition-all duration-300"
-                    >
+                    <Button onClick={handleSaveProfile} className="bg-blue-400 hover:bg-blue-500">
                       <Save className="w-4 h-4 mr-2" />
                       Save Profile
                     </Button>
@@ -291,10 +203,10 @@ export default function Settings() {
           </Card>
 
           {/* Theme Settings */}
-          <Card className="shadow-sm">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <Palette className="w-5 h-5 text-primary" />
+                <Palette className="w-5 h-5" />
                 <span>Appearance</span>
               </CardTitle>
             </CardHeader>
@@ -321,55 +233,45 @@ export default function Settings() {
           </Card>
 
           {/* Account Settings */}
-          <Card className="shadow-sm">
+          <Card>
             <CardHeader>
               <CardTitle>Account</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">Email</p>
-                    <p className="text-sm text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">Email</span>
+                  <span className="font-medium">{user.email}</span>
                 </div>
                 <Separator />
                 <div className="text-sm text-muted-foreground">
-                  For security reasons, email changes require verification
-                  through our support team.
+                  For security reasons, email changes require verification through our support team.
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Support Section */}
-          <BuyMeCoffee />
-
-          {/* Signout Section */}
-          <Card className="shadow-sm border-destructive/20">
+          {/* Sign Out Section */}
+          <Card className="border-red-200 dark:border-red-800">
             <CardHeader>
-              <CardTitle className="text-destructive">Sign Out</CardTitle>
+              <CardTitle className="text-red-600 dark:text-red-400">Sign Out</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">Sign out</p>
-                    <p className="text-sm text-muted-foreground">
-                      End your current session and return to login
-                    </p>
-                  </div>
-                  <Button
-                    onClick={signOut}
-                    variant="destructive"
-                    className="flex items-center space-x-2"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign out</span>
-                  </Button>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">End your session</p>
+                  <p className="text-sm text-muted-foreground">
+                    Sign out and return to login
+                  </p>
                 </div>
+                <Button
+                  onClick={signOut}
+                  variant="destructive"
+                  className="flex items-center space-x-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign out</span>
+                </Button>
               </div>
             </CardContent>
           </Card>
