@@ -19,6 +19,8 @@ import {
   MessageCircle,
   FileText,
   BarChart3,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import BottomNav from "./BottomNav";
