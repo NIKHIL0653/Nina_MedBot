@@ -29,7 +29,8 @@ export default function Settings() {
 
   // User profile state
   const [profile, setProfile] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     age: "",
     height: "",
     weight: "",
@@ -42,27 +43,26 @@ export default function Settings() {
   useEffect(() => {
     const loadUserData = async () => {
       if (user) {
-        // Get user profile data for name
+        // Get user profile data for names
         const userProfile = await getUserProfile();
-        const fullName = userProfile?.firstName && userProfile?.lastName
-          ? `${userProfile.firstName} ${userProfile.lastName}`
-          : "";
 
         // Load saved settings profile
         const saved = localStorage.getItem(`userProfile_${user.id}`);
         if (saved) {
           const parsedProfile = JSON.parse(saved);
-          // Merge with user name from signup
+          // Merge with user names from signup
           const updatedProfile = {
             ...parsedProfile,
-            name: fullName || parsedProfile.name
+            firstName: userProfile?.firstName || parsedProfile.firstName || "",
+            lastName: userProfile?.lastName || parsedProfile.lastName || ""
           };
           setSavedProfile(updatedProfile);
           setProfile(updatedProfile);
         } else {
-          // Initialize with name from signup, other fields blank
+          // Initialize with names from signup, other fields blank
           const initialProfile = {
-            name: fullName,
+            firstName: userProfile?.firstName || "",
+            lastName: userProfile?.lastName || "",
             age: "",
             height: "",
             weight: "",
