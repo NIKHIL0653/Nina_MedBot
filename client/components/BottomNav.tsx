@@ -38,7 +38,7 @@ const BottomNav = () => {
               className={cn(
                 "flex flex-col items-center justify-center space-y-1 transition-all duration-300 rounded-lg mx-1 my-1",
                 item.current
-                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/30 shadow-sm font-semibold"
+                  ? "text-blue-400 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/30 shadow-sm font-semibold"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
               )}
             >
