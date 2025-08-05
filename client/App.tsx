@@ -13,8 +13,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
-import DemoChat from "./pages/DemoChat";
-import DemoRecords from "./pages/DemoRecords";
 import Records from "./pages/RecordsNew";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
