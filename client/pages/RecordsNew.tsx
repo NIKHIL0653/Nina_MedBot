@@ -510,52 +510,52 @@ export default function RecordsNew() {
                               {section.records.map((record) => (
                                 <div
                                   key={record.id}
-                                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-5 bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-750 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200"
+                                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200"
                                 >
                                   <div className="flex-1">
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-3">
-                                      <h4 className="font-semibold text-foreground text-base">{record.testName}</h4>
+                                      <h4 className="font-semibold text-foreground text-sm">{record.testName}</h4>
                                       <div className="flex items-center space-x-2 mt-1 sm:mt-0">
                                         <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
                                           <Calendar className="w-3 h-3 mr-1" />
                                           {new Date(record.date).toLocaleDateString('en-US', {
                                             month: 'short',
-                                            day: 'numeric',
-                                            year: 'numeric'
+                                            day: 'numeric'
                                           })}
                                         </Badge>
                                         <Badge variant="secondary" className="text-xs">
-                                          {record.parameters.length} parameters
+                                          {record.parameters.length}
                                         </Badge>
                                       </div>
                                     </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                      {record.parameters.slice(0, 6).map((param, idx) => (
-                                        <div key={idx} className="flex items-center justify-between text-sm bg-white dark:bg-gray-700 rounded-lg p-2 border">
-                                          <span className="text-muted-foreground font-medium">{param.name}:</span>
-                                          <div className="flex items-center space-x-1">
-                                            <span className="font-semibold">{param.value} {param.unit}</span>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5">
+                                      {record.parameters.slice(0, 3).map((param, idx) => (
+                                        <div key={idx} className="flex items-center justify-between text-xs bg-gray-50 dark:bg-gray-700 rounded p-1.5">
+                                          <span className="text-muted-foreground font-medium truncate">{param.name}</span>
+                                          <div className="flex items-center space-x-1 ml-2">
+                                            <span className="font-semibold text-xs">{param.value}</span>
                                             {param.status && (
-                                              <Badge className={cn("text-xs px-1.5 py-0.5", getStatusColor(param.status))}>
-                                                {param.status}
-                                              </Badge>
+                                              <div className={cn("w-2 h-2 rounded-full",
+                                                param.status === 'normal' ? 'bg-green-500' :
+                                                param.status === 'high' ? 'bg-red-500' : 'bg-yellow-500'
+                                              )}></div>
                                             )}
                                           </div>
                                         </div>
                                       ))}
-                                      {record.parameters.length > 6 && (
-                                        <div className="flex items-center justify-center text-xs text-muted-foreground bg-muted/50 rounded-lg p-2 border border-dashed">
-                                          +{record.parameters.length - 6} more parameters
+                                      {record.parameters.length > 3 && (
+                                        <div className="flex items-center justify-center text-xs text-muted-foreground bg-muted/50 rounded p-1.5">
+                                          +{record.parameters.length - 3}
                                         </div>
                                       )}
                                     </div>
                                   </div>
-                                  <div className="flex items-center space-x-2 mt-3 sm:mt-0">
+                                  <div className="flex items-center space-x-1 mt-3 sm:mt-0">
                                     <Dialog>
                                       <DialogTrigger asChild>
-                                        <Button variant="outline" size="sm">
-                                          <Eye className="w-4 h-4 mr-1" />
-                                          View
+                                        <Button variant="outline" size="sm" className="h-8 px-2">
+                                          <Eye className="w-3 h-3 mr-1" />
+                                          <span className="text-xs">View</span>
                                         </Button>
                                       </DialogTrigger>
                                       <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto">
@@ -604,9 +604,9 @@ export default function RecordsNew() {
                                       variant="outline"
                                       size="sm"
                                       onClick={() => deleteRecord(record.id)}
-                                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                      className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
                                     >
-                                      <Trash2 className="w-4 h-4" />
+                                      <Trash2 className="w-3 h-3" />
                                     </Button>
                                   </div>
                                 </div>
