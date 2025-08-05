@@ -103,7 +103,7 @@ export default function Index() {
               Get instant symptom analysis, track medical records, and receive personalized health
               insights powered by cutting-edge AI technology designed for your wellness journey.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-6 px-4">
+            <div className="flex justify-center pt-4 sm:pt-6 px-4">
               <Link to="/register" className="w-full sm:w-auto">
                 <Button
                   size="lg"
@@ -111,15 +111,6 @@ export default function Index() {
                 >
                   Start Free Analysis
                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-                </Button>
-              </Link>
-              <Link to="/login" className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 sm:px-10 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
-                >
-                  View Demo
                 </Button>
               </Link>
             </div>
