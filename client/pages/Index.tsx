@@ -23,6 +23,8 @@ import {
   UserCheck,
   Moon,
   Sun,
+  Plus,
+  RefreshCw,
 } from "lucide-react";
 
 export default function Index() {
