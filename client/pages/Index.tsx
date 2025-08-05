@@ -21,6 +21,8 @@ import {
   CheckCircle,
   Clock,
   UserCheck,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 export default function Index() {
