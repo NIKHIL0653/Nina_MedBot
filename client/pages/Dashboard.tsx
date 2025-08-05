@@ -21,6 +21,8 @@ import {
   Settings,
   LogOut,
   ChevronDown,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
