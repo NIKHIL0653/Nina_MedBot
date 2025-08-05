@@ -3,12 +3,23 @@ import { useAuth } from "@/lib/auth-context";
 import { Navigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import BottomNav from "@/components/BottomNav";
 import {
   ExternalLink,
   Clock,
   RefreshCw,
   Newspaper,
+  User,
+  Settings,
+  LogOut,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
