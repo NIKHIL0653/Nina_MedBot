@@ -358,7 +358,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
       {/* Messages - Scrollable content between fixed header and input */}
       <div
         className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-6 bg-background"
-        style={{ marginTop: '64px', marginBottom: '180px' }}
+        style={{ marginTop: '64px', marginBottom: '140px' }}
       >
         {messages.map((message) => (
           <div key={message.id}>
