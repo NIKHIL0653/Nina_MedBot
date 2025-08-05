@@ -47,7 +47,7 @@ interface HealthFeed {
 }
 
 export default function Dashboard() {
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [isLoadingNews, setIsLoadingNews] = useState(false);
   const [error, setError] = useState<string | null>(null);
