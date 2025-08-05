@@ -341,7 +341,7 @@ Make the humanResponse sound natural and caring, without excessive medical jargo
       {/* Fixed Header - Chat specific (blue bar with Nina centered) */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-400 shadow-sm">
         <div className="h-16 flex items-center justify-center">
-          <h1 className="text-xl font-semibold text-white">Nina</h1>
+          <h1 className="text-xl font-semibold text-white">NINA</h1>
         </div>
       </nav>
 
